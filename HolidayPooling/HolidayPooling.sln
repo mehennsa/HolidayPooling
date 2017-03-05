@@ -1,0 +1,74 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{4551F15C-CB48-4A6B-8CB4-67CE9F0FA2D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HolidayPooling.Infrastructure", "HolidayPooling.Infrastructure\HolidayPooling.Infrastructure.csproj", "{6C4896B6-30F6-4706-AE5E-E795887E89E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HolidayPooling.Infrastructure.Test", "HolidayPooling.Infrastructure.Test\HolidayPooling.Infrastructure.Test.csproj", "{93E03759-BE09-4A46-995C-CB273EBB7AF4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{E9EB9517-795D-410D-9DB8-610E21914AC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HolidayPooling.Models", "HolidayPooling.Models\HolidayPooling.Models.csproj", "{E14F5E7D-DA30-4A9C-86DE-C5AED9C64135}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HolidayPooling.Models.Tests", "HolidayPooling.Models.Tests\HolidayPooling.Models.Tests.csproj", "{71FE773E-2103-4100-A034-46277161101A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5067587F-D6FE-4339-98EF-22DBAEFE629A}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HolidayPooling.DataRepositories", "HolidayPooling.DataRepositories\HolidayPooling.DataRepositories.csproj", "{6EC685C9-4392-495E-AE6E-29AEB4E35439}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", "{EDC53C91-CBDC-4D7C-A866-394E0BB02582}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HolidayPooling.DataRepositories.Tests", "HolidayPooling.DataRepositories.Tests\HolidayPooling.DataRepositories.Tests.csproj", "{9940B9F4-2C83-4F43-8D7E-95C6D7962346}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6C4896B6-30F6-4706-AE5E-E795887E89E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C4896B6-30F6-4706-AE5E-E795887E89E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C4896B6-30F6-4706-AE5E-E795887E89E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C4896B6-30F6-4706-AE5E-E795887E89E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93E03759-BE09-4A46-995C-CB273EBB7AF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93E03759-BE09-4A46-995C-CB273EBB7AF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93E03759-BE09-4A46-995C-CB273EBB7AF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93E03759-BE09-4A46-995C-CB273EBB7AF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E14F5E7D-DA30-4A9C-86DE-C5AED9C64135}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E14F5E7D-DA30-4A9C-86DE-C5AED9C64135}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E14F5E7D-DA30-4A9C-86DE-C5AED9C64135}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E14F5E7D-DA30-4A9C-86DE-C5AED9C64135}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71FE773E-2103-4100-A034-46277161101A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71FE773E-2103-4100-A034-46277161101A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71FE773E-2103-4100-A034-46277161101A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71FE773E-2103-4100-A034-46277161101A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EC685C9-4392-495E-AE6E-29AEB4E35439}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EC685C9-4392-495E-AE6E-29AEB4E35439}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EC685C9-4392-495E-AE6E-29AEB4E35439}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EC685C9-4392-495E-AE6E-29AEB4E35439}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9940B9F4-2C83-4F43-8D7E-95C6D7962346}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9940B9F4-2C83-4F43-8D7E-95C6D7962346}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9940B9F4-2C83-4F43-8D7E-95C6D7962346}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9940B9F4-2C83-4F43-8D7E-95C6D7962346}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6C4896B6-30F6-4706-AE5E-E795887E89E0} = {4551F15C-CB48-4A6B-8CB4-67CE9F0FA2D4}
+		{93E03759-BE09-4A46-995C-CB273EBB7AF4} = {4551F15C-CB48-4A6B-8CB4-67CE9F0FA2D4}
+		{E14F5E7D-DA30-4A9C-86DE-C5AED9C64135} = {E9EB9517-795D-410D-9DB8-610E21914AC1}
+		{71FE773E-2103-4100-A034-46277161101A} = {E9EB9517-795D-410D-9DB8-610E21914AC1}
+		{6EC685C9-4392-495E-AE6E-29AEB4E35439} = {EDC53C91-CBDC-4D7C-A866-394E0BB02582}
+		{9940B9F4-2C83-4F43-8D7E-95C6D7962346} = {EDC53C91-CBDC-4D7C-A866-394E0BB02582}
+	EndGlobalSection
+EndGlobal

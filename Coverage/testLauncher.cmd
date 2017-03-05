@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\NUnit 2.6.3\bin\nunit-console.exe" "..\HolidayPooling\HolidayPooling.DataRepositories.Tests\bin\Debug\HolidayPooling.DataRepositories.Tests.dll" "..\HolidayPooling\HolidayPooling.Models.Tests\bin\Debug\HolidayPooling.Models.Tests.dll" "..\HolidayPooling\HolidayPooling.Infrastructure.Test\bin\Debug\HolidayPooling.Infrastructure.Test.dll" /noshadow

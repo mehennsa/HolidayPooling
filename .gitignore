@@ -286,4 +286,5 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 
-Coverage/CoverageResult
+Coverage/CoverageResult/*
+Sonar/*

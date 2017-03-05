@@ -1,0 +1,203 @@
+<Project>
+  <Name>HolidayPooling</Name>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>Class Diagram</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Enum">
+        <Name>RoleType</Name>
+        <Access>Public</Access>
+        <Location left="169" top="41" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Value>Common</Value>
+        <Value>Admin</Value>
+      </Entity>
+      <Entity type="Class">
+        <Name>User</Name>
+        <Access>Public</Access>
+        <Location left="500" top="41" />
+        <Size width="296" height="332" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public string Mail { get; set; }</Member>
+        <Member type="Property">public string Password { get; set; }</Member>
+        <Member type="Property">public int Age { get; set; }</Member>
+        <Member type="Property">public string Pseudo { get; set; }</Member>
+        <Member type="Property">public string PhoneNumber { get; set; }</Member>
+        <Member type="Property">public UserType Type { get; set; }</Member>
+        <Member type="Property">public string Description { get; set; }</Member>
+        <Member type="Property">public int Id { get; set; }</Member>
+        <Member type="Property">public RoleType Role { get; set; }</Member>
+        <Member type="Property">public DateTime CreationDate { get; set; }</Member>
+        <Member type="Property">public List Trips { get; set; }</Member>
+        <Member type="Property">public List&lt;Friendship&gt; Friends { get; set; }</Member>
+        <Member type="Property">public double Note { get; set; }</Member>
+        <Member type="Property">public List&lt;Blacklist&gt; Blacklist { get; set; }</Member>
+        <Member type="Property">public List&lt;string&gt; CenterOfInterests { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Trip</Name>
+        <Access>Public</Access>
+        <Location left="43" top="951" />
+        <Size width="264" height="281" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public int Id { get; set; }</Member>
+        <Member type="Property">public string TripName { get; set; }</Member>
+        <Member type="Property">public string Description { get; set; }</Member>
+        <Member type="Property">public double Price { get; set; }</Member>
+        <Member type="Property">public int NumberMaxOfPerson { get; set; }</Member>
+        <Member type="Property">public string Location { get; set; }</Member>
+        <Member type="Property">public string Organizer { get; set; }</Member>
+        <Member type="Property">public List Participants { get; set; }</Member>
+        <Member type="Property">public DateTime StartDate { get; set; }</Member>
+        <Member type="Property">public DateTime EndDate { get; set; }</Member>
+        <Member type="Property">public DateTime ValidityDate { get; set; }</Member>
+        <Member type="Property">public double Note { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Friendship</Name>
+        <Access>Public</Access>
+        <Location left="843" top="346" />
+        <Size width="223" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public int UserId { get; set; }</Member>
+        <Member type="Property">public string FriendName { get; set; }</Member>
+        <Member type="Property">public DateTime StartDate { get; set; }</Member>
+        <Member type="Property">public bool IsRequestedByUser { get; set; }</Member>
+        <Member type="Property">public bool IsWaiting { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Enum">
+        <Name>UserType</Name>
+        <Access>Public</Access>
+        <Location left="870" top="10" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Value>Professional</Value>
+        <Value>Customer</Value>
+      </Entity>
+      <Entity type="Class">
+        <Name>Pot</Name>
+        <Access>Public</Access>
+        <Location left="10" top="362" />
+        <Size width="266" height="332" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public int Id { get; set; }</Member>
+        <Member type="Property">public string Organizer { get; set; }</Member>
+        <Member type="Property">public PotMode Mode { get; set; }</Member>
+        <Member type="Property">public double CurrentAmount { get; set; }</Member>
+        <Member type="Property">public double TargetAmount { get; set; }</Member>
+        <Member type="Property">public List&lt;PotUser&gt; Participants { get; set; }</Member>
+        <Member type="Property">public int TripId { get; set; }</Member>
+        <Member type="Property">public string Name { get; set; }</Member>
+        <Member type="Property">public DateTime StartDate { get; set; }</Member>
+        <Member type="Property">public DateTime EndDate { get; set; }</Member>
+        <Member type="Property">public DateTime ValidityDate { get; set; }</Member>
+        <Member type="Property">public string Description { get; set; }</Member>
+        <Member type="Property">public bool IsCancelled { get; set; }</Member>
+        <Member type="Property">public string CancellationReason { get; set; }</Member>
+        <Member type="Property">public DateTime CancellationDate { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>PotUser</Name>
+        <Access>Public</Access>
+        <Location left="364" top="417" />
+        <Size width="223" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public int UserId { get; set; }</Member>
+        <Member type="Property">public int PotId { get; set; }</Member>
+        <Member type="Property">public bool HasPayed { get; set; }</Member>
+        <Member type="Property">public double Amount { get; set; }</Member>
+        <Member type="Property">public double TargetAmount { get; set; }</Member>
+        <Member type="Property">public bool HasCancelled { get; set; }</Member>
+        <Member type="Property">public string CancellationType { get; set; }</Member>
+        <Member type="Property">public bool HasValidated { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>UserTrip</Name>
+        <Access>Public</Access>
+        <Location left="605" top="676" />
+        <Size width="250" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public int UserId { get; set; }</Member>
+        <Member type="Property">public string TripName { get; set; }</Member>
+        <Member type="Property">public bool HasParticipated { get; set; }</Member>
+        <Member type="Property">public bool HasOrganized { get; set; }</Member>
+        <Member type="Property">public double UserNote { get; set; }</Member>
+        <Member type="Property">public double TripAmount { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>TripParticipant</Name>
+        <Access>Public</Access>
+        <Location left="605" top="1003" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public int TripId { get; set; }</Member>
+        <Member type="Property">public string UserPseudo { get; set; }</Member>
+        <Member type="Property">public bool HasParticipated { get; set; }</Member>
+        <Member type="Property">public double TripNote { get; set; }</Member>
+        <Member type="Property">public DateTime ValidationDate { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Dependency" first="5" second="2">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>202</X>
+          <Y>902</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Association" first="1" second="7">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="1" second="3">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>821</X>
+          <Y>251</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>964</X>
+          <Y>313</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="1" second="4">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="1" second="0">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="5" second="6">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="2" second="8">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+</Project>
