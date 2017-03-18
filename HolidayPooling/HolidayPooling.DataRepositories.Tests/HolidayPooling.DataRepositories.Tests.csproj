@@ -96,6 +96,7 @@
   <ItemGroup>
     <Compile Include="Business\FriendshipDbImportExportTest.cs" />
     <Compile Include="Business\PotDbImportExportTest.cs" />
+    <Compile Include="Business\PotUserDbImportExportTest.cs" />
     <Compile Include="Business\TripDbImportExportTest.cs" />
     <Compile Include="Business\TripParticipantDbImportExportTest.cs" />
     <Compile Include="Business\UserDbImportExportTest.cs" />

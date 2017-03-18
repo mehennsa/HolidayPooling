@@ -84,12 +84,15 @@
   <ItemGroup>
     <Compile Include="Business\FriendshipDbImportExport.cs" />
     <Compile Include="Business\IPotDbImportExport.cs" />
+    <Compile Include="Business\IPotUserDbImportExport.cs" />
     <Compile Include="Business\ITripDbImportExport.cs" />
     <Compile Include="Business\ITripParticipantDbImportExport.cs" />
     <Compile Include="Business\IUserDbImportExport.cs" />
     <Compile Include="Business\IFriendshipDbImportExport.cs" />
     <Compile Include="Business\IUserTripDbImportExport.cs" />
     <Compile Include="Business\PotDbImportExport.cs" />
+    <Compile Include="Business\PotUserDbImportExport.cs" />
+    <Compile Include="Business\PotUserKey.cs" />
     <Compile Include="Business\TripDbImportExport.cs" />
     <Compile Include="Business\TripParticipantDbImportExport.cs" />
     <Compile Include="Business\TripParticipantKey.cs" />
