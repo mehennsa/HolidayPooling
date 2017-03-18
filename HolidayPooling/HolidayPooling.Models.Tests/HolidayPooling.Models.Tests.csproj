@@ -97,7 +97,6 @@
     <Compile Include="Core\UserTripTest.cs" />
     <Compile Include="Core\UserWithTripTest.cs" />
     <Compile Include="Helpers\ModelEnumConverterTest.cs" />
-    <Compile Include="ModelTestHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +114,10 @@
     <ProjectReference Include="..\HolidayPooling.Models\HolidayPooling.Models.csproj">
       <Project>{e14f5e7d-da30-4a9c-86de-c5aed9c64135}</Project>
       <Name>HolidayPooling.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HolidayPooling.Tests\HolidayPooling.Tests.csproj">
+      <Project>{3a420604-1f93-498f-b02b-ef7f62ccc633}</Project>
+      <Name>HolidayPooling.Tests</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

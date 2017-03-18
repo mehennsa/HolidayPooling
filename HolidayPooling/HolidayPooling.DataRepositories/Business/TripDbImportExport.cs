@@ -262,17 +262,18 @@ namespace HolidayPooling.DataRepositories.Business
         {
             Check.IsNotNull(entity, "Trip should be provided");
 
-            // new id
-            int id = GetNewId();
-
-            if (id <= 0)
-            {
-                return false;
-            }
-
             var result = false;
             try
             {
+
+                // new id
+                int id = GetNewId();
+
+                if (id <= 0)
+                {
+                    return false;
+                }
+
                 using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
                 {
                     using (var cmd = con.CreateCommand())
@@ -289,8 +290,14 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddDateParameter(":pSTRDAT", entity.StartDate);
                         cmd.AddDateParameter(":pENDDAT", entity.EndDate);
                         cmd.AddDateParameter(":pVALDAT", entity.ValidityDate);
-                        cmd.AddDoubleParameter(":pTRPNOT", 0);
+                        cmd.AddDoubleParameter(":pTRPNOT", entity.Note);
                         result = cmd.ExecuteNonQuery() > 0;
+
+                        if (result)
+                        {
+                            entity.Id = id;
+                        }
+
                     }
                 }
 
@@ -298,11 +305,6 @@ namespace HolidayPooling.DataRepositories.Business
             catch (Exception ex)
             {
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
-            }
-
-            if (result)
-            {
-                entity.Id = id;
             }
 
             return result;
@@ -412,7 +414,7 @@ namespace HolidayPooling.DataRepositories.Business
                     using (var cmd = con.CreateCommand())
                     {
                         cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = SelectQuery;
+                        cmd.CommandText = GetSelectQuery();
                         using (var reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())

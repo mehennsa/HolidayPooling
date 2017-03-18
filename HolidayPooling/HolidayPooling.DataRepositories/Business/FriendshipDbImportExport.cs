@@ -253,7 +253,7 @@ namespace HolidayPooling.DataRepositories.Business
                     using (var cmd = con.CreateCommand())
                     {
                         cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = SelectQuery;
+                        cmd.CommandText = GetSelectQuery();
                         using (var reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())

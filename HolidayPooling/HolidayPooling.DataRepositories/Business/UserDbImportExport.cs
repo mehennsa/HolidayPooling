@@ -270,8 +270,6 @@ namespace HolidayPooling.DataRepositories.Business
                     return false;
                 }
 
-                // id
-                entity.Id = id;
                 using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
                 {
                     using (var cmd = con.CreateCommand())
@@ -296,8 +294,13 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddStringParameter(":pDSC", entity.Description);
                         cmd.AddStringParameter(":pRLE", ModelEnumConverter.RoleEnumToString(entity.Role));
                         cmd.AddDateParameter(":pCREDAT", entity.CreationDate);
-                        cmd.AddDoubleParameter(":pUSRNOT", 0);
+                        cmd.AddDoubleParameter(":pUSRNOT", entity.Note);
                         saved = cmd.ExecuteNonQuery() > 0;
+                        
+                        if (saved)
+                        {
+                            entity.Id = id;
+                        }
                     }
                 }
             }//TODO : Log

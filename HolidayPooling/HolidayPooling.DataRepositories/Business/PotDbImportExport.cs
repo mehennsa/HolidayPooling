@@ -223,17 +223,15 @@ namespace HolidayPooling.DataRepositories.Business
 
             var saved = false;
 
-            // id
-            var id = GetNewId();
-
-            if (id <= 0)
-            {
-                return false;
-            }
-
             try
             {
+                // id
+                var id = GetNewId();
 
+                if (id <= 0)
+                {
+                    return false;
+                }
                 using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
                 {
                     using (var cmd = con.CreateCommand())
@@ -255,6 +253,12 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddStringParameter(":pCANCELRSN", entity.CancellationReason);
                         cmd.AddDateParameter(":pCANCELDAT", entity.CancellationDate);
                         saved = cmd.ExecuteNonQuery() > 0;
+
+                        if (saved)
+                        {
+                            entity.Id = id;
+                        }
+
                     }
                 }
 
@@ -262,11 +266,6 @@ namespace HolidayPooling.DataRepositories.Business
             catch (Exception ex)
             {
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
-            }
-
-            if (saved)
-            {
-                entity.Id = id;
             }
 
             return saved;
