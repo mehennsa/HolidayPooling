@@ -5,7 +5,7 @@ pipeline {
 	
 		stage('Restore') {
             steps {
-                bat '"C:\Users\PC-Samy\Documents\Nuget\Nuget.exe" restore ".\\HolidayPooling\\HolidayPooling.sln"'
+                bat '"C:\\Users\\PC-Samy\\Documents\\Nuget\\Nuget.exe" restore ".\\HolidayPooling\\HolidayPooling.sln"'
             }
         }
         stage('Build') {
