@@ -82,36 +82,9 @@ namespace HolidayPooling.DataRepositories.Business
             return value.Id;
         }
 
-        public override int GetNewId()
+        protected override string NewIdQuery()
         {
-            var result = -1;
-            try
-            {
-
-                using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
-                {
-                    using (var cmd = con.CreateCommand())
-                    {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = SelectNewId;
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                result = reader.GetInt(0);
-                            }
-                        }
-                    }
-                }
-
-
-            }//TODO : Log
-            catch (Exception ex)
-            {
-                throw new ImportExportException("Error occured during database access " + ex.Message, ex);
-            }
-
-            return result;
+            return SelectNewId;
         }
 
         protected override string GetSelectQuery()
@@ -370,32 +343,7 @@ namespace HolidayPooling.DataRepositories.Business
 
         public IEnumerable<Pot> GetAllEntities()
         {
-            var list = new List<Pot>();
-            try
-            {
-                using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
-                {
-                    using (var cmd = con.CreateCommand())
-                    {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = GetSelectQuery();
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                list.Add(CreateValueFromReader(reader));
-                            }
-                        }
-                    }
-                }
-
-            }//TODO : Log
-            catch (Exception ex)
-            {
-                throw new ImportExportException("Error occured during database access " + ex.Message, ex);
-            }
-
-            return list;
+            return InternalGetAllEntities();
         }
 
         #endregion

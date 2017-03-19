@@ -69,11 +69,6 @@ namespace HolidayPooling.DataRepositories.Business
             return new UserTripKey(value.UserId, value.TripName);
         }
 
-        public override int GetNewId()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override string GetSelectQuery()
         {
             return SelectQuery;
@@ -85,35 +80,7 @@ namespace HolidayPooling.DataRepositories.Business
 
         public IEnumerable<UserTrip> GetTripForUser(int userId)
         {
-            var list = new List<UserTrip>();
-
-            try
-            {
-
-                using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
-                {
-                    using (var cmd = con.CreateCommand())
-                    {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = SelectByUserId;
-                        cmd.AddIntParameter(":pUSRIDT", userId);
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                list.Add(CreateValueFromReader(reader));
-                            }
-                        }
-                    }
-                }
-
-            }//TODO : Log
-            catch (Exception ex)
-            {
-                throw new ImportExportException("Error occured during database access " + ex.Message, ex);
-            }
-
-            return list;
+            return GetListValuesWithIdParameter(SelectByUserId, ":pUSRIDT", userId);
         }
 
         public bool Save(UserTrip entity)
@@ -243,33 +210,7 @@ namespace HolidayPooling.DataRepositories.Business
 
         public IEnumerable<UserTrip> GetAllEntities()
         {
-            var list = new List<UserTrip>();
-            try
-            {
-
-                using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
-                {
-                    using (var cmd = con.CreateCommand())
-                    {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = GetSelectQuery();
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                list.Add(CreateValueFromReader(reader));
-                            }
-                        }
-                    }
-                }
-
-            }//TODO : Log
-            catch (Exception ex)
-            {
-                throw new ImportExportException("Error occured during database access " + ex.Message, ex);
-            }
-
-            return list;
+            return InternalGetAllEntities();
         }
 
         #endregion

@@ -64,11 +64,6 @@ namespace HolidayPooling.DataRepositories.Business
             return new PotUserKey(value.PotId, value.UserId);
         }
 
-        public override int GetNewId()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override string GetSelectQuery()
         {
             return SelectQuery;
@@ -80,64 +75,12 @@ namespace HolidayPooling.DataRepositories.Business
 
         public IEnumerable<PotUser> GetPotUsers(int potId)
         {
-            List<PotUser> list = new List<PotUser>();
-
-            try
-            {
-                using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
-                {
-                    using (var cmd = con.CreateCommand())
-                    {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = SelectByPot;
-                        cmd.AddIntParameter(":pPOTIDT", potId);
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                list.Add(CreateValueFromReader(reader));
-                            }
-                        }
-                    }
-                }
-
-                return list;
-            }//TODO : Log
-            catch (Exception ex)
-            {
-                throw new ImportExportException("Error occured during database access " + ex.Message, ex);
-            }
+            return GetListValuesWithIdParameter(SelectByPot, ":pPOTIDT", potId);
         }
 
         public IEnumerable<PotUser> GetUserPots(int userId)
         {
-            List<PotUser> list = new List<PotUser>();
-
-            try
-            {
-                using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
-                {
-                    using (var cmd = con.CreateCommand())
-                    {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = SelectByUser;
-                        cmd.AddIntParameter(":pUSRIDT", userId);
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                list.Add(CreateValueFromReader(reader));
-                            }
-                        }
-                    }
-                }
-
-                return list;
-            }//TODO : Log
-            catch (Exception ex)
-            {
-                throw new ImportExportException("Error occured during database access " + ex.Message, ex);
-            }
+            return GetListValuesWithIdParameter(SelectByUser, ":pUSRIDT", userId);
         }
 
         public bool Save(PotUser entity)
@@ -270,34 +213,7 @@ namespace HolidayPooling.DataRepositories.Business
 
         public IEnumerable<PotUser> GetAllEntities()
         {
-            var list = new List<PotUser>();
-
-            try
-            {
-
-                using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
-                {
-                    using (var cmd = con.CreateCommand())
-                    {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = GetSelectQuery();
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                list.Add(CreateValueFromReader(reader));
-                            }
-                        }
-                    }
-                }
-
-            }// TODO : Log
-            catch (Exception ex)
-            {
-                throw new ImportExportException("Error occured during database access " + ex.Message, ex);
-            }
-
-            return list;
+            return InternalGetAllEntities();
         }
 
         #endregion

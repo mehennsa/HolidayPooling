@@ -80,33 +80,9 @@ namespace HolidayPooling.DataRepositories.Business
             return value.Id;
         }
 
-        public override int GetNewId()
+        protected override string NewIdQuery()
         {
-            int result = -1;
-            try
-            {
-                using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
-                {
-                    using (var cmd = con.CreateCommand())
-                    {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = SelectNewId;
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                result = reader.GetInt(0);
-                            }
-                        }
-                    }
-                }
-            }//TODO : Log
-            catch (Exception ex)
-            {
-                throw new ImportExportException("Error occured during database access " + ex.Message, ex);
-            }
-
-            return result;
+            return SelectNewId;
         }
 
         protected override string GetSelectQuery()
@@ -120,83 +96,25 @@ namespace HolidayPooling.DataRepositories.Business
 
         public User GetUserByMailAndPassword(string mail, string password)
         {
-            User user = null;
-            try
-            {
-                using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
-                {
-                    using (var cmd = con.CreateCommand())
-                    {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = SelectByMail;
-                        cmd.AddStringParameter(":pMEL", mail);
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            user = reader.Read() ? CreateValueFromReader(reader) : null;
 
-                            if (user != null)
-                            {
-                                var salt = reader.GetString("USRSLT");
-                                if (!PasswordHasher.CheckPassword(password + salt, user.Password))
-                                {
-                                    user = null;
-                                }
-                                else
-                                {
-                                    user.Password = string.Empty;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            //TODO : Log
-            catch (Exception ex)
-            {
-                throw new ImportExportException("Error occured during database access " + ex.Message, ex);
-            }
-
-            return user;
+            return GetUserByCustomCriteriaWithPassword
+                                            (
+                                                SelectByMail,
+                                                mail,
+                                                password,
+                                                (cmd, s) => cmd.AddStringParameter(":pMEL", s)
+                                            );
         }
 
         public User GetUserByPseudoAndPassword(string pseudo, string password)
         {
-            User user = null;
-            try
-            {
-                using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
-                {
-                    using (var cmd = con.CreateCommand())
-                    {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = SelectByPseudo;
-                        cmd.AddStringParameter(":pPSD", pseudo);
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            user = reader.Read() ? CreateValueFromReader(reader) : null;
-                            if (user != null)
-                            {
-                                var salt = reader.GetString("USRSLT");
-                                if (!PasswordHasher.CheckPassword(password + salt, user.Password))
-                                {
-                                    user = null;
-                                }
-                                else
-                                {
-                                    user.Password = string.Empty;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            //TODO : Log
-            catch (Exception ex)
-            {
-                throw new ImportExportException("Error occured during database access " + ex.Message, ex);
-            }
-
-            return user;
+            return GetUserByCustomCriteriaWithPassword
+                                (
+                                    SelectByPseudo,
+                                    pseudo,
+                                    password,
+                                    (cmd, s) => cmd.AddStringParameter(":pPSD", s)
+                                );
         }
 
         public bool IsPseudoUsed(string pseudo)
@@ -409,37 +327,56 @@ namespace HolidayPooling.DataRepositories.Business
 
         public IEnumerable<User> GetAllEntities()
         {
-            var list = new List<User>();
+            return InternalGetAllEntities((u) => u.Password = string.Empty);
+        }
+
+        #endregion
+
+        #region Utils
+
+        private User GetUserByCustomCriteriaWithPassword(string customQuery, string criteria, string password, 
+            Action<IDatabaseCommand, string> commandSetup)
+        {
+            User user = null;
             try
             {
-
                 using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
                 {
                     using (var cmd = con.CreateCommand())
                     {
                         cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = GetSelectQuery();
+                        cmd.CommandText = customQuery;
+                        commandSetup(cmd, criteria);
                         using (var reader = cmd.ExecuteReader())
                         {
-                            while (reader.Read())
+                            user = reader.Read() ? CreateValueFromReader(reader) : null;
+
+                            if (user != null)
                             {
-                                var user = CreateValueFromReader(reader);
-                                user.Password = string.Empty;
-                                list.Add(user);
+                                var salt = reader.GetString("USRSLT");
+                                if (!PasswordHasher.CheckPassword(password + salt, user.Password))
+                                {
+                                    user = null;
+                                }
+                                else
+                                {
+                                    user.Password = string.Empty;
+                                }
                             }
                         }
                     }
                 }
-
-            }//TODO : Log
+            }
+            //TODO : Log
             catch (Exception ex)
             {
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
-            return list;
+            return user;
         }
 
         #endregion
+
     }
 }

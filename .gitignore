@@ -288,4 +288,5 @@ __pycache__/
 
 Coverage/CoverageResult/*
 Sonar/*
+Sonar_old/*
 Coverage/results.xml
