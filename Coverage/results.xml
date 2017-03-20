@@ -164,10 +164,10 @@
       <ModuleName>nunit.core.interfaces</ModuleName>
       <Classes />
     </Module>
-    <Module hash="5D-7E-AC-73-D3-7D-F5-50-E5-8B-A8-83-95-F3-1C-A7-9F-B0-23-81">
+    <Module hash="64-2B-FD-EF-C2-A2-68-71-A8-A4-8D-03-DF-3A-17-B0-C7-BB-E8-10">
       <Summary numSequencePoints="795" visitedSequencePoints="790" numBranchPoints="201" visitedBranchPoints="200" sequenceCoverage="99.37" branchCoverage="99.50" maxCyclomaticComplexity="6" minCyclomaticComplexity="1" visitedClasses="27" numClasses="27" visitedMethods="198" numMethods="199" />
       <ModulePath>E:\Project\HolidayPooling\HolidayPooling\HolidayPooling.DataRepositories.Tests\bin\Debug\HolidayPooling.DataRepositories.Tests.dll</ModulePath>
-      <ModuleTime>2017-03-19T21:14:00.2759916Z</ModuleTime>
+      <ModuleTime>2017-03-20T09:20:08.2092306Z</ModuleTime>
       <ModuleName>HolidayPooling.DataRepositories.Tests</ModuleName>
       <Files>
         <File uid="1" fullPath="e:\Project\HolidayPooling\HolidayPooling\HolidayPooling.DataRepositories.Tests\Core\DbImportExportTestBase.cs" />
@@ -3353,10 +3353,10 @@
         </Class>
       </Classes>
     </Module>
-    <Module hash="78-0A-B7-39-B0-A3-42-53-AC-B6-F3-65-D1-E2-57-F1-4A-13-55-F9">
+    <Module hash="13-26-66-05-EC-9F-8F-AE-EC-0A-CC-F0-CF-23-6E-90-FD-49-BB-98">
       <Summary numSequencePoints="1304" visitedSequencePoints="1219" numBranchPoints="172" visitedBranchPoints="142" sequenceCoverage="93.48" branchCoverage="82.56" maxCyclomaticComplexity="9" minCyclomaticComplexity="1" visitedClasses="13" numClasses="13" visitedMethods="88" numMethods="108" />
       <ModulePath>E:\Project\HolidayPooling\HolidayPooling\HolidayPooling.DataRepositories.Tests\bin\Debug\HolidayPooling.DataRepositories.dll</ModulePath>
-      <ModuleTime>2017-03-19T21:13:58.8565898Z</ModuleTime>
+      <ModuleTime>2017-03-20T09:20:06.5649592Z</ModuleTime>
       <ModuleName>HolidayPooling.DataRepositories</ModuleName>
       <Files>
         <File uid="55" fullPath="e:\Project\HolidayPooling\HolidayPooling\HolidayPooling.DataRepositories\Core\DbImportExportBase.cs" />
@@ -6069,10 +6069,10 @@
       <ModuleName>Sams.Commons.Infrastructure</ModuleName>
       <Classes />
     </Module>
-    <Module hash="07-37-35-B6-03-E6-AF-BA-46-54-F7-87-D4-E0-8A-BD-4A-40-7C-EC">
+    <Module hash="28-43-29-8E-87-69-0F-CD-FD-BA-A4-10-A1-D9-7E-83-C9-BE-EE-C4">
       <Summary numSequencePoints="617" visitedSequencePoints="156" numBranchPoints="266" visitedBranchPoints="33" sequenceCoverage="25.28" branchCoverage="12.41" maxCyclomaticComplexity="5" minCyclomaticComplexity="1" visitedClasses="8" numClasses="12" visitedMethods="20" numMethods="91" />
       <ModulePath>E:\Project\HolidayPooling\HolidayPooling\HolidayPooling.DataRepositories.Tests\bin\Debug\HolidayPooling.Models.dll</ModulePath>
-      <ModuleTime>2017-03-19T21:13:58.3090469Z</ModuleTime>
+      <ModuleTime>2017-03-20T09:20:05.3513132Z</ModuleTime>
       <ModuleName>HolidayPooling.Models</ModuleName>
       <Files>
         <File uid="81" fullPath="e:\Project\HolidayPooling\HolidayPooling\HolidayPooling.Models\Core\Friendship.cs" />
@@ -8945,10 +8945,10 @@
       <ModuleName>nunit.core.interfaces</ModuleName>
       <Classes />
     </Module>
-    <Module hash="1F-E7-01-BE-FE-8B-D4-89-5B-0C-7E-FA-E6-18-5B-A3-BE-3D-1F-81">
+    <Module hash="4F-C0-30-1F-21-1C-18-B5-06-A5-6C-6D-66-87-E1-26-F2-08-31-7C">
       <Summary numSequencePoints="905" visitedSequencePoints="897" numBranchPoints="231" visitedBranchPoints="228" sequenceCoverage="99.12" branchCoverage="98.70" maxCyclomaticComplexity="3" minCyclomaticComplexity="1" visitedClasses="11" numClasses="11" visitedMethods="220" numMethods="223" />
       <ModulePath>E:\Project\HolidayPooling\HolidayPooling\HolidayPooling.Models.Tests\bin\Debug\HolidayPooling.Models.Tests.dll</ModulePath>
-      <ModuleTime>2017-03-19T21:14:00.2709921Z</ModuleTime>
+      <ModuleTime>2017-03-20T09:20:08.5793804Z</ModuleTime>
       <ModuleName>HolidayPooling.Models.Tests</ModuleName>
       <Files>
         <File uid="105" fullPath="e:\Project\HolidayPooling\HolidayPooling\HolidayPooling.Models.Tests\Core\ModelTestBase.cs" />
@@ -12271,10 +12271,10 @@
         </Class>
       </Classes>
     </Module>
-    <Module hash="07-37-35-B6-03-E6-AF-BA-46-54-F7-87-D4-E0-8A-BD-4A-40-7C-EC">
+    <Module hash="28-43-29-8E-87-69-0F-CD-FD-BA-A4-10-A1-D9-7E-83-C9-BE-EE-C4">
       <Summary numSequencePoints="617" visitedSequencePoints="617" numBranchPoints="266" visitedBranchPoints="263" sequenceCoverage="100" branchCoverage="98.87" maxCyclomaticComplexity="5" minCyclomaticComplexity="1" visitedClasses="12" numClasses="12" visitedMethods="91" numMethods="91" />
       <ModulePath>E:\Project\HolidayPooling\HolidayPooling\HolidayPooling.Models.Tests\bin\Debug\HolidayPooling.Models.dll</ModulePath>
-      <ModuleTime>2017-03-19T21:13:58.3090469Z</ModuleTime>
+      <ModuleTime>2017-03-20T09:20:05.3513132Z</ModuleTime>
       <ModuleName>HolidayPooling.Models</ModuleName>
       <Files>
         <File uid="127" fullPath="e:\Project\HolidayPooling\HolidayPooling\HolidayPooling.Models\Core\Friendship.cs" />
@@ -15117,9 +15117,9 @@
         </Class>
       </Classes>
     </Module>
-    <Module skippedDueTo="MissingPdb" hash="45-EA-4E-AC-19-19-00-3D-32-48-A5-9E-F4-BA-10-51-33-E1-F3-41">
+    <Module skippedDueTo="MissingPdb" hash="6C-04-8C-57-BA-16-AC-9A-1E-6F-C5-9B-72-58-A4-91-04-FA-A5-1E">
       <ModulePath>E:\Project\HolidayPooling\HolidayPooling\HolidayPooling.Models.Tests\bin\Debug\nunit.framework.dll</ModulePath>
-      <ModuleTime>2017-02-19T12:51:01.5988985Z</ModuleTime>
+      <ModuleTime>2017-03-11T19:52:49.8288824Z</ModuleTime>
       <ModuleName>nunit.framework</ModuleName>
       <Classes />
     </Module>
@@ -15147,10 +15147,10 @@
       <ModuleName>nunit.core.interfaces</ModuleName>
       <Classes />
     </Module>
-    <Module hash="04-3D-28-93-E1-73-26-6E-62-2C-C3-AE-9A-D3-49-03-4C-CE-F9-7D">
+    <Module hash="60-48-57-C0-06-5B-81-11-96-71-00-18-FD-CF-FC-21-00-4D-51-83">
       <Summary numSequencePoints="75" visitedSequencePoints="75" numBranchPoints="18" visitedBranchPoints="18" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="2" minCyclomaticComplexity="1" visitedClasses="5" numClasses="5" visitedMethods="18" numMethods="18" />
       <ModulePath>E:\Project\HolidayPooling\HolidayPooling\HolidayPooling.Infrastructure.Test\bin\Debug\HolidayPooling.Infrastructure.Test.dll</ModulePath>
-      <ModuleTime>2017-03-19T21:13:58.6561575Z</ModuleTime>
+      <ModuleTime>2017-03-20T09:20:05.7088602Z</ModuleTime>
       <ModuleName>HolidayPooling.Infrastructure.Test</ModuleName>
       <Files>
         <File uid="151" fullPath="e:\Project\HolidayPooling\HolidayPooling\HolidayPooling.Infrastructure.Test\Configuration\ConnectionManagerTest.cs" />
@@ -15491,16 +15491,16 @@
         </Class>
       </Classes>
     </Module>
-    <Module skippedDueTo="MissingPdb" hash="45-EA-4E-AC-19-19-00-3D-32-48-A5-9E-F4-BA-10-51-33-E1-F3-41">
+    <Module skippedDueTo="MissingPdb" hash="6C-04-8C-57-BA-16-AC-9A-1E-6F-C5-9B-72-58-A4-91-04-FA-A5-1E">
       <ModulePath>E:\Project\HolidayPooling\HolidayPooling\HolidayPooling.Infrastructure.Test\bin\Debug\nunit.framework.dll</ModulePath>
-      <ModuleTime>2017-02-19T12:51:01.5988985Z</ModuleTime>
+      <ModuleTime>2017-03-11T19:52:49.8288824Z</ModuleTime>
       <ModuleName>nunit.framework</ModuleName>
       <Classes />
     </Module>
-    <Module hash="5E-5F-CC-6C-5F-D2-D1-D5-5F-13-D1-96-23-E2-B4-7D-BB-8D-7A-E4">
+    <Module hash="45-9E-34-DF-0B-43-B5-1E-2F-70-AB-61-D0-D4-7C-55-A6-39-4F-E5">
       <Summary numSequencePoints="108" visitedSequencePoints="108" numBranchPoints="37" visitedBranchPoints="35" sequenceCoverage="100" branchCoverage="94.59" maxCyclomaticComplexity="4" minCyclomaticComplexity="1" visitedClasses="5" numClasses="5" visitedMethods="19" numMethods="19" />
       <ModulePath>E:\Project\HolidayPooling\HolidayPooling\HolidayPooling.Infrastructure.Test\bin\Debug\HolidayPooling.Infrastructure.dll</ModulePath>
-      <ModuleTime>2017-03-19T21:13:57.9236575Z</ModuleTime>
+      <ModuleTime>2017-03-20T09:20:04.2815196Z</ModuleTime>
       <ModuleName>HolidayPooling.Infrastructure</ModuleName>
       <Files>
         <File uid="161" fullPath="e:\Project\HolidayPooling\HolidayPooling\HolidayPooling.Infrastructure\Configuration\ConnectionManager.cs" />
@@ -15897,10 +15897,10 @@
       <ModuleName>System.Configuration</ModuleName>
       <Classes />
     </Module>
-    <Module hash="5E-5F-CC-6C-5F-D2-D1-D5-5F-13-D1-96-23-E2-B4-7D-BB-8D-7A-E4">
+    <Module hash="45-9E-34-DF-0B-43-B5-1E-2F-70-AB-61-D0-D4-7C-55-A6-39-4F-E5">
       <Summary numSequencePoints="108" visitedSequencePoints="85" numBranchPoints="37" visitedBranchPoints="24" sequenceCoverage="78.70" branchCoverage="64.86" maxCyclomaticComplexity="4" minCyclomaticComplexity="1" visitedClasses="4" numClasses="5" visitedMethods="16" numMethods="19" />
       <ModulePath>E:\Project\HolidayPooling\HolidayPooling\HolidayPooling.DataRepositories.Tests\bin\Debug\HolidayPooling.Infrastructure.dll</ModulePath>
-      <ModuleTime>2017-03-19T21:13:57.9236575Z</ModuleTime>
+      <ModuleTime>2017-03-20T09:20:04.2815196Z</ModuleTime>
       <ModuleName>HolidayPooling.Infrastructure</ModuleName>
       <Files>
         <File uid="171" fullPath="e:\Project\HolidayPooling\HolidayPooling\HolidayPooling.Infrastructure\Configuration\ConnectionManager.cs" />
@@ -16381,10 +16381,10 @@
       <ModuleName>System.Collections.Concurrent</ModuleName>
       <Classes />
     </Module>
-    <Module hash="FB-07-15-AC-27-30-1D-15-FD-5F-EE-01-A9-EF-75-B4-72-B4-D5-3A">
+    <Module hash="D0-48-F1-1E-77-12-5C-AE-9E-26-88-C3-F4-73-CB-52-53-95-89-99">
       <Summary numSequencePoints="45" visitedSequencePoints="29" numBranchPoints="42" visitedBranchPoints="16" sequenceCoverage="64.44" branchCoverage="38.10" maxCyclomaticComplexity="4" minCyclomaticComplexity="1" visitedClasses="1" numClasses="1" visitedMethods="7" numMethods="10" />
       <ModulePath>E:\Project\HolidayPooling\HolidayPooling\HolidayPooling.DataRepositories.Tests\bin\Debug\HolidayPooling.Tests.dll</ModulePath>
-      <ModuleTime>2017-03-19T21:13:59.0766187Z</ModuleTime>
+      <ModuleTime>2017-03-20T09:20:06.8510651Z</ModuleTime>
       <ModuleName>HolidayPooling.Tests</ModuleName>
       <Files>
         <File uid="181" fullPath="e:\Project\HolidayPooling\HolidayPooling\HolidayPooling.Tests\ModelTestHelper.cs" />
@@ -19171,11 +19171,11 @@
                 <SequencePoint vc="16" uspid="6690" ordinal="35" offset="277" sl="147" sc="17" el="147" ec="58" bec="0" bev="0" fileid="202" />
                 <SequencePoint vc="16" uspid="6691" ordinal="36" offset="301" sl="149" sc="17" el="149" ec="32" bec="0" bev="0" fileid="202" />
                 <SequencePoint vc="16" uspid="6692" ordinal="37" offset="309" sl="150" sc="22" el="150" ec="32" bec="0" bev="0" fileid="202" />
-                <SequencePoint vc="2434" uspid="6693" ordinal="38" offset="314" sl="151" sc="17" el="151" ec="18" bec="0" bev="0" fileid="202" />
-                <SequencePoint vc="2434" uspid="6694" ordinal="39" offset="315" sl="152" sc="21" el="152" ec="42" bec="0" bev="0" fileid="202" />
-                <SequencePoint vc="2434" uspid="6695" ordinal="40" offset="324" sl="153" sc="17" el="153" ec="18" bec="0" bev="0" fileid="202" />
-                <SequencePoint vc="2434" uspid="6696" ordinal="41" offset="325" sl="150" sc="48" el="150" ec="51" bec="0" bev="0" fileid="202" />
-                <SequencePoint vc="2450" uspid="6697" ordinal="42" offset="331" sl="150" sc="33" el="150" ec="46" bec="2" bev="2" fileid="202" />
+                <SequencePoint vc="2570" uspid="6693" ordinal="38" offset="314" sl="151" sc="17" el="151" ec="18" bec="0" bev="0" fileid="202" />
+                <SequencePoint vc="2570" uspid="6694" ordinal="39" offset="315" sl="152" sc="21" el="152" ec="42" bec="0" bev="0" fileid="202" />
+                <SequencePoint vc="2570" uspid="6695" ordinal="40" offset="324" sl="153" sc="17" el="153" ec="18" bec="0" bev="0" fileid="202" />
+                <SequencePoint vc="2570" uspid="6696" ordinal="41" offset="325" sl="150" sc="48" el="150" ec="51" bec="0" bev="0" fileid="202" />
+                <SequencePoint vc="2586" uspid="6697" ordinal="42" offset="331" sl="150" sc="33" el="150" ec="46" bec="2" bev="2" fileid="202" />
                 <SequencePoint vc="16" uspid="6698" ordinal="43" offset="347" sl="154" sc="17" el="154" ec="33" bec="0" bev="0" fileid="202" />
                 <SequencePoint vc="16" uspid="6699" ordinal="44" offset="355" sl="156" sc="17" el="156" ec="43" bec="0" bev="0" fileid="202" />
                 <SequencePoint vc="16" uspid="6700" ordinal="45" offset="364" sl="157" sc="17" el="157" ec="58" bec="0" bev="0" fileid="202" />
@@ -19237,7 +19237,7 @@
                 <BranchPoint vc="16" uspid="6756" ordinal="6" offset="258" sl="140" path="0" offsetend="260" fileid="202" />
                 <BranchPoint vc="756" uspid="6757" ordinal="7" offset="258" sl="140" path="1" offsetend="230" fileid="202" />
                 <BranchPoint vc="16" uspid="6758" ordinal="8" offset="345" sl="150" path="0" offsetend="347" fileid="202" />
-                <BranchPoint vc="2434" uspid="6759" ordinal="9" offset="345" sl="150" path="1" offsetend="314" fileid="202" />
+                <BranchPoint vc="2570" uspid="6759" ordinal="9" offset="345" sl="150" path="1" offsetend="314" fileid="202" />
                 <BranchPoint vc="40000" uspid="6760" ordinal="10" offset="416" sl="162" path="0" offsetend="418" fileid="202" />
                 <BranchPoint vc="40000" uspid="6761" ordinal="11" offset="416" sl="162" path="1" offsetend="429" fileid="202" />
                 <BranchPoint vc="40000" uspid="6762" ordinal="12" offset="443" sl="163" path="0" offsetend="445" fileid="202" />
@@ -19279,12 +19279,12 @@
               <Name>System.Void CryptSharp.ShaCrypter::AddToDigest(System.Security.Cryptography.HashAlgorithm,System.Byte[])</Name>
               <FileRef uid="202" />
               <SequencePoints>
-                <SequencePoint vc="285254" uspid="6782" ordinal="0" offset="0" sl="212" sc="9" el="212" ec="10" bec="0" bev="0" fileid="202" />
-                <SequencePoint vc="285254" uspid="6783" ordinal="1" offset="1" sl="213" sc="13" el="213" ec="62" bec="0" bev="0" fileid="202" />
-                <SequencePoint vc="285254" uspid="6784" ordinal="2" offset="13" sl="214" sc="9" el="214" ec="10" bec="0" bev="0" fileid="202" />
+                <SequencePoint vc="285390" uspid="6782" ordinal="0" offset="0" sl="212" sc="9" el="212" ec="10" bec="0" bev="0" fileid="202" />
+                <SequencePoint vc="285390" uspid="6783" ordinal="1" offset="1" sl="213" sc="13" el="213" ec="62" bec="0" bev="0" fileid="202" />
+                <SequencePoint vc="285390" uspid="6784" ordinal="2" offset="13" sl="214" sc="9" el="214" ec="10" bec="0" bev="0" fileid="202" />
               </SequencePoints>
               <BranchPoints />
-              <MethodPoint xsi:type="SequencePoint" vc="285254" uspid="6782" ordinal="0" offset="0" sl="212" sc="9" el="212" ec="10" bec="0" bev="0" fileid="202" />
+              <MethodPoint xsi:type="SequencePoint" vc="285390" uspid="6782" ordinal="0" offset="0" sl="212" sc="9" el="212" ec="10" bec="0" bev="0" fileid="202" />
             </Method>
             <Method visited="true" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" isConstructor="false" isStatic="true" isGetter="false" isSetter="false">
               <Summary numSequencePoints="3" visitedSequencePoints="3" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
@@ -19292,12 +19292,12 @@
               <Name>System.Void CryptSharp.ShaCrypter::AddToDigest(System.Security.Cryptography.HashAlgorithm,System.Byte[],System.Int32,System.Int32)</Name>
               <FileRef uid="202" />
               <SequencePoints>
-                <SequencePoint vc="285286" uspid="6785" ordinal="0" offset="0" sl="217" sc="9" el="217" ec="10" bec="0" bev="0" fileid="202" />
-                <SequencePoint vc="285286" uspid="6786" ordinal="1" offset="1" sl="218" sc="13" el="218" ec="77" bec="0" bev="0" fileid="202" />
-                <SequencePoint vc="285286" uspid="6787" ordinal="2" offset="13" sl="219" sc="9" el="219" ec="10" bec="0" bev="0" fileid="202" />
+                <SequencePoint vc="285422" uspid="6785" ordinal="0" offset="0" sl="217" sc="9" el="217" ec="10" bec="0" bev="0" fileid="202" />
+                <SequencePoint vc="285422" uspid="6786" ordinal="1" offset="1" sl="218" sc="13" el="218" ec="77" bec="0" bev="0" fileid="202" />
+                <SequencePoint vc="285422" uspid="6787" ordinal="2" offset="13" sl="219" sc="9" el="219" ec="10" bec="0" bev="0" fileid="202" />
               </SequencePoints>
               <BranchPoints />
-              <MethodPoint xsi:type="SequencePoint" vc="285286" uspid="6785" ordinal="0" offset="0" sl="217" sc="9" el="217" ec="10" bec="0" bev="0" fileid="202" />
+              <MethodPoint xsi:type="SequencePoint" vc="285422" uspid="6785" ordinal="0" offset="0" sl="217" sc="9" el="217" ec="10" bec="0" bev="0" fileid="202" />
             </Method>
             <Method visited="true" cyclomaticComplexity="2" nPathComplexity="2" sequenceCoverage="100" branchCoverage="100" isConstructor="false" isStatic="true" isGetter="false" isSetter="false">
               <Summary numSequencePoints="8" visitedSequencePoints="8" numBranchPoints="3" visitedBranchPoints="3" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="2" minCyclomaticComplexity="2" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
@@ -22600,10 +22600,10 @@
       <ModuleName>System.Configuration</ModuleName>
       <Classes />
     </Module>
-    <Module hash="FB-07-15-AC-27-30-1D-15-FD-5F-EE-01-A9-EF-75-B4-72-B4-D5-3A">
+    <Module hash="D0-48-F1-1E-77-12-5C-AE-9E-26-88-C3-F4-73-CB-52-53-95-89-99">
       <Summary numSequencePoints="45" visitedSequencePoints="39" numBranchPoints="42" visitedBranchPoints="24" sequenceCoverage="86.67" branchCoverage="57.14" maxCyclomaticComplexity="4" minCyclomaticComplexity="1" visitedClasses="1" numClasses="1" visitedMethods="9" numMethods="10" />
       <ModulePath>E:\Project\HolidayPooling\HolidayPooling\HolidayPooling.Models.Tests\bin\Debug\HolidayPooling.Tests.dll</ModulePath>
-      <ModuleTime>2017-03-19T21:13:59.0766187Z</ModuleTime>
+      <ModuleTime>2017-03-20T09:20:06.8510651Z</ModuleTime>
       <ModuleName>HolidayPooling.Tests</ModuleName>
       <Files>
         <File uid="265" fullPath="e:\Project\HolidayPooling\HolidayPooling\HolidayPooling.Tests\ModelTestHelper.cs" />
@@ -22807,10 +22807,10 @@
         </Class>
       </Classes>
     </Module>
-    <Module hash="5E-5F-CC-6C-5F-D2-D1-D5-5F-13-D1-96-23-E2-B4-7D-BB-8D-7A-E4">
+    <Module hash="45-9E-34-DF-0B-43-B5-1E-2F-70-AB-61-D0-D4-7C-55-A6-39-4F-E5">
       <Summary numSequencePoints="108" visitedSequencePoints="4" numBranchPoints="37" visitedBranchPoints="2" sequenceCoverage="3.70" branchCoverage="5.41" maxCyclomaticComplexity="4" minCyclomaticComplexity="1" visitedClasses="1" numClasses="5" visitedMethods="1" numMethods="19" />
       <ModulePath>E:\Project\HolidayPooling\HolidayPooling\HolidayPooling.Models.Tests\bin\Debug\HolidayPooling.Infrastructure.dll</ModulePath>
-      <ModuleTime>2017-03-19T21:13:57.9236575Z</ModuleTime>
+      <ModuleTime>2017-03-20T09:20:04.2815196Z</ModuleTime>
       <ModuleName>HolidayPooling.Infrastructure</ModuleName>
       <Files>
         <File uid="267" fullPath="e:\Project\HolidayPooling\HolidayPooling\HolidayPooling.Infrastructure\Configuration\ConnectionManager.cs" />
