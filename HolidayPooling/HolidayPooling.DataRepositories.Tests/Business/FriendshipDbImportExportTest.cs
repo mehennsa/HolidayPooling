@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace HolidayPooling.DataRepositories.Tests.Business
 {
+    // Test import export : Friendship
     [TestFixture]
     public class FriendshipDbImportExportTest :
         DbImportExportTestBase<FriendshipDbImportExport, FriendshipKey, Friendship>
