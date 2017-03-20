@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace HolidayPooling.DataRepositories.Tests.Business
 {
+    // Test Import Export : Pot
     [TestFixture]
     public class PotDbImportExportTest : DbImportExportTestBase<PotDbImportExport, int, Pot>
     {
