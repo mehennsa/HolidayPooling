@@ -1,6 +1,8 @@
 ﻿using HolidayPooling.DataRepositories.Core;
+using HolidayPooling.Infrastructure.Configuration;
 using HolidayPooling.Models.Core;
 using HolidayPooling.Models.Helpers;
+using log4net;
 using Sams.Commons.Infrastructure.Checks;
 using Sams.Commons.Infrastructure.Crypters;
 using Sams.Commons.Infrastructure.Database;
@@ -15,6 +17,12 @@ namespace HolidayPooling.DataRepositories.Business
 {
     public class UserDbImportExport : DbImportExportBase<int, User>, IUserDbImportExport
     {
+
+        #region Fields
+
+        private static readonly ILog _logger = LoggerManager.GetLogger(LoggerNames.DbLogger);
+
+        #endregion
 
         #region SQL
 
@@ -99,6 +107,7 @@ namespace HolidayPooling.DataRepositories.Business
 
             return GetUserByCustomCriteriaWithPassword
                                             (
+                                                "Mail",
                                                 SelectByMail,
                                                 mail,
                                                 password,
@@ -110,6 +119,7 @@ namespace HolidayPooling.DataRepositories.Business
         {
             return GetUserByCustomCriteriaWithPassword
                                 (
+                                    "Pseudo",
                                     SelectByPseudo,
                                     pseudo,
                                     password,
@@ -120,6 +130,7 @@ namespace HolidayPooling.DataRepositories.Business
         public bool IsPseudoUsed(string pseudo)
         {
             bool found = true;
+            _logger.Info("Start checking if pseudo is used");
             try
             {
                 using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
@@ -136,9 +147,12 @@ namespace HolidayPooling.DataRepositories.Business
                     }
                 }
 
-            }//TODO : Log
+                _logger.Info("End checking if pseudo is used");
+
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while checking if a pseudo is used with query : " + SelectByPseudo, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -148,6 +162,7 @@ namespace HolidayPooling.DataRepositories.Business
         public bool IsMailUsed(string mail)
         {
             bool found = true;
+            _logger.Info("Start checking if a mail is already used");
             try
             {
                 using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
@@ -155,7 +170,7 @@ namespace HolidayPooling.DataRepositories.Business
                     using (var cmd = con.CreateCommand())
                     {
                         cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = Select;
+                        cmd.CommandText = SelectByMail;
                         cmd.AddStringParameter(":pMEL", mail);
                         using (var reader = cmd.ExecuteReader())
                         {
@@ -164,9 +179,12 @@ namespace HolidayPooling.DataRepositories.Business
                     }
                 }
 
-            }//TODO : Log
+                _logger.Info("End checking if a mail is already used");
+
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while checking if a mail is already used with query : " + SelectByMail);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -178,6 +196,7 @@ namespace HolidayPooling.DataRepositories.Business
 
             bool saved = false;
             Check.IsNotNull(entity, "user shouldn't be null");
+            _logger.Info("Start saving user");
             try
             {
 
@@ -185,6 +204,7 @@ namespace HolidayPooling.DataRepositories.Business
                 int id = GetNewId();
                 if (id < 0)
                 {
+                    _logger.Info("Id cannot be generated to save new user : Failure");
                     return false;
                 }
 
@@ -214,16 +234,17 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddDateParameter(":pCREDAT", entity.CreationDate);
                         cmd.AddDoubleParameter(":pUSRNOT", entity.Note);
                         saved = cmd.ExecuteNonQuery() > 0;
-                        
+                        _logger.Info("End saving user : " + (saved ? "Success" : "Failure"));
                         if (saved)
                         {
                             entity.Id = id;
                         }
                     }
                 }
-            }//TODO : Log
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while saving new user with query : " + Insert, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -234,6 +255,7 @@ namespace HolidayPooling.DataRepositories.Business
         {
             Check.IsNotNull(entity, "User shouldn't be null");
             bool deleted = false;
+            _logger.Info("Start deleting user");
             try
             {
                 using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
@@ -244,11 +266,13 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.CommandText = DeleteQuery;
                         cmd.AddIntParameter(":pIDT", entity.Id);
                         deleted = cmd.ExecuteNonQuery() > 0;
+                        _logger.Info("End deleting user : " + (deleted ? "Success" : "Delete"));
                     }
                 }
-            }//TODO : Log
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while deleting user with query : " + DeleteQuery, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -259,6 +283,7 @@ namespace HolidayPooling.DataRepositories.Business
         {
             Check.IsNotNull(entity, "User shouldn't be null");
             bool updated = false;
+            _logger.Info("Start update user");
 
             try
             {
@@ -280,12 +305,14 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddDateParameter(":pCREDAT", entity.CreationDate);
                         cmd.AddDoubleParameter(":pUSRNOT", entity.Note);
                         updated = cmd.ExecuteNonQuery() > 0;
+                        _logger.Info("End update user : " + (updated ? "Success" : "Failure"));
                     }
                 }
 
-            }//TODO : Log
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while updating user with query : " + UpdateQuery, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -295,6 +322,7 @@ namespace HolidayPooling.DataRepositories.Business
         public User GetEntity(int key)
         {
             User user = null;
+            _logger.Info("Start retrieving user y id");
             try
             {
 
@@ -316,9 +344,12 @@ namespace HolidayPooling.DataRepositories.Business
                     }
                 }
 
-            }//TODO : Log
+                _logger.Info("End retrieving user by id : " + (user != null ? "Success" : "Failure"));
+
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while retrieving user by id with query " + SelectSingle, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -334,10 +365,11 @@ namespace HolidayPooling.DataRepositories.Business
 
         #region Utils
 
-        private User GetUserByCustomCriteriaWithPassword(string customQuery, string criteria, string password, 
+        private User GetUserByCustomCriteriaWithPassword(string criteriaName, string customQuery, string criteria, string password, 
             Action<IDatabaseCommand, string> commandSetup)
         {
             User user = null;
+            _logger.Info(string.Format("Start retrieving user by {0}", criteriaName));
             try
             {
                 using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
@@ -366,8 +398,9 @@ namespace HolidayPooling.DataRepositories.Business
                         }
                     }
                 }
+
+                _logger.Info(string.Format("End retrieving user by {0} : {1}", criteriaName, (user != null ? "Success" : "Failure")));
             }
-            //TODO : Log
             catch (Exception ex)
             {
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);

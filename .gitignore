@@ -286,7 +286,7 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 
-Coverage/CoverageResult/*
 Sonar/*
 Sonar_old/*
-Coverage/results.xml
+HolidayPooling/.scannerwork/*
+Coverage/CoverageResult/*

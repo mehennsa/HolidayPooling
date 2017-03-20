@@ -1,4 +1,5 @@
 ﻿using HolidayPooling.Infrastructure.Configuration;
+using log4net;
 using NUnit.Framework;
 using Sams.Commons.Infrastructure.Environment;
 using System;
@@ -32,6 +33,9 @@ namespace HolidayPooling.Infrastructure.Test.Configuration
             env.SetupEnvironment(AppEnvironment.TEST);
             Assert.Greater(ConnectionManager.NumberOfConnections(), 0);
             Assert.IsNotEmpty(ConnectionManager.GetConnectionString(HolidayPoolingDatabase.HP));
+            // Logger
+            var logger = LoggerManager.GetLogger("ConsoleLogger");
+            Assert.IsNotNull(logger);
 
             // Dispose
             env.Dispose();

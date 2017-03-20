@@ -1,4 +1,5 @@
 ﻿using HolidayPooling.Infrastructure.Configuration;
+using log4net;
 using Sams.Commons.Infrastructure.Cache;
 using Sams.Commons.Infrastructure.Database;
 using System;
@@ -16,6 +17,7 @@ namespace HolidayPooling.DataRepositories.Core
         
         protected static bool _isCacheRefreshed = false;
         protected bool _useCache;
+        private static readonly ILog _logger = LoggerManager.GetLogger(LoggerNames.DbLogger);
  
         #endregion
  
@@ -62,9 +64,10 @@ namespace HolidayPooling.DataRepositories.Core
                         }
                     }
                 }
-            }//TODO : Log
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while trying to execute query : " + NewIdQuery(), ex);   
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -99,9 +102,10 @@ namespace HolidayPooling.DataRepositories.Core
                         }
                     }
                 }
-            }//TODO : Log
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error occured while trying to execute the following query : " + query, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -135,9 +139,10 @@ namespace HolidayPooling.DataRepositories.Core
                     }
                 }
 
-            }//TODO : Log
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error occured while trying to execute the following query : " + GetSelectQuery(), ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 

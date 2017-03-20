@@ -1,5 +1,7 @@
 ﻿using HolidayPooling.DataRepositories.Core;
+using HolidayPooling.Infrastructure.Configuration;
 using HolidayPooling.Models.Core;
+using log4net;
 using Sams.Commons.Infrastructure.Checks;
 using Sams.Commons.Infrastructure.Database;
 using Sams.Commons.Infrastructure.Helper;
@@ -14,6 +16,12 @@ namespace HolidayPooling.DataRepositories.Business
 {
     public class FriendshipDbImportExport : DbImportExportBase<FriendshipKey, Friendship>, IFriendshipDbImportExport
     {
+
+        #region Fields
+
+        private static readonly ILog _logger = LoggerManager.GetLogger(LoggerNames.DbLogger);
+
+        #endregion
 
         #region SQL
 
@@ -86,6 +94,7 @@ namespace HolidayPooling.DataRepositories.Business
             Check.IsNotNull(entity, "Friendship sould be provided");
 
             bool saved = false;
+            _logger.Info("Start saving Friendship");
             try
             {
 
@@ -101,12 +110,14 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddStringParameter(":pINDRSQUSR", ConverterHelper.BoolToYesNoString(entity.IsRequested));
                         cmd.AddStringParameter(":pINDWTG", ConverterHelper.BoolToYesNoString(entity.IsWaiting));
                         saved = cmd.ExecuteNonQuery() > 0;
+                        _logger.Info("End Saving Friendship. Result : " + (saved ? "Success" : "Failure"));
                     }
                 }
 
-            }//TODO : Log
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while trying to save friendship with the following query " + InsertQuery, ex);   
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -117,6 +128,7 @@ namespace HolidayPooling.DataRepositories.Business
         {
             Check.IsNotNull(entity, "Friendship should be provided");
             var deleted = false;
+            _logger.Info("Start deleting Friendship");
             try
             {
 
@@ -129,12 +141,14 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddIntParameter(":pUSRIDT", entity.UserId);
                         cmd.AddStringParameter(":pFRDPSD", entity.FriendName);
                         deleted = cmd.ExecuteNonQuery() > 0;
+                        _logger.Info("End deleting Friendship : " + (deleted ? "Success" : "Failure"));
                     }
                 }
 
-            }//TODO : Log
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while trying to delete friendship with the following query : " + DeleteQuery, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -146,6 +160,7 @@ namespace HolidayPooling.DataRepositories.Business
             Check.IsNotNull(entity, "Friendship should be provided");
 
             var updated = false;
+            _logger.Info("Start updating Friendship");
             try
             {
 
@@ -161,12 +176,14 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddStringParameter(":pINDRSQUSR", ConverterHelper.BoolToYesNoString(entity.IsRequested));
                         cmd.AddStringParameter(":pINDWTG", ConverterHelper.BoolToYesNoString(entity.IsWaiting));
                         updated = cmd.ExecuteNonQuery() > 0;
+                        _logger.Info("End updating Friendship : " + (updated ? "Success" : "Failure"));
                     }
                 }
 
-            }// TODO : Log
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while trying to update Friendship with the following query : " + UpdateQuery, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -177,7 +194,7 @@ namespace HolidayPooling.DataRepositories.Business
         {
             Check.IsNotNull(key, "Key should be provided");
             Friendship friendship = null;
-
+            _logger.Info("Start Retrieving Friendship");
             try
             {
 
@@ -197,11 +214,13 @@ namespace HolidayPooling.DataRepositories.Business
                             }
                         }
                     }
+                    _logger.Info("End Retrieving Friendship " + (friendship != null ? "Success" : "Failure"));
                 }
 
-            }//TODO : Log
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error occured while trying to retrieve Friendship with the following query " + SelectByKey);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 

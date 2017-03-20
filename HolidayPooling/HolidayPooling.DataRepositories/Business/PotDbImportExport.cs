@@ -1,7 +1,9 @@
 ﻿using HolidayPooling.DataRepositories.Core;
+using HolidayPooling.Infrastructure.Configuration;
 using HolidayPooling.Infrastructure.Converters;
 using HolidayPooling.Models.Core;
 using HolidayPooling.Models.Helpers;
+using log4net;
 using Sams.Commons.Infrastructure.Checks;
 using Sams.Commons.Infrastructure.Database;
 using Sams.Commons.Infrastructure.Helper;
@@ -16,6 +18,12 @@ namespace HolidayPooling.DataRepositories.Business
 {
     public class PotDbImportExport : DbImportExportBase<int, Pot>, IPotDbImportExport
     {
+
+        #region Fields
+
+        private static readonly ILog _logger = LoggerManager.GetLogger(LoggerNames.DbLogger);
+
+        #endregion
 
         #region SQL
 
@@ -100,6 +108,7 @@ namespace HolidayPooling.DataRepositories.Business
         public Pot GetTripsPot(int tripId)
         {
             Pot pot = null;
+            _logger.Info("Start retrieving Pot for a trip");
             try
             {
 
@@ -119,10 +128,12 @@ namespace HolidayPooling.DataRepositories.Business
                         }
                     }
                 }
+                _logger.Info("End retrieving pot for a trip : " + (pot != null ? "Success" : "Failure"));
 
-            }//TODO : Log
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while retrieving trip's pot with query " + SelectByTrip, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -132,6 +143,7 @@ namespace HolidayPooling.DataRepositories.Business
         public bool IsPotNameUsed(string potName)
         {
             var found = false;
+            _logger.Info("Start trying to find if a pot name is used");
             try
             {
 
@@ -148,10 +160,11 @@ namespace HolidayPooling.DataRepositories.Business
                         }
                     }
                 }
-
-            }//TODO : Log
+                _logger.Info("End trying to find if a pot name is used");
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while trying to find if a pot name is used with query : " + SelectByName, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -161,6 +174,7 @@ namespace HolidayPooling.DataRepositories.Business
         public Pot GetPotByName(string potName)
         {
             Pot pot = null;
+            _logger.Info("Start retrieving pot by its name");
             try
             {
 
@@ -178,12 +192,14 @@ namespace HolidayPooling.DataRepositories.Business
                                 pot = CreateValueFromReader(reader);
                             }
                         }
+                        _logger.Info("End retrieving pot by name : " + (pot != null ? "Success" : "Error"));
                     }
                 }
 
-            }//TODO : Log
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while trying to retrieve a pot by its name with query : " + SelectByName, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -195,6 +211,7 @@ namespace HolidayPooling.DataRepositories.Business
             Check.IsNotNull(entity, "Pot should be provided");
 
             var saved = false;
+            _logger.Info("Start saving pot");
 
             try
             {
@@ -203,6 +220,7 @@ namespace HolidayPooling.DataRepositories.Business
 
                 if (id <= 0)
                 {
+                    _logger.Info("Unable to retrieve new id to save a pot");
                     return false;
                 }
                 using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
@@ -226,7 +244,7 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddStringParameter(":pCANCELRSN", entity.CancellationReason);
                         cmd.AddDateParameter(":pCANCELDAT", entity.CancellationDate);
                         saved = cmd.ExecuteNonQuery() > 0;
-
+                        _logger.Info("End saving pot " + (saved ? "Success" : "Error"));
                         if (saved)
                         {
                             entity.Id = id;
@@ -235,9 +253,10 @@ namespace HolidayPooling.DataRepositories.Business
                     }
                 }
 
-            }//TODO : Log
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while trying to save pot with query : " + InsertQuery, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -248,6 +267,7 @@ namespace HolidayPooling.DataRepositories.Business
         {
             Check.IsNotNull(entity, "Pot must be provided");
             bool deleted = false;
+            _logger.Info("Start deleting pot");
             try
             {
                 using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
@@ -258,12 +278,14 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.CommandText = DeleteQuery;
                         cmd.AddIntParameter(":pIDT", entity.Id);
                         deleted = cmd.ExecuteNonQuery() > 0;
+                        _logger.Info("End deleting pot : " + (deleted ? "Success" : "Failure"));
                     }
                 }
 
-            }//TODO : Log
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while trying to delete pot with query : " + DeleteQuery, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -274,6 +296,7 @@ namespace HolidayPooling.DataRepositories.Business
         {
             var updated = false;
             Check.IsNotNull(entity, "Pot must provided for update");
+            _logger.Info("Start updating pot");
             try
             {
 
@@ -297,12 +320,14 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddStringParameter(":pCANCELRSN", entity.CancellationReason);
                         cmd.AddDateParameter(":pCANCELDAT", entity.CancellationDate);
                         updated = cmd.ExecuteNonQuery() > 0;
+                        _logger.Info("End updating pot : " + (updated ? "Success" : "Error"));
                     }
                 }
 
-            }//TODO : Log
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while trying to update pot with query : " + UpdateQuery, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -312,6 +337,7 @@ namespace HolidayPooling.DataRepositories.Business
         public Pot GetEntity(int key)
         {
             Pot pot = null;
+            _logger.Info("Start Get Pot by id");
             try
             {
 
@@ -331,10 +357,11 @@ namespace HolidayPooling.DataRepositories.Business
                         }
                     }
                 }
-
-            }//TODO : Log
+                _logger.Info("End Get pot by Id : " + (pot != null ? "Success" : "Failure"));
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error during Get pot with id, query : " + SelectById, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 

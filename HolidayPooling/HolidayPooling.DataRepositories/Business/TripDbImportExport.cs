@@ -1,5 +1,7 @@
 ﻿using HolidayPooling.DataRepositories.Core;
+using HolidayPooling.Infrastructure.Configuration;
 using HolidayPooling.Models.Core;
+using log4net;
 using Sams.Commons.Infrastructure.Checks;
 using Sams.Commons.Infrastructure.Database;
 using System;
@@ -14,6 +16,11 @@ namespace HolidayPooling.DataRepositories.Business
     public class TripDbImportExport : DbImportExportBase<int, Trip>, ITripDbImportExport
     {
 
+        #region Fields
+
+        private static readonly ILog _logger = LoggerManager.GetLogger(LoggerNames.DbLogger);
+
+        #endregion
 
         #region SQL
 
@@ -94,6 +101,7 @@ namespace HolidayPooling.DataRepositories.Business
         public bool IsTripNameUsed(string name)
         {
             var result = false;
+            _logger.Info("Start checking if trip name is used");
             try
             {
 
@@ -110,10 +118,11 @@ namespace HolidayPooling.DataRepositories.Business
                         }
                     }
                 }
-
-            }//TODO : Log
+                _logger.Info("End checking if trip name is used");
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while checking if trip name is used with query : " + SelectByName, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -123,6 +132,7 @@ namespace HolidayPooling.DataRepositories.Business
         public Trip GetTripByName(string name)
         {
             Trip trip = null;
+            _logger.Info("Start retrieving trip by name");
             try
             {
 
@@ -142,10 +152,11 @@ namespace HolidayPooling.DataRepositories.Business
                         }
                     }
                 }
-
-            }//TODO : Log
+                _logger.Info("End retrieving trip by name : " + (trip != null ? "Success" : "Failure"));
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while retrieving trip by name with query : " + SelectByName, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -155,6 +166,7 @@ namespace HolidayPooling.DataRepositories.Business
         public IEnumerable<Trip> GetValidTrips(DateTime validityDate)
         {
             var list = new List<Trip>();
+            _logger.Info(string.Format("Start retrieving trips by validity date : {0}", validityDate));
             try
             {
                 using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
@@ -173,9 +185,11 @@ namespace HolidayPooling.DataRepositories.Business
                         }
                     }
                 }
-            }//TODO : Log
+                _logger.Info(string.Format("End retrieving trip by validity date {0}", validityDate));
+            }
             catch (Exception ex)
             {
+                _logger.Error(string.Format("Error while retrieving trip by validity date {0} with query {1}", validityDate, SelectOnValidity), ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -190,7 +204,7 @@ namespace HolidayPooling.DataRepositories.Business
             }
 
             var list = new List<Trip>();
-
+            _logger.Info(string.Format("Start retrieving trips between start date {0} and end date {1}", startDate, endDate));
             try
             {
                 using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
@@ -223,9 +237,11 @@ namespace HolidayPooling.DataRepositories.Business
                         }
                     }
                 }
-            }//TODO : Log
+                _logger.Info(string.Format("End retrieving trips between start date {0} and end date {1}", startDate, endDate));
+            }
             catch (Exception ex)
             {
+                _logger.Error(string.Format("Error while retrieving trips between start date {0} and end date {1}", startDate, endDate), ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -237,6 +253,7 @@ namespace HolidayPooling.DataRepositories.Business
             Check.IsNotNull(entity, "Trip should be provided");
 
             var result = false;
+            _logger.Info("Start saving trip");
             try
             {
 
@@ -245,6 +262,7 @@ namespace HolidayPooling.DataRepositories.Business
 
                 if (id <= 0)
                 {
+                    _logger.Info("New id cannot be generated to save trip : Failure");
                     return false;
                 }
 
@@ -266,7 +284,7 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddDateParameter(":pVALDAT", entity.ValidityDate);
                         cmd.AddDoubleParameter(":pTRPNOT", entity.Note);
                         result = cmd.ExecuteNonQuery() > 0;
-
+                        _logger.Info("End saving trip : " + (result ? "Success" : "Failure"));
                         if (result)
                         {
                             entity.Id = id;
@@ -275,9 +293,10 @@ namespace HolidayPooling.DataRepositories.Business
                     }
                 }
 
-            }//TODO : Log
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while saving trip with query : " + InsertQuery, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -289,6 +308,7 @@ namespace HolidayPooling.DataRepositories.Business
             Check.IsNotNull(entity, "A Trip should be provided");
 
             var result = false;
+            _logger.Info("Start Deleting trip");
             try
             {
 
@@ -300,12 +320,14 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.CommandText = DeleteQuery;
                         cmd.AddIntParameter(":pIDT", entity.Id);
                         result = cmd.ExecuteNonQuery() > 0;
+                        _logger.Info("End Deleting trip " + (result ? "Success" : "Failure"));
                     }
                 }
 
-            }//TODO : log
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while deleting trip with query : " + DeleteQuery, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -317,6 +339,7 @@ namespace HolidayPooling.DataRepositories.Business
             Check.IsNotNull(entity, "Trip should be provided");
 
             var result = false;
+            _logger.Info("Start updating trip");
             try
             {
                 using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
@@ -336,11 +359,13 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddDateParameter(":pVALDAT", entity.ValidityDate);
                         cmd.AddDoubleParameter(":pTRPNOT", entity.Note);
                         result = cmd.ExecuteNonQuery() > 0;
+                        _logger.Info("End updating trip " + (result ? "Success" : "Failure"));
                     }
                 }
-            }//TODO : Log
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while updating trip with query : " + UpdateQuery, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -350,6 +375,7 @@ namespace HolidayPooling.DataRepositories.Business
         public Trip GetEntity(int key)
         {
             Trip trip = null;
+            _logger.Info("Start retriving trip by id");
             try
             {
                 using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
@@ -368,9 +394,11 @@ namespace HolidayPooling.DataRepositories.Business
                         }
                     }
                 }
-            }//TODO : Log
+                _logger.Info("End retrieving trip by id " + (trip != null ? "Success" : "Failure"));
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while retrieving trip with query : " + SelectById, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 

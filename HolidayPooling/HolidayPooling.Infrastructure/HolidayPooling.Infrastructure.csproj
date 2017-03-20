@@ -40,6 +40,10 @@
       <HintPath>..\packages\CryptSharpOfficial.2.1.0.0\lib\CryptSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.1.1.0\lib\netstandard1.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
       <Private>True</Private>
@@ -56,8 +60,8 @@
       <HintPath>..\packages\Npgsql.3.2.0\lib\net45\Npgsql.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Sams.Commons.Infrastructure, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sams.Commons.Infrastructure.2.0.1\lib\net45\Sams.Commons.Infrastructure.dll</HintPath>
+    <Reference Include="Sams.Commons.Infrastructure, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sams.Commons.Infrastructure.2.1.0\lib\net45\Sams.Commons.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -87,11 +91,16 @@
     <Compile Include="Configuration\DatabaseConfigurator.cs" />
     <Compile Include="Configuration\HolidayPoolingDatabase.cs" />
     <Compile Include="Configuration\HpEnvironment.cs" />
+    <Compile Include="Configuration\LogConfiguration.cs" />
+    <Compile Include="Configuration\LoggerManager.cs" />
+    <Compile Include="Configuration\LoggerNames.cs" />
     <Compile Include="Converters\TechnicalEnumConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Configuration\DEV\log.config" />
+    <None Include="Configuration\TEST\log.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

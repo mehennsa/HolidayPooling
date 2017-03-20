@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 [assembly: ConfiguratorAttribute(ConfigurationType.Database, typeof(DatabaseConfigurator), "DbSettings.xml")]
-
+[assembly: ConfiguratorAttribute(ConfigurationType.Log, typeof(LogConfiguration), "log.config")]
 
 namespace HolidayPooling.Infrastructure.Configuration
 {
@@ -41,6 +41,7 @@ namespace HolidayPooling.Infrastructure.Configuration
             Check.That(env, (e) => e != AppEnvironment.None, "env");
             SetCurrentEnvironment(env)
                 .ConstructBudgetAppBasePath()
+                .ConfigureLog()
                 .ConfigureDatabases();
         }
 
@@ -69,6 +70,12 @@ namespace HolidayPooling.Infrastructure.Configuration
             }
 
             _disposed = true;
+        }
+
+        protected HpEnvironment ConfigureLog()
+        {
+            base.ConfigureLog();
+            return this;
         }
 
         ~HpEnvironment()

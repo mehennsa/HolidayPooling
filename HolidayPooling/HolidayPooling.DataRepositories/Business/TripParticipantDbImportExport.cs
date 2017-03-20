@@ -1,5 +1,7 @@
 ﻿using HolidayPooling.DataRepositories.Core;
+using HolidayPooling.Infrastructure.Configuration;
 using HolidayPooling.Models.Core;
+using log4net;
 using Sams.Commons.Infrastructure.Checks;
 using Sams.Commons.Infrastructure.Database;
 using Sams.Commons.Infrastructure.Helper;
@@ -14,6 +16,12 @@ namespace HolidayPooling.DataRepositories.Business
 {
     public class TripParticipantDbImportExport : DbImportExportBase<TripParticipantKey, TripParticipant>, ITripParticipantDbImportExport
     {
+
+        #region Fields
+
+        private static readonly ILog _logger = LoggerManager.GetLogger(LoggerNames.DbLogger);
+
+        #endregion
 
         #region SQL
 
@@ -88,6 +96,7 @@ namespace HolidayPooling.DataRepositories.Business
         {
             Check.IsNotNull(entity, "Participant should be provided");
             var saved = false;
+            _logger.Info("Start save trip participant");
             try
             {
                 using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
@@ -102,11 +111,13 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddDoubleParameter(":pTRPNOT", entity.TripNote);
                         cmd.AddDateParameter(":pVALDAT", entity.ValidationDate);
                         saved = cmd.ExecuteNonQuery() > 0;
+                        _logger.Info("End save trip participant : " + (saved ? "Success" : "Failure"));
                     }
                 }
-            }//TODO : Log
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while trying to save trip participant with query : " + InsertQuery, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -117,6 +128,7 @@ namespace HolidayPooling.DataRepositories.Business
         {
             Check.IsNotNull(entity, "Participant should be provided");
             var deleted = false;
+            _logger.Info("Start delete trip participant");
 
             try
             {
@@ -129,11 +141,13 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddIntParameter(":pTRPIDT", entity.TripId);
                         cmd.AddStringParameter(":pUSRPSD", entity.UserPseudo);
                         deleted = cmd.ExecuteNonQuery() > 0;
+                        _logger.Info("End delete trip participant : " + (deleted ? "Success" : "Failure"));
                     }
                 }
-            }//TODO : Log
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while deleting trip participant with query : " + DeleteQuery, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -144,6 +158,7 @@ namespace HolidayPooling.DataRepositories.Business
         {
             Check.IsNotNull(entity, "Participant should be provided");
             var updated = false;
+            _logger.Info("Start updating trip participant");
 
             try
             {
@@ -160,12 +175,14 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddDoubleParameter(":pTRPNOT", entity.TripNote);
                         cmd.AddDateParameter(":pVALDAT", entity.ValidationDate);
                         updated = cmd.ExecuteNonQuery() > 0;
+                        _logger.Info("End update trip participant : " + (updated ? "Success" : "Failure"));
                     }
                 }
 
-            }//TODO : Log
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while updating trip participant with query : " + UpdateQuery, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -176,6 +193,7 @@ namespace HolidayPooling.DataRepositories.Business
         {
             Check.IsNotNull(key, "Key should have been provided");
             TripParticipant participant = null;
+            _logger.Info("Start retrieving trip participant");
             try
             {
 
@@ -197,9 +215,11 @@ namespace HolidayPooling.DataRepositories.Business
                     }
                 }
 
-            }// TODO : Log
+                _logger.Info("End retrieving trip participant : " + (participant != null ? "Success" : "Failure"));
+            }
             catch (Exception ex)
             {
+                _logger.Error("Error while retrieving trip participant with query : " + SelectByKey, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
