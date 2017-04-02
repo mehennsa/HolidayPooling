@@ -14,5 +14,9 @@ namespace HolidayPooling.DataRepositories.Business
 
         IEnumerable<Friendship> GetUserFriendships(int userId);
 
+        IEnumerable<Friendship> GetRequestedFriendships(int userId);
+
+        IEnumerable<Friendship> GetWaitingFriendships(int userId);
+
     }
 }

@@ -39,6 +39,10 @@ namespace HolidayPooling.DataRepositories.Business
 
         private const string SelectByKey = SelectByUserId + " AND FRDPSD = :pFRDPSD";
 
+        private const string SelectWaitingFriendship = SelectByUserId + " AND INDWTG = 'Y' AND INDRSQUSR = 'N'";
+
+        private const string SelectRequestedFrienship = SelectByUserId + " AND INDWTG = 'Y' AND INDRSQUSR = 'Y'";
+
         #endregion
 
         #region .ctor
@@ -87,6 +91,16 @@ namespace HolidayPooling.DataRepositories.Business
         public IEnumerable<Friendship> GetUserFriendships(int userId)
         {
             return GetListValuesWithIdParameter(SelectByUserId, ":pUSRIDT", userId);
+        }
+
+        public IEnumerable<Friendship> GetRequestedFriendships(int userId)
+        {
+            return GetListValuesWithIdParameter(SelectRequestedFrienship, ":pUSRIDT", userId);
+        }
+
+        public IEnumerable<Friendship> GetWaitingFriendships(int userId)
+        {
+            return GetListValuesWithIdParameter(SelectWaitingFriendship, ":pUSRIDT", userId);
         }
 
         public bool Save(Friendship entity)
@@ -233,5 +247,8 @@ namespace HolidayPooling.DataRepositories.Business
         }
 
         #endregion
+
+
+
     }
 }

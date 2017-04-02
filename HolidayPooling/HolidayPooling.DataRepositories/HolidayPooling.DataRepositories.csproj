@@ -108,6 +108,22 @@
     <Compile Include="Core\IDbImportExport.cs" />
     <Compile Include="Core\ImportExportException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\FriendshipRepository.cs" />
+    <Compile Include="Repository\IFriendshipRepository.cs" />
+    <Compile Include="Repository\IPotRepository.cs" />
+    <Compile Include="Repository\IPotUserRepository.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\ITripParticipantRepository.cs" />
+    <Compile Include="Repository\ITripRepository.cs" />
+    <Compile Include="Repository\IUserRepository.cs" />
+    <Compile Include="Repository\IUserTripRepository.cs" />
+    <Compile Include="Repository\PotRepository.cs" />
+    <Compile Include="Repository\PotUserRepository.cs" />
+    <Compile Include="Repository\RepositoryBase.cs" />
+    <Compile Include="Repository\TripParticipantRepository.cs" />
+    <Compile Include="Repository\TripRepository.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="Repository\UserTripRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HolidayPooling.Infrastructure\HolidayPooling.Infrastructure.csproj">

@@ -13,6 +13,8 @@ namespace HolidayPooling.Infrastructure.Configuration
 
         public const string DbLogger = "DBLogger";
 
+        public const string RepositoryLogger = "RepositoryLogger";
+
         #endregion
 
     }

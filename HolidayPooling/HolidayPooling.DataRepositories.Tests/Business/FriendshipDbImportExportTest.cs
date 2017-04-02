@@ -76,6 +76,46 @@ namespace HolidayPooling.DataRepositories.Tests.Business
         }
 
         [Test]
+        public void GetRequestedFriendships_WhenExceptionIsThrown_ShouldThrowImportExportException()
+        {
+            ImportExportExceptionTest(() => CreateMock().Object.GetRequestedFriendships(-1));
+        }
+
+        [Test]
+        public void GetRequestedFrienships_ShouldReturnRightRecords()
+        {
+            var firstFriend = ModelTestHelper.CreateFriendship(1, "toto", isRequested:true, isWaiting:true);
+            var secondFriend = ModelTestHelper.CreateFriendship(1, "tutu", isRequested:false, isWaiting:true);
+            var thirdFriend = ModelTestHelper.CreateFriendship(1, "Friend", isRequested:true, isWaiting:false);
+            Assert.IsTrue(_importExport.Save(firstFriend));
+            Assert.IsTrue(_importExport.Save(secondFriend));
+            Assert.IsTrue(_importExport.Save(thirdFriend));
+            var list = _importExport.GetRequestedFriendships(1);
+            Assert.AreEqual(1, list.Count());
+            Assert.IsTrue(list.Any(f => f.FriendName == "toto"));
+        }
+
+        [Test]
+        public void GetWaitingFriendships_WhenExceptionIsThrown_ShouldThrowImportExportException()
+        {
+            ImportExportExceptionTest(() => CreateMock().Object.GetWaitingFriendships(-1));
+        }
+
+        [Test]
+        public void GetWaitingFriendships_ShouldReturnRightRecords()
+        {
+            var firstFriend = ModelTestHelper.CreateFriendship(1, "toto", isRequested: true, isWaiting: true);
+            var secondFriend = ModelTestHelper.CreateFriendship(1, "tutu", isRequested: false, isWaiting: true);
+            var thirdFriend = ModelTestHelper.CreateFriendship(1, "Friend", isRequested: true, isWaiting: false);
+            Assert.IsTrue(_importExport.Save(firstFriend));
+            Assert.IsTrue(_importExport.Save(secondFriend));
+            Assert.IsTrue(_importExport.Save(thirdFriend));
+            var list = _importExport.GetWaitingFriendships(1);
+            Assert.AreEqual(1, list.Count());
+            Assert.IsTrue(list.Any(f => f.FriendName == "tutu"));
+        }
+
+        [Test]
         public void GetAllEntities_ShouldReturnAllRecords()
         {
             var firstFriend = ModelTestHelper.CreateFriendship(1, "toto");
