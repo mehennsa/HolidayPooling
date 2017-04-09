@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{4551F15C-CB48-4A6B-8CB4-67CE9F0FA2D4}"
 EndProject
@@ -30,6 +30,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HolidayPooling.Tests", "HolidayPooling.Tests\HolidayPooling.Tests.csproj", "{3A420604-1F93-498F-B02B-EF7F62CCC633}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HolidayPooling.DataRepositories.Tests", "HolidayPooling.DataRepositories.Tests\HolidayPooling.DataRepositories.Tests.csproj", "{B76F178F-CCEF-4A59-9A17-2D580828AC87}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{B8FFF2DE-6659-4CDF-91CA-3176C0293EEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HolidayPooling.Services", "HolidayPooling.Services\HolidayPooling.Services.csproj", "{9CB6F64A-C563-4E9D-86D9-0F45B17AFE14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HolidayPooling.Services.Tests", "HolidayPooling.Services.Tests\HolidayPooling.Services.Tests.csproj", "{319B8F10-16DE-494C-9FA8-119A2BAF2079}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +71,14 @@ Global
 		{B76F178F-CCEF-4A59-9A17-2D580828AC87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B76F178F-CCEF-4A59-9A17-2D580828AC87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B76F178F-CCEF-4A59-9A17-2D580828AC87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CB6F64A-C563-4E9D-86D9-0F45B17AFE14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CB6F64A-C563-4E9D-86D9-0F45B17AFE14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CB6F64A-C563-4E9D-86D9-0F45B17AFE14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CB6F64A-C563-4E9D-86D9-0F45B17AFE14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{319B8F10-16DE-494C-9FA8-119A2BAF2079}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{319B8F10-16DE-494C-9FA8-119A2BAF2079}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{319B8F10-16DE-494C-9FA8-119A2BAF2079}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{319B8F10-16DE-494C-9FA8-119A2BAF2079}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,5 +91,7 @@ Global
 		{6EC685C9-4392-495E-AE6E-29AEB4E35439} = {EDC53C91-CBDC-4D7C-A866-394E0BB02582}
 		{3A420604-1F93-498F-B02B-EF7F62CCC633} = {4551F15C-CB48-4A6B-8CB4-67CE9F0FA2D4}
 		{B76F178F-CCEF-4A59-9A17-2D580828AC87} = {EDC53C91-CBDC-4D7C-A866-394E0BB02582}
+		{9CB6F64A-C563-4E9D-86D9-0F45B17AFE14} = {B8FFF2DE-6659-4CDF-91CA-3176C0293EEA}
+		{319B8F10-16DE-494C-9FA8-119A2BAF2079} = {B8FFF2DE-6659-4CDF-91CA-3176C0293EEA}
 	EndGlobalSection
 EndGlobal

@@ -144,6 +144,8 @@ namespace HolidayPooling.DataRepositories.Repository
 
         public IEnumerable<User> GetUsers()
         {
+
+            Errors.Clear();
             IEnumerable<User> list = new List<User>();
             try
             {
@@ -161,6 +163,9 @@ namespace HolidayPooling.DataRepositories.Repository
 
         public User GetUser(int userId)
         {
+
+            Errors.Clear();
+
             User user = null;
             
             try
@@ -179,8 +184,9 @@ namespace HolidayPooling.DataRepositories.Repository
 
         public User GetUserByMail(string mail, string password)
         {
-            User user = null;
 
+            Errors.Clear();
+            User user = null;
             try
             {
                 _logger.Info(string.Format("Start retrieving User {0}", mail));
@@ -197,6 +203,8 @@ namespace HolidayPooling.DataRepositories.Repository
 
         public User GetUserByPseudo(string pseudo, string password)
         {
+
+            Errors.Clear();
             User user = null;
 
             try
@@ -204,6 +212,24 @@ namespace HolidayPooling.DataRepositories.Repository
                 _logger.Info(string.Format("Start retrieving User {0}", pseudo));
                 user = _userPersister.GetUserByPseudoAndPassword(pseudo, password);
                 _logger.Info("End retrieving user with pseudo");
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex, _logger);
+            }
+
+            return user;
+        }
+
+        public User GetUserInfo(string pseudo)
+        {
+            User user = null;
+
+            try
+            {
+                _logger.Info(string.Format("Start retrieving User info {0}", pseudo));
+                user = _userPersister.GetUserInfo(pseudo);
+                _logger.Info("End retrieving user info with pseudo");
             }
             catch (Exception ex)
             {

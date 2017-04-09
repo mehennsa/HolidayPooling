@@ -288,6 +288,33 @@ namespace HolidayPooling.DataRepositories.Tests.Repository
             Assert.AreEqual(pseudo, user.Pseudo);
         }
 
+        [Test]
+        public void GetUserInfo_WhenExceptionIsThrown_ShouldLogError()
+        {
+            var mock = CreateMock();
+            mock.Setup(s => s.GetUserInfo(It.IsAny<string>()))
+                .Throws(new ImportExportException("ExceptionForTest"));
+            var repo = CreateRepository(mock.Object);
+            repo.GetUserInfo("toto");
+            CheckErrors(repo, "ExceptionForTest");
+        }
+
+        [Test]
+        public void GetUserInfo_ShouldReturnUser()
+        {
+            const string pseudo = "MyEmail";
+            const string password = "pwd";
+            var mock = CreateMock();
+            mock.Setup(s => s.GetUserInfo(pseudo))
+                .Returns(ModelTestHelper.CreateUser(1, pseudo, password: password));
+            var repo = CreateRepository(mock.Object);
+            var user = repo.GetUserInfo(pseudo);
+            Assert.IsFalse(repo.HasErrors);
+            Assert.IsNotNull(user);
+            Assert.AreEqual(1, user.Id);
+            Assert.AreEqual(pseudo, user.Pseudo);
+        }
+
         #endregion
 
         #region Methods

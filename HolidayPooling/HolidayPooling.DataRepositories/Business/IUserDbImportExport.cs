@@ -15,6 +15,8 @@ namespace HolidayPooling.DataRepositories.Business
 
         User GetUserByPseudoAndPassword(string pseudo, string password);
 
+        User GetUserInfo(string pseudo);
+
         bool IsPseudoUsed(string pseudo);
 
         bool IsMailUsed(string mail);

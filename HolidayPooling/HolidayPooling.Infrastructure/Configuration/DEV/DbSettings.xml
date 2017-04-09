@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Settings>
-  <Setting name="HolidayPooling" connectionString="Server=127.0.0.1;Port=5432;Database=HPDBD;Integrated Security=true;" login="F3E6D01721AF422279E3A70D86DCF867" password="A2B5B0D0FD2C54D29F390507D3DD2210"/>
+  <Setting name="HolidayPooling" connectionString="Server=127.0.0.1;Port=5432;Database=HPDBD;Integrated Security=true;Pooling=true;MinPoolSize=1;MaxPoolSize=20;enlist=true;" login="F3E6D01721AF422279E3A70D86DCF867" password="A2B5B0D0FD2C54D29F390507D3DD2210"/>
 </Settings>

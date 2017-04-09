@@ -115,6 +115,19 @@ namespace HolidayPooling.DataRepositories.Business
                                             );
         }
 
+        public User GetUserInfo(string pseudo)
+        {
+            return GetUserByCustomCriteriaWithPassword
+                                (
+                                    "Pseudo",
+                                    SelectByPseudo,
+                                    pseudo,
+                                    string.Empty,
+                                    (cmd, s) => cmd.AddStringParameter(":pPSD", s),
+                                    false
+                                );
+        }
+
         public User GetUserByPseudoAndPassword(string pseudo, string password)
         {
             return GetUserByCustomCriteriaWithPassword
@@ -366,7 +379,7 @@ namespace HolidayPooling.DataRepositories.Business
         #region Utils
 
         private User GetUserByCustomCriteriaWithPassword(string criteriaName, string customQuery, string criteria, string password, 
-            Action<IDatabaseCommand, string> commandSetup)
+            Action<IDatabaseCommand, string> commandSetup, bool usePassword = true)
         {
             User user = null;
             _logger.Info(string.Format("Start retrieving user by {0}", criteriaName));
@@ -385,14 +398,15 @@ namespace HolidayPooling.DataRepositories.Business
 
                             if (user != null)
                             {
-                                var salt = reader.GetString("USRSLT");
-                                if (!PasswordHasher.CheckPassword(password + salt, user.Password))
+                                var userPassword = user.Password;
+                                user.Password = string.Empty;
+                                if (usePassword)
                                 {
-                                    user = null;
-                                }
-                                else
-                                {
-                                    user.Password = string.Empty;
+                                    var salt = reader.GetString("USRSLT");
+                                    if (!PasswordHasher.CheckPassword(password + salt, userPassword))
+                                    {
+                                        user = null;
+                                    }
                                 }
                             }
                         }

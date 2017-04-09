@@ -24,5 +24,7 @@ namespace HolidayPooling.DataRepositories.Repository
 
         User GetUserByPseudo(string pseudo, string password);
 
+        User GetUserInfo(string pseudo);
+
     }
 }

@@ -172,6 +172,7 @@ namespace HolidayPooling.DataRepositories.Repository
 
         public IEnumerable<UserTrip> GetAllUserTrip()
         {
+            Errors.Clear();
             IEnumerable<UserTrip> list = new List<UserTrip>();
             try
             {

@@ -129,6 +129,29 @@ namespace HolidayPooling.DataRepositories.Tests.Business
         }
 
         [Test]
+        public void GetUserInfo_WhenException_ShouldImportExportException()
+        {
+            ImportExportExceptionTest(() => CreateMock().Object.GetUserInfo("PSD"));
+        }
+
+        [Test]
+        public void GetUserInfo_WhenNotExist_ShouldReturnNull()
+        {
+            Assert.IsNull(_importExport.GetUserInfo("WrongPsd"));
+        }
+
+        [Test]
+        public void GetUserInfo_WhenExist_ShouldReturnUser()
+        {
+            var user = CreateModel();
+            user.Pseudo = "NewPseudo";
+            Assert.IsTrue(_importExport.Save(user));
+            var dbUser = _importExport.GetUserInfo(user.Pseudo);
+            Assert.IsNotNull(dbUser);
+            Assert.IsEmpty(dbUser.Password);
+        }
+
+        [Test]
         public void GetNewId_WhenException_ShouldThrowImportExportException()
         {
             ImportExportExceptionTest(() => CreateMock().Object.GetNewId());
