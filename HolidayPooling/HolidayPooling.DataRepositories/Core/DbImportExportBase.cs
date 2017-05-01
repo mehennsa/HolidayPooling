@@ -14,10 +14,8 @@ namespace HolidayPooling.DataRepositories.Core
     public abstract class DbImportExportBase<TKey, TValue> : ICacheable<TKey, TValue>
     {
         #region Fields
-        
-        protected static bool _isCacheRefreshed = false;
+
         protected bool _useCache;
-        private static readonly ILog _logger = LoggerManager.GetLogger(LoggerNames.DbLogger);
  
         #endregion
  
@@ -46,6 +44,7 @@ namespace HolidayPooling.DataRepositories.Core
 
         public virtual int GetNewId()
         {
+            var logger = LoggerManager.GetLogger(LoggerNames.DbLogger);
             int result = -1;
             try
             {
@@ -67,7 +66,7 @@ namespace HolidayPooling.DataRepositories.Core
             }
             catch (Exception ex)
             {
-                _logger.Error("Error while trying to execute query : " + NewIdQuery(), ex);   
+                logger.Error("Error while trying to execute query : " + NewIdQuery(), ex);   
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -83,6 +82,7 @@ namespace HolidayPooling.DataRepositories.Core
 
         protected virtual IEnumerable<TValue> GetListValuesWithIdParameter(string query, string parameterName, int id)
         {
+            var logger = LoggerManager.GetLogger(LoggerNames.DbLogger);
             var list = new List<TValue>();
             try
             {
@@ -105,7 +105,7 @@ namespace HolidayPooling.DataRepositories.Core
             }
             catch (Exception ex)
             {
-                _logger.Error("Error occured while trying to execute the following query : " + query, ex);
+                logger.Error("Error occured while trying to execute the following query : " + query, ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -114,6 +114,7 @@ namespace HolidayPooling.DataRepositories.Core
 
         protected virtual IEnumerable<TValue> InternalGetAllEntities(Action<TValue> beforeAdd = null)
         {
+            var logger = LoggerManager.GetLogger(LoggerNames.DbLogger);
             var list = new List<TValue>();
             try
             {
@@ -142,7 +143,7 @@ namespace HolidayPooling.DataRepositories.Core
             }
             catch (Exception ex)
             {
-                _logger.Error("Error occured while trying to execute the following query : " + GetSelectQuery(), ex);
+                logger.Error("Error occured while trying to execute the following query : " + GetSelectQuery(), ex);
                 throw new ImportExportException("Error occured during database access " + ex.Message, ex);
             }
 
@@ -160,43 +161,11 @@ namespace HolidayPooling.DataRepositories.Core
  
         public void FillCache()
         {
-            if (_isCacheRefreshed)
-            {
-                return;
-            }
-            try
-            {
-                using (var con = new DatabaseConnection(DatabaseType.PostgreSql, 
-                    ConnectionManager.GetConnectionString(HolidayPoolingDatabase.HP)))
-                {
-                    using (var cmd = con.CreateCommand())
-                    {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = GetSelectQuery();
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var key = CreateKeyFromReader(reader);
-                                if (!Cache.Contains(key))
-                                {
-                                    Cache.AddElement(key, CreateValueFromReader(reader));
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch (DatabaseException)
-             {
- 
-            }
         }
  
         public void Clear()
         {
             Cache.Clear();
-             _isCacheRefreshed = false;
         }
  
         #endregion

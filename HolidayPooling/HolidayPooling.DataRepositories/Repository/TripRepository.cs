@@ -185,9 +185,9 @@ namespace HolidayPooling.DataRepositories.Repository
 
             try
             {
-                _logger.Info(string.Format("Start retrieving valid trip after", validityDate));
+                _logger.Info(string.Format("Start retrieving valid trip after {0}", validityDate));
                 list = _persister.GetValidTrips(validityDate);
-                _logger.Info(string.Format("End retrieving valid trip after", validityDate));
+                _logger.Info(string.Format("End retrieving valid trip after {0}", validityDate));
             }
             catch (Exception ex)
             {
