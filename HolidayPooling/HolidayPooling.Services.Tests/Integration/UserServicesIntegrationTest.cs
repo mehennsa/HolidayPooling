@@ -133,6 +133,49 @@ namespace HolidayPooling.Services.Tests.Integration
         }
 
         [Test]
+        public void Delete_WhenErrorDuringDelete_ShouldRollBack()
+        {
+            var userRepo = new UserRepository();
+            var friendshipRepo = new FriendshipRepository();
+            var tripRepo = new UserTripRepository();
+
+            var user = ModelTestHelper.CreateUser(1, "DeleteUser");
+            var pwd = user.Password;
+            userRepo.SaveUser(user);
+            Assert.IsFalse(userRepo.HasErrors);
+            var secondUser = ModelTestHelper.CreateUser(2, "AFriend", "AFriendMail");
+            userRepo.SaveUser(secondUser);
+            Assert.IsFalse(userRepo.HasErrors);
+
+            var friendship = ModelTestHelper.CreateFriendship(user.Id, secondUser.Pseudo);
+            var otherFriendship = ModelTestHelper.CreateFriendship(secondUser.Id, user.Pseudo);
+            friendshipRepo.SaveFriendship(friendship);
+            friendshipRepo.SaveFriendship(otherFriendship);
+            Assert.IsFalse(friendshipRepo.HasErrors);
+            user.AddFriend(friendship);
+            secondUser.AddFriend(otherFriendship);
+
+            var trip = ModelTestHelper.CreateUserTrip(user.Id, "ATrip");
+            tripRepo.SaveUserTrip(trip);
+            Assert.IsFalse(tripRepo.HasErrors);
+            user.AddTrip(trip);
+
+            var mock = new Mock<IUserTripRepository>();
+            mock.Setup(s => s.DeleteUserTrip(trip)).Callback(() => tripRepo.DeleteUserTrip(trip));
+            mock.SetupGet(s => s.HasErrors).Returns(true);
+            var service = new UserServices(new UserRepository(), mock.Object, new FriendshipRepository());
+            service.DeleteUser(user);
+            service = new UserServices();
+            var dbUser = service.LoginByPseudo(user.Pseudo, pwd);
+            Assert.IsNotNull(dbUser);
+            Assert.AreEqual(1, dbUser.Friends.Count());
+            Assert.AreEqual(1, dbUser.Trips.Count());
+            Assert.AreEqual(1, service.GetUserTrips(user.Id).Count());
+            Assert.AreEqual(1, service.GetUserFriendships(user.Id).Count());
+            Assert.AreEqual(1, service.GetUserFriendships(secondUser.Id).Count(f => f.FriendName == user.Pseudo));
+        }
+
+        [Test]
         public void Delete_WhenValid_ShouldCommit()
         {
             var userRepo = new UserRepository();

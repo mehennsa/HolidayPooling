@@ -113,7 +113,7 @@ namespace HolidayPooling.Models.Core
 
         #region ICloneable
 
-        public object Clone()
+        public virtual object Clone()
         {
             return new Friendship(this);
         }

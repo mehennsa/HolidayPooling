@@ -49,6 +49,8 @@
   <ItemGroup>
     <Compile Include="Core\BaseServices.cs" />
     <Compile Include="Core\IServices.cs" />
+    <Compile Include="Friendships\FriendshipServices.cs" />
+    <Compile Include="Friendships\IFriendshipServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users\IUserServices.cs" />
     <Compile Include="Users\UserServices.cs" />
