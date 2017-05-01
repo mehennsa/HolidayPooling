@@ -89,7 +89,7 @@
     <Compile Include="Core\Pot.cs" />
     <Compile Include="Core\PotMode.cs" />
     <Compile Include="Core\PotUser.cs" />
-    <Compile Include="Core\RoleEnum.cs" />
+    <Compile Include="Core\Role.cs" />
     <Compile Include="Core\Trip.cs" />
     <Compile Include="Core\TripParticipant.cs" />
     <Compile Include="Core\User.cs" />

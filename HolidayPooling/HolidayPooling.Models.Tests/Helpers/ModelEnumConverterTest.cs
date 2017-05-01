@@ -24,22 +24,22 @@ namespace HolidayPooling.Models.Tests.Helpers
 
         #region Tests
 
-        [TestCase(null, RoleEnum.None)]
-        [TestCase("", RoleEnum.None)]
-        [TestCase("wrong", RoleEnum.None)]
-        [TestCase(Admin, RoleEnum.Admin)]
-        [TestCase(Common, RoleEnum.Common)]
-        public void RoleEnumFromString_ShouldReturnCorrectEnumValue(string role, RoleEnum expected)
+        [TestCase(null, Role.None)]
+        [TestCase("", Role.None)]
+        [TestCase("wrong", Role.None)]
+        [TestCase(Admin, Role.Admin)]
+        [TestCase(Common, Role.Common)]
+        public void RoleEnumFromString_ShouldReturnCorrectEnumValue(string role, Role expected)
         {
-            Assert.AreEqual(expected, ModelEnumConverter.RoleEnumFromString(role));
+            Assert.AreEqual(expected, ModelEnumConverter.RoleFromString(role));
         }
 
-        [TestCase(RoleEnum.Admin, Admin)]
-        [TestCase(RoleEnum.Common, Common)]
-        [TestCase(RoleEnum.None, "")]
-        public void RoleEnumToString_ShouldReturnCorrectStringValue(RoleEnum role, string expected)
+        [TestCase(Role.Admin, Admin)]
+        [TestCase(Role.Common, Common)]
+        [TestCase(Role.None, "")]
+        public void RoleEnumToString_ShouldReturnCorrectStringValue(Role role, string expected)
         {
-            Assert.AreEqual(expected, ModelEnumConverter.RoleEnumToString(role));
+            Assert.AreEqual(expected, ModelEnumConverter.RoleToString(role));
         }
 
         #endregion

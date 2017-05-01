@@ -161,6 +161,7 @@ namespace HolidayPooling.DataRepositories.Core
  
         public void FillCache()
         {
+            throw new NotImplementedException();
         }
  
         public void Clear()

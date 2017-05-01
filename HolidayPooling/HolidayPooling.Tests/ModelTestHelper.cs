@@ -172,7 +172,7 @@ namespace HolidayPooling.Tests
         }
 
         public static User CreateUser(int id, string pseudo, string mail = "myEmail",
-            string password = "Pwd", int age = 22, string description = "desc", RoleEnum role = RoleEnum.Admin,
+            string password = "Pwd", int age = 22, string description = "desc", Role role = Role.Admin,
             DateTime? creationDate = null, string phoneNumber = "phoneNumber", UserType type = UserType.Customer,
             double note = 3.2)
         {
@@ -195,7 +195,7 @@ namespace HolidayPooling.Tests
 
         public static User CreateUser(int id, string pseudo, List<string> centerOfInterest, List<Friendship> friends,
            List<UserTrip> trips, string mail = "myEmail",
-           string password = "Pwd", int age = 22, string description = "desc", RoleEnum role = RoleEnum.Admin,
+           string password = "Pwd", int age = 22, string description = "desc", Role role = Role.Admin,
            DateTime? creationDate = null, string phoneNumber = "phoneNumber", UserType type = UserType.Customer,
            double note = 3.2)
         {

@@ -38,7 +38,7 @@ namespace HolidayPooling.Models.Core
         public string Description { get; set; }
 
         [DataMember]
-        public RoleEnum Role { get; set; }
+        public Role Role { get; set; }
 
         [DataMember]
         public UserType Type { get; set; }
@@ -49,19 +49,10 @@ namespace HolidayPooling.Models.Core
         [DataMember]
         public double Note { get; set; }
 
-        private List<string> _centerOfInterests;
-
         [DataMember]
-        public List<string> CenterOfInterests
-        {
-            get { return _centerOfInterests; }
-            set
-            {
-                _centerOfInterests = value;
-            }
-        }
+        public List<string> CenterOfInterests { get; set; }
 
-        private List<UserTrip> _trips;
+        private readonly List<UserTrip> _trips;
 
         [DataMember]
         public IEnumerable<UserTrip> Trips
@@ -69,7 +60,7 @@ namespace HolidayPooling.Models.Core
             get { return _trips; }
         }
 
-        private List<Friendship> _friends;
+        private readonly List<Friendship> _friends;
 
         [DataMember]
         public IEnumerable<Friendship> Friends
@@ -86,11 +77,11 @@ namespace HolidayPooling.Models.Core
             Id = -1;
             _friends = new List<Friendship>();
             _trips = new List<UserTrip>();
-            _centerOfInterests = new List<string>();
+            CenterOfInterests = new List<string>();
         }
 
         public User(int id, string mail, string password, string pseudo, int age, string description,
-            RoleEnum role, DateTime creationDate, string phoneNumber, UserType type, double note)
+            Role role, DateTime creationDate, string phoneNumber, UserType type, double note)
             : this()
         {
             Id = id;
@@ -106,19 +97,19 @@ namespace HolidayPooling.Models.Core
             Type = type;
         }
 
-        internal User(int id, string mail, string password, string pseudo, int age, string description, RoleEnum role,
+        internal User(int id, string mail, string password, string pseudo, int age, string description, Role role,
             DateTime creationDate, string phoneNumber, UserType type, double note, List<string> centerOfInterests,
             List<UserTrip> trips, List<Friendship> friends)
             : this(id, mail, password, pseudo, age, description, role, creationDate, phoneNumber, type, note)
         {
             _trips = trips;
             _friends = friends;
-            _centerOfInterests = centerOfInterests;
+            CenterOfInterests = centerOfInterests;
         }
 
         internal User(User user)
             : this(user.Id, user.Mail, user.Password, user.Pseudo, user.Age, user.Description, user.Role, user.CreationDate,
-            user.PhoneNumber, user.Type, user.Note, user._centerOfInterests,
+            user.PhoneNumber, user.Type, user.Note, user.CenterOfInterests,
             user._trips, user._friends)
         {
 

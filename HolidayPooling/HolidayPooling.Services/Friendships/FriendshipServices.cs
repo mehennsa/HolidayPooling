@@ -13,8 +13,8 @@ namespace HolidayPooling.Services.Friendships
 
         #region Repositories Dependencies
 
-        private IUserRepository _userRepository;
-        private IFriendshipRepository _friendshipRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IFriendshipRepository _friendshipRepository;
 
         #endregion
 

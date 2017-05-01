@@ -239,7 +239,7 @@ namespace HolidayPooling.Models.Tests.Core
         [Test]
         public void Clone_ShoulDuplicateValues()
         {
-            var user = ModelTestHelper.CreateUser(1, "Clone", mail: "CloneEmail", role: RoleEnum.Common,
+            var user = ModelTestHelper.CreateUser(1, "Clone", mail: "CloneEmail", role: Role.Common,
                 phoneNumber: "ClonePhoneNumber");
             user.CenterOfInterests.Add("ACenterOfInterest");
             user.CenterOfInterests.Add("Tennis");

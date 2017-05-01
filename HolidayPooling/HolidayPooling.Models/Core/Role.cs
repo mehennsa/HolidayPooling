@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace HolidayPooling.Models.Core
 {
     [Serializable]
-    public enum RoleEnum
+    public enum Role
     {
         Common,
         Admin,

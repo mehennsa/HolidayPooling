@@ -10,7 +10,7 @@ namespace HolidayPooling.Models.Helpers
     public static class ModelEnumConverter
     {
 
-        #region RoleEnum
+        #region Role
 
         #region Fields
 
@@ -21,15 +21,15 @@ namespace HolidayPooling.Models.Helpers
 
         #region Methods
 
-        public static string RoleEnumToString(RoleEnum role)
+        public static string RoleToString(Role role)
         {
             var result = string.Empty;
             switch (role)
             {
-                case RoleEnum.Admin:
+                case Role.Admin:
                     result = Admin;
                     break;
-                case RoleEnum.Common:
+                case Role.Common:
                     result = Common;
                     break;
                 default:
@@ -39,21 +39,21 @@ namespace HolidayPooling.Models.Helpers
             return result;
         }
 
-        public static RoleEnum RoleEnumFromString(string role)
+        public static Role RoleFromString(string role)
         {
             if (string.IsNullOrEmpty(role))
             {
-                return RoleEnum.None;
+                return Role.None;
             }
 
-            var result = RoleEnum.None;
+            var result = Role.None;
             switch (role)
             {
                 case Admin:
-                    result = RoleEnum.Admin;
+                    result = Role.Admin;
                     break;
                 case Common:
-                    result = RoleEnum.Common;
+                    result = Role.Common;
                     break;
                 default:
                     break;

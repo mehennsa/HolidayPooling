@@ -4,9 +4,6 @@ using HolidayPooling.Models.Core;
 using log4net;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HolidayPooling.DataRepositories.Repository
 {
@@ -30,7 +27,7 @@ namespace HolidayPooling.DataRepositories.Repository
 
         #region Properties
 
-        private IPotDbImportExport _persister;
+        private readonly IPotDbImportExport _persister;
         private static readonly ILog _logger = LoggerManager.GetLogger(LoggerNames.RepositoryLogger);
 
         #endregion

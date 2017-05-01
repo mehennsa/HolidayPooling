@@ -26,10 +26,10 @@ namespace HolidayPooling.DataRepositories.Business
         #region SQL
 
 
-        private string InsertQuery = "INSERT INTO TTRPPTP (TRPIDT, USRPSD, INDUSRPTP, TRPNOT, VALDAT)" +
+        private const string InsertQuery = "INSERT INTO TTRPPTP (TRPIDT, USRPSD, INDUSRPTP, TRPNOT, VALDAT)" +
                                     " VALUES (:pTRPIDT, :pUSRPSD, :pINDUSRPTP, :pTRPNOT, :pVALDAT)";
 
-        private string DeleteQuery = "DELETE FROM TTRPPTP WHERE TRPIDT = :pTRPIDT AND USRPSD = :pUSRPSD";
+        private const string DeleteQuery = "DELETE FROM TTRPPTP WHERE TRPIDT = :pTRPIDT AND USRPSD = :pUSRPSD";
 
         private const string UpdateQuery = "UPDATE TTRPPTP SET" +
                                             " INDUSRPTP = :pINDUSRPTP, TRPNOT = :pTRPNOT, VALDAT = :pVALDAT" +

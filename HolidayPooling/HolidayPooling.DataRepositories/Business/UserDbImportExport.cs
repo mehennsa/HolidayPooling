@@ -75,7 +75,7 @@ namespace HolidayPooling.DataRepositories.Business
                     reader.GetString("PSD"),
                     reader.GetInt("AGE"),
                     reader.GetString("DSC"),
-                    ModelEnumConverter.RoleEnumFromString(reader.GetString("RLE")),
+                    ModelEnumConverter.RoleFromString(reader.GetString("RLE")),
                     reader.GetDate("CREDAT"),
                     reader.GetString("PHNNBR"),
                     ModelEnumConverter.UserTypeFromString(reader.GetString("TYP")),
@@ -243,7 +243,7 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddStringParameter(":pPHNNBR", entity.PhoneNumber);
                         cmd.AddStringParameter(":pTYP", ModelEnumConverter.UserTypeToString(entity.Type));
                         cmd.AddStringParameter(":pDSC", entity.Description);
-                        cmd.AddStringParameter(":pRLE", ModelEnumConverter.RoleEnumToString(entity.Role));
+                        cmd.AddStringParameter(":pRLE", ModelEnumConverter.RoleToString(entity.Role));
                         cmd.AddDateParameter(":pCREDAT", entity.CreationDate);
                         cmd.AddDoubleParameter(":pUSRNOT", entity.Note);
                         saved = cmd.ExecuteNonQuery() > 0;
@@ -314,7 +314,7 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddStringParameter(":pPHNNBR", entity.PhoneNumber);
                         cmd.AddStringParameter(":pDSC", entity.Description);
                         cmd.AddStringParameter(":pTYP", ModelEnumConverter.UserTypeToString(entity.Type));
-                        cmd.AddStringParameter(":pRLE", ModelEnumConverter.RoleEnumToString(entity.Role));
+                        cmd.AddStringParameter(":pRLE", ModelEnumConverter.RoleToString(entity.Role));
                         cmd.AddDateParameter(":pCREDAT", entity.CreationDate);
                         cmd.AddDoubleParameter(":pUSRNOT", entity.Note);
                         updated = cmd.ExecuteNonQuery() > 0;
