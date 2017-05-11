@@ -77,6 +77,29 @@ namespace HolidayPooling.DataRepositories.Tests.Business
         }
 
         [Test]
+        public void GetUserTripsByTrip_WhenException_ShouldThrowImportExportException()
+        {
+            ImportExportExceptionTest(() => CreateMock().Object.GetUserTripsByTrip("aTrip"));
+        }
+
+        [Test]
+        public void GetUserTripsByTrip_ShouldReturnRightRecord()
+        {
+            var firstUserTrip = ModelTestHelper.CreateUserTrip(1, "First");
+            var secondUserTrip = ModelTestHelper.CreateUserTrip(2, "Second");
+            var thirdUserTrip = ModelTestHelper.CreateUserTrip(3, "First");
+            Assert.IsTrue(_importExport.Save(firstUserTrip));
+            Assert.IsTrue(_importExport.Save(secondUserTrip));
+            Assert.IsTrue(_importExport.Save(thirdUserTrip));
+            var list = _importExport.GetUserTripsByTrip("First");
+            Assert.AreEqual(2, list.Count());
+            Assert.IsTrue(list.Any(u => u.UserId == 1));
+            Assert.IsFalse(list.Any(u => u.TripName == "Second"));
+            Assert.IsTrue(list.Any((u => u.UserId == 3)));
+            Assert.IsFalse(list.Any(u => u.UserId == 2));
+        }
+
+        [Test]
         public void GetAllEntities_ShouldReturnAllRecords()
         {
             var firstUserTrip = ModelTestHelper.CreateUserTrip(1, "First");

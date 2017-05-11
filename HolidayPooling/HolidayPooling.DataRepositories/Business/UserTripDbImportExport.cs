@@ -40,6 +40,8 @@ namespace HolidayPooling.DataRepositories.Business
 
         private const string SelectByKey = SelectByUserId + " AND TRPNAM = :pTRPNAM";
 
+        private const string SelectByTripName = SelectQuery + " WHERE TRPNAM = :pTRPNAM";
+
         #endregion
 
         #region .ctor
@@ -228,6 +230,39 @@ namespace HolidayPooling.DataRepositories.Business
             }
 
             return userTrip;
+        }
+
+        public IEnumerable<UserTrip> GetUserTripsByTrip(string tripName)
+        {
+            _logger.Info("Start retrieving user trips by trip name");
+            var list = new List<UserTrip>();
+
+            try
+            {
+                using (var con = new DatabaseConnection(DatabaseType.PostgreSql, GetConnectionString()))
+                {
+                    using (var cmd = con.CreateCommand())
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        cmd.CommandText = SelectByTripName;
+                        cmd.AddStringParameter(":pTRPNAM", tripName);
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while(reader.Read())
+                            {
+                                list.Add(CreateValueFromReader(reader));
+                            }
+                        }
+                    }
+                }
+
+                return list;
+            }
+            catch(Exception ex)
+            {
+                _logger.Error("Error while retrieving user's trip with query : " + SelectByTripName, ex);
+                throw new ImportExportException("Error occured during database access " + ex.Message, ex);
+            }
         }
 
         public IEnumerable<UserTrip> GetAllEntities()

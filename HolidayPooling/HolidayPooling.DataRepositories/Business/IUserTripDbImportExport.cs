@@ -11,5 +11,7 @@ namespace HolidayPooling.DataRepositories.Business
     public interface IUserTripDbImportExport : IDbImportExport<UserTripKey, UserTrip>
     {
         IEnumerable<UserTrip> GetTripForUser(int userId);
+
+        IEnumerable<UserTrip> GetUserTripsByTrip(string tripName);
     }
 }

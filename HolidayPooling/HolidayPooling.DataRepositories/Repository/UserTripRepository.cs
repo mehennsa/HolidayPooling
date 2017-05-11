@@ -167,6 +167,27 @@ namespace HolidayPooling.DataRepositories.Repository
 
         }
 
+        public IEnumerable<UserTrip> GetUserTripsByTrip(string tripName)
+        {
+            Errors.Clear();
+
+
+            IEnumerable<UserTrip> list = new List<UserTrip>();
+            try
+            {
+                _logger.Info(string.Format("Start retrieving user trip's information for trip {0}", tripName));
+                list = _persister.GetUserTripsByTrip(tripName);
+                _logger.Info(string.Format("End retrieving user trip's information for trip {0}", tripName));
+
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex, _logger);
+            }
+
+            return list;
+        }
+
         public IEnumerable<UserTrip> GetAllUserTrip()
         {
             Errors.Clear();

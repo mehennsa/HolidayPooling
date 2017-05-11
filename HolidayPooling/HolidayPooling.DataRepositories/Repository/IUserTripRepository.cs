@@ -20,6 +20,8 @@ namespace HolidayPooling.DataRepositories.Repository
 
         IEnumerable<UserTrip> GetUserTrips(int userId);
 
+        IEnumerable<UserTrip> GetUserTripsByTrip(string tripName);
+
         IEnumerable<UserTrip> GetAllUserTrip();
 
     }

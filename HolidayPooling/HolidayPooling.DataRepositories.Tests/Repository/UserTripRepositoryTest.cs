@@ -205,6 +205,30 @@ namespace HolidayPooling.DataRepositories.Tests.Repository
         }
 
         [Test]
+        public void GetUserTripsByTrip_WhenExceptionIsThrown_ShouldLogError()
+        {
+            var mock = CreateMock();
+            mock.Setup(s => s.GetUserTripsByTrip(It.IsAny<string>())).Throws(new ImportExportException("ExceptionForGetUserTripsByTripTest"));
+            var repo = CreateRepository(mock.Object);
+            repo.GetUserTripsByTrip("exceptionTripn");
+            CheckErrors(repo, "ExceptionForGetUserTripsByTripTest");
+        }
+
+        [Test]
+        public void GetUserTripsByTrip_WhenValid_SHouldNotSetErrors()
+        {
+            var list = new List<UserTrip> { ModelTestHelper.CreateUserTrip(1, "Trip1"), ModelTestHelper.CreateUserTrip(2, "Trip1") };
+            var mock = CreateMock();
+            mock.Setup(s => s.GetUserTripsByTrip("Trip1")).Returns(list);
+            var repo = CreateRepository(mock.Object);
+            var dbList = repo.GetUserTripsByTrip("Trip1");
+            Assert.IsFalse(repo.HasErrors);
+            Assert.AreEqual(2, dbList.Count());
+            Assert.IsTrue(dbList.Any(u => u.UserId == 1));
+            Assert.IsTrue(dbList.Any(u => u.UserId == 2));
+        }
+
+        [Test]
         public void GetAllUserTrip_WhenExceptionIsThrown_ShouldLogError()
         {
             var mock = CreateMock();
