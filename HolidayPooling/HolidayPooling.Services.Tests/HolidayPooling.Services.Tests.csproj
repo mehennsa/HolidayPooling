@@ -67,8 +67,10 @@
   <ItemGroup>
     <Compile Include="Integration\BaseIntegrationTest.cs" />
     <Compile Include="Integration\FriendshipIntegrationTest.cs" />
+    <Compile Include="Integration\PotServicesIntegrationTest.cs" />
     <Compile Include="Integration\TripServicesIntegrationTest.cs" />
     <Compile Include="Integration\UserServicesIntegrationTest.cs" />
+    <Compile Include="Pots\PotServicesTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Friendships\FriendshipServicesTest.cs" />
     <Compile Include="Trip\TripServicesTest.cs" />

@@ -51,6 +51,8 @@
     <Compile Include="Core\IServices.cs" />
     <Compile Include="Friendships\FriendshipServices.cs" />
     <Compile Include="Friendships\IFriendshipServices.cs" />
+    <Compile Include="Pots\IPotServices.cs" />
+    <Compile Include="Pots\PotServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Trips\ITripServices.cs" />
     <Compile Include="Trips\TripServices.cs" />
@@ -75,5 +77,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
