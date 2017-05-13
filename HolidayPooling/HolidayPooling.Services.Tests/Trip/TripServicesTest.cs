@@ -476,10 +476,10 @@ namespace HolidayPooling.Services.Tests.Trip
             _mockTripParticipant.Setup(m => m.DeleteTripParticipant(ptp)).Callback
                 (
                 () =>
-                    {
-                        _mockTripParticipant.SetupGet(m => m.HasErrors).Returns(true);
-                        _mockTripParticipant.SetupGet(m => m.Errors).Returns(errors);
-                    }
+                {
+                    _mockTripParticipant.SetupGet(m => m.HasErrors).Returns(true);
+                    _mockTripParticipant.SetupGet(m => m.Errors).Returns(errors);
+                }
                 );
             CreateServices();
             _tripServices.Quit(trip, 1, "aUser");
@@ -546,10 +546,10 @@ namespace HolidayPooling.Services.Tests.Trip
             _mockUserTripRepo.Setup(m => m.DeleteUserTrip(userTrip)).Callback
                 (
                 () =>
-                    {
-                        _mockUserTripRepo.SetupGet(m => m.HasErrors).Returns(true);
-                        _mockUserTripRepo.SetupGet(m => m.Errors).Returns(errors);
-                    }
+                {
+                    _mockUserTripRepo.SetupGet(m => m.HasErrors).Returns(true);
+                    _mockUserTripRepo.SetupGet(m => m.Errors).Returns(errors);
+                }
                 );
             CreateServices();
             _tripServices.Quit(trip, 1, "aUser");
@@ -623,10 +623,10 @@ namespace HolidayPooling.Services.Tests.Trip
             _mockPotUserRepo.Setup(m => m.DeletePotUser(potUser)).Callback
                 (
                 () =>
-                    {
-                        _mockPotUserRepo.SetupGet(m => m.HasErrors).Returns(true);
-                        _mockPotUserRepo.SetupGet(m => m.Errors).Returns(errors);
-                    }
+                {
+                    _mockPotUserRepo.SetupGet(m => m.HasErrors).Returns(true);
+                    _mockPotUserRepo.SetupGet(m => m.Errors).Returns(errors);
+                }
                 );
             CreateServices();
             _tripServices.Quit(trip, 1, "aUser");
@@ -641,7 +641,7 @@ namespace HolidayPooling.Services.Tests.Trip
             var pot = ModelTestHelper.CreatePot(1, 1);
             var ptp = ModelTestHelper.CreateTripParticipant(1, "aUser");
             var userTrip = ModelTestHelper.CreateUserTrip(1, trip.TripName);
-            var potUser = ModelTestHelper.CreatePotUser(1, pot.Id, amount:0);
+            var potUser = ModelTestHelper.CreatePotUser(1, pot.Id, amount: 0);
             trip.TripPot = pot;
             trip.AddParticipant(ptp);
             Assert.AreEqual(1, trip.Participants.Count());
@@ -666,10 +666,10 @@ namespace HolidayPooling.Services.Tests.Trip
         public void Quit_WhenPotUserHasPayedAndUnableToUpdatePot_ShouldLogError()
         {
             var trip = ModelTestHelper.CreateTrip(1, "UnableToDeleteTrip", 1000);
-            var pot = ModelTestHelper.CreatePot(1, 1, targetAmount:1000, amount:200);
+            var pot = ModelTestHelper.CreatePot(1, 1, targetAmount: 1000, amount: 200);
             var ptp = ModelTestHelper.CreateTripParticipant(1, "aUser");
             var userTrip = ModelTestHelper.CreateUserTrip(1, trip.TripName);
-            var potUser = ModelTestHelper.CreatePotUser(1, pot.Id, amount:200);
+            var potUser = ModelTestHelper.CreatePotUser(1, pot.Id, amount: 200);
             trip.TripPot = pot;
             const string error = "error while trying to update pot";
             var errors = new List<string> { error };
@@ -742,10 +742,10 @@ namespace HolidayPooling.Services.Tests.Trip
             _mockPotUserRepo.Setup(m => m.UpdatePotUser(potUser)).Callback
                 (
                     () =>
-                        {
-                            _mockPotUserRepo.SetupGet(m => m.HasErrors).Returns(true);
-                            _mockPotUserRepo.SetupGet(m => m.Errors).Returns(errors);
-                        }
+                    {
+                        _mockPotUserRepo.SetupGet(m => m.HasErrors).Returns(true);
+                        _mockPotUserRepo.SetupGet(m => m.Errors).Returns(errors);
+                    }
                 );
             CreateServices();
             _tripServices.UpdateAllowedNumberOfPeople(trip, 200);
@@ -756,7 +756,7 @@ namespace HolidayPooling.Services.Tests.Trip
         [Test]
         public void UpdateAllowedNumberOfPeople_WhenUnableToUpdateTrip_ShouldLogError()
         {
-            var trip = ModelTestHelper.CreateTrip(1, "failedToUpdateTrip", maxNbPeople:100);
+            var trip = ModelTestHelper.CreateTrip(1, "failedToUpdateTrip", maxNbPeople: 100);
             var pot = ModelTestHelper.CreatePot(1, 1);
             var potUser = ModelTestHelper.CreatePotUser(1, pot.Id);
             const string error = "error while updating trip";
@@ -858,7 +858,7 @@ namespace HolidayPooling.Services.Tests.Trip
         public void UpdatePrice_WhenUnableToUpdatePot_ShouldLogError()
         {
             var trip = ModelTestHelper.CreateTrip(1, "failedToUpdatePot", 2000);
-            var pot = ModelTestHelper.CreatePot(1, 1, targetAmount:2000);
+            var pot = ModelTestHelper.CreatePot(1, 1, targetAmount: 2000);
             var potUser = ModelTestHelper.CreatePotUser(1, pot.Id);
             var userTrip = ModelTestHelper.CreateUserTrip(1, trip.TripName);
             const string error = "error while updating pot";
@@ -880,7 +880,7 @@ namespace HolidayPooling.Services.Tests.Trip
         [Test]
         public void UpdatePrice_WhenUnableToUpdateTrip_ShouldLogError()
         {
-            var trip = ModelTestHelper.CreateTrip(1, "failedToUpdatePot", price:2000);
+            var trip = ModelTestHelper.CreateTrip(1, "failedToUpdatePot", price: 2000);
             var pot = ModelTestHelper.CreatePot(1, 1);
             var potUser = ModelTestHelper.CreatePotUser(1, pot.Id);
             var userTrip = ModelTestHelper.CreateUserTrip(1, trip.TripName);
@@ -905,7 +905,7 @@ namespace HolidayPooling.Services.Tests.Trip
         public void UpdatePrice_WhenValid_ShouldNotLogError()
         {
             var trip = ModelTestHelper.CreateTrip(1, "failedToUpdatePot", price: 2000);
-            var pot = ModelTestHelper.CreatePot(1, 1, targetAmount:2000);
+            var pot = ModelTestHelper.CreatePot(1, 1, targetAmount: 2000);
             var potUser = ModelTestHelper.CreatePotUser(1, pot.Id);
             var userTrip = ModelTestHelper.CreateUserTrip(1, trip.TripName);
             trip.TripPot = pot;
