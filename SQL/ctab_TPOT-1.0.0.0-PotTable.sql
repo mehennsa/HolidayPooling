@@ -14,6 +14,7 @@ CREATE TABLE TPOT
     INDCANCEL varchar(1),
     CANCELRSN text,
     CANCELDAT date,
+    DATEFT timestamp without time zone,
     CONSTRAINT PK_TPOT PRIMARY KEY (IDT)
 )
 TABLESPACE pg_default;
@@ -33,3 +34,4 @@ COMMENT ON COLUMN TPOT.DSC IS 'Pot description';
 COMMENT ON COLUMN TPOT.INDCANCEL IS 'Indicator => Pot is cancelled?';
 COMMENT ON COLUMN TPOT.CANCELRSN IS 'Cancellation reason';
 COMMENT ON COLUMN TPOT.CANCELDAT IS 'Cancellation date (if pot is cancelled)';
+COMMENT ON COLUMN TPOT.DATEFT IS 'Modification Date';

@@ -1,5 +1,6 @@
 ﻿using HolidayPooling.DataRepositories.Core;
 using HolidayPooling.Infrastructure.Configuration;
+using HolidayPooling.Infrastructure.TimeProviders;
 using HolidayPooling.Models.Core;
 using log4net;
 using Sams.Commons.Infrastructure.Checks;
@@ -8,9 +9,6 @@ using Sams.Commons.Infrastructure.Helper;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HolidayPooling.DataRepositories.Business
 {
@@ -26,16 +24,16 @@ namespace HolidayPooling.DataRepositories.Business
         #region SQL
 
 
-        private const string InsertQuery = "INSERT INTO TTRPPTP (TRPIDT, USRPSD, INDUSRPTP, TRPNOT, VALDAT)" +
-                                    " VALUES (:pTRPIDT, :pUSRPSD, :pINDUSRPTP, :pTRPNOT, :pVALDAT)";
+        private const string InsertQuery = "INSERT INTO TTRPPTP (TRPIDT, USRPSD, INDUSRPTP, TRPNOT, VALDAT, DATEFT)" +
+                                    " VALUES (:pTRPIDT, :pUSRPSD, :pINDUSRPTP, :pTRPNOT, :pVALDAT, :pDATEFT)";
 
         private const string DeleteQuery = "DELETE FROM TTRPPTP WHERE TRPIDT = :pTRPIDT AND USRPSD = :pUSRPSD";
 
         private const string UpdateQuery = "UPDATE TTRPPTP SET" +
-                                            " INDUSRPTP = :pINDUSRPTP, TRPNOT = :pTRPNOT, VALDAT = :pVALDAT" +
+                                            " INDUSRPTP = :pINDUSRPTP, TRPNOT = :pTRPNOT, VALDAT = :pVALDAT, DATEFT = :pDATEFT" +
                                             " WHERE TRPIDT = :pTRPIDT AND USRPSD = :pUSRPSD";
 
-        private const string SelectQuery = "SELECT TRPIDT, USRPSD, INDUSRPTP, TRPNOT, VALDAT FROM TTRPPTP";
+        private const string SelectQuery = "SELECT TRPIDT, USRPSD, INDUSRPTP, TRPNOT, VALDAT, DATEFT FROM TTRPPTP";
 
         private const string SelectByTrip = SelectQuery + " WHERE TRPIDT = :pTRPIDT";
 
@@ -52,6 +50,10 @@ namespace HolidayPooling.DataRepositories.Business
 
         }
 
+        internal TripParticipantDbImportExport(ITimeProvider timeProvider) : base(timeProvider)
+        {
+        }
+
         #endregion
 
         #region DbImportExportBase<TripParticipantKey, TripParticipant>
@@ -63,7 +65,7 @@ namespace HolidayPooling.DataRepositories.Business
 
         protected override TripParticipant CreateValueFromReader(IDatabaseReader reader)
         {
-            return new TripParticipant
+            var tripParticipant = new TripParticipant
                     (
                         reader.GetInt("TRPIDT"),
                         reader.GetString("USRPSD"),
@@ -71,6 +73,8 @@ namespace HolidayPooling.DataRepositories.Business
                         reader.GetDouble("TRPNOT"),
                         reader.GetNullableDate("VALDAT")
                     );
+            tripParticipant.ModificationDate = reader.GetDate("DATEFT");
+            return tripParticipant;
         }
 
         protected override TripParticipantKey CreateKeyFromValue(TripParticipant value)
@@ -96,6 +100,7 @@ namespace HolidayPooling.DataRepositories.Business
         {
             Check.IsNotNull(entity, "Participant should be provided");
             var saved = false;
+            entity.ModificationDate = TimeProvider.Now();
             _logger.Info("Start save trip participant");
             try
             {
@@ -110,6 +115,7 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddStringParameter(":pINDUSRPTP", ConverterHelper.BoolToYesNoString(entity.HasParticipated));
                         cmd.AddDoubleParameter(":pTRPNOT", entity.TripNote);
                         cmd.AddDateParameter(":pVALDAT", entity.ValidationDate);
+                        cmd.AddDateTimeParameter(":pDATEFT", entity.ModificationDate);
                         saved = cmd.ExecuteNonQuery() > 0;
                         _logger.Info("End save trip participant : " + (saved ? "Success" : "Failure"));
                     }
@@ -158,6 +164,7 @@ namespace HolidayPooling.DataRepositories.Business
         {
             Check.IsNotNull(entity, "Participant should be provided");
             var updated = false;
+            entity.ModificationDate = TimeProvider.Now();
             _logger.Info("Start updating trip participant");
 
             try
@@ -174,6 +181,7 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddStringParameter(":pINDUSRPTP", ConverterHelper.BoolToYesNoString(entity.HasParticipated));
                         cmd.AddDoubleParameter(":pTRPNOT", entity.TripNote);
                         cmd.AddDateParameter(":pVALDAT", entity.ValidationDate);
+                        cmd.AddDateTimeParameter(":pDATEFT", entity.ModificationDate);
                         updated = cmd.ExecuteNonQuery() > 0;
                         _logger.Info("End update trip participant : " + (updated ? "Success" : "Failure"));
                     }

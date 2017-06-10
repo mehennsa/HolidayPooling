@@ -12,8 +12,8 @@ namespace HolidayPooling.Services.Pots
 
         #region Repository Dependencies
 
-        private IPotRepository _potRepository;
-        private IPotUserRepository _potUserRepository;
+        private readonly IPotRepository _potRepository;
+        private readonly IPotUserRepository _potUserRepository;
 
         #endregion
 
@@ -45,22 +45,22 @@ namespace HolidayPooling.Services.Pots
         // TODO : Payment System
         public void Credit(Pot pot, int userId, double amount)
         {
-            InternalCreditDebitPot(pot, userId, amount, p => p.CurrentAmount += amount, p => p.CurrentAmount -= amount, 
+            InternalCreditDebitPot(pot, userId, p => p.CurrentAmount += amount, p => p.CurrentAmount -= amount, 
                 u => 
                 {
                     u.Amount += amount;
-                    u.HasPayed = u.Amount == u.TargetAmount;
+                    u.HasPayed = Math.Abs(u.Amount - u.TargetAmount) < double.Epsilon;
                 }); 
         }
 
         // TODO : Payment system
         public void Debit(Pot pot, int userId, double amount)
         {
-            InternalCreditDebitPot(pot, userId, amount, p => p.CurrentAmount -= amount, p => p.CurrentAmount += amount, 
+            InternalCreditDebitPot(pot, userId, p => p.CurrentAmount -= amount, p => p.CurrentAmount += amount, 
                 u => 
                 {
                     u.Amount -= amount;
-                    u.HasPayed = u.Amount == u.TargetAmount;
+                    u.HasPayed = Math.Abs(u.Amount - u.TargetAmount) < double.Epsilon;
                 });
         }
 
@@ -132,7 +132,7 @@ namespace HolidayPooling.Services.Pots
 
         #region Methods
 
-        private void InternalCreditDebitPot(Pot pot, int userId, double amount, 
+        private void InternalCreditDebitPot(Pot pot, int userId,
             Action<Pot> potHandler, Action<Pot> potRollbackHandler, Action<PotUser> potUserHandler)
         {
             Errors.Clear();
@@ -142,7 +142,7 @@ namespace HolidayPooling.Services.Pots
                 try
                 {
 
-                    // 1 - Update pot user;
+                    // 1 - Update pot user
                     var potUser = _potUserRepository.GetPotUser(pot.Id, userId);
                     if (potUser == null || _potUserRepository.HasErrors)
                     {

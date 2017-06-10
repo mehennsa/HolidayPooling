@@ -43,6 +43,7 @@ namespace HolidayPooling.Models.Tests.Core
             Assert.AreEqual(model.EndDate, clone.EndDate);
             Assert.AreEqual(model.ValidityDate, clone.ValidityDate);
             Assert.AreEqual(model.Note, clone.Note);
+            Assert.AreEqual(model.ModificationDate, clone.ModificationDate);
             Assert.IsFalse(ReferenceEquals(model.TripPot, clone.TripPot));
             Assert.IsFalse(ReferenceEquals(model.Participants, clone.Participants));
             Assert.AreEqual(model.Participants.Count(), clone.Participants.Count());

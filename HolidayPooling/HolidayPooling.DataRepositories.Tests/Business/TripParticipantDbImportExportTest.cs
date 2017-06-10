@@ -1,9 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HolidayPooling.DataRepositories.Tests.Core;
 using HolidayPooling.DataRepositories.Business;
 using HolidayPooling.Models.Core;
@@ -39,13 +36,24 @@ namespace HolidayPooling.DataRepositories.Tests.Business
             model.HasParticipated = !model.HasParticipated;
         }
 
-        public override void CompareWithDbValues(TripParticipant entity, TripParticipant dbEntity)
+        public override void CompareWithDbValues(TripParticipant entity, TripParticipant dbEntity, DateTime modificationDate)
         {
             Assert.AreEqual(entity.TripId, dbEntity.TripId);
             Assert.AreEqual(entity.UserPseudo, dbEntity.UserPseudo);
             Assert.AreEqual(entity.TripNote, dbEntity.TripNote);
             Assert.AreEqual(entity.ValidationDate, dbEntity.ValidationDate);
             Assert.AreEqual(entity.HasParticipated, dbEntity.HasParticipated);
+            Assert.AreEqual(modificationDate, dbEntity.ModificationDate);
+        }
+
+        protected override TripParticipantDbImportExport CreateImportExport()
+        {
+            return new TripParticipantDbImportExport(new MockTimeProvider(_insertTime));
+        }
+
+        protected override TripParticipantDbImportExport CreateImportExportForUpdate()
+        {
+            return new TripParticipantDbImportExport(new MockTimeProvider(_updateTime));
         }
 
         #endregion

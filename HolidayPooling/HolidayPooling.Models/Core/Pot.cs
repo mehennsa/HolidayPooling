@@ -64,6 +64,9 @@ namespace HolidayPooling.Models.Core
             get { return _participants; }
         }
 
+        [DataMember]
+        public DateTime ModificationDate { get; set; }
+
         #endregion
 
         #region .ctor
@@ -104,10 +107,20 @@ namespace HolidayPooling.Models.Core
             _participants = participants;
         }
 
+        internal Pot(int id, int tripId, string organizer, PotMode mode, double amount, double targetAmount, string name,
+            DateTime startDate, DateTime endDate, DateTime validityDate, string description, bool isCancelled,
+            string cancellationReason, DateTime? cancellationDate, List<PotUser> participants, DateTime modificationDate)
+
+    : this(id, tripId, organizer, mode, amount, targetAmount, name, startDate, endDate, validityDate,
+            description, isCancelled, cancellationReason, cancellationDate, participants)
+        {
+            ModificationDate = modificationDate;
+        }
+
         internal Pot(Pot pot)
             : this(pot.Id, pot.TripId, pot.Organizer, pot.Mode, pot.CurrentAmount, pot.TargetAmount, pot.Name,
             pot.StartDate, pot.EndDate, pot.ValidityDate, pot.Description, pot.IsCancelled, pot.CancellationReason,
-            pot.CancellationDate, pot._participants)
+            pot.CancellationDate, pot._participants, pot.ModificationDate)
         {
 
         }

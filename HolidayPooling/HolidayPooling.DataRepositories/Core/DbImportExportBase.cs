@@ -1,4 +1,5 @@
 ﻿using HolidayPooling.Infrastructure.Configuration;
+using HolidayPooling.Infrastructure.TimeProviders;
 using log4net;
 using Sams.Commons.Infrastructure.Cache;
 using Sams.Commons.Infrastructure.Database;
@@ -16,15 +17,30 @@ namespace HolidayPooling.DataRepositories.Core
         #region Fields
 
         protected bool _useCache;
- 
+        protected readonly ITimeProvider _timeProvider;
+
         #endregion
- 
+
+        #region Properties
+
+        protected ITimeProvider TimeProvider
+        {
+            get { return _timeProvider ?? new TimeProvider(); }
+        }
+
+        #endregion
+
         #region .ctor
- 
-        
+
+
         public DbImportExportBase()
         {
             _useCache = false;
+        }
+
+        internal DbImportExportBase(ITimeProvider timeProvider) : this()
+        {
+            _timeProvider = timeProvider;
         }
  
         #endregion

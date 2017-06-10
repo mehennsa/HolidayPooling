@@ -6,6 +6,7 @@ CREATE TABLE TUSRTRP
     INDUSRORG VARCHAR(1),
     USRNOT float8,
     TRPMNT float8,
+    DATEFT timestamp without time zone,
     CONSTRAINT PK_TUSRTRP PRIMARY KEY (USRIDT, TRPNAM)
 )
 TABLESPACE pg_default;
@@ -16,3 +17,4 @@ COMMENT ON COLUMN TUSRTRP.INDUSRPAR IS 'User has participated indicator';
 COMMENT ON COLUMN TUSRTRP.INDUSRORG IS 'User is organizer indicator';
 COMMENT ON COLUMN TUSRTRP.USRNOT IS 'User note for the trip';
 COMMENT ON COLUMN TUSRTRP.TRPMNT IS 'Amount spend by user on the trip';
+COMMENT ON COLUMN TUSRTRP.DATEFT IS 'Modification Date';

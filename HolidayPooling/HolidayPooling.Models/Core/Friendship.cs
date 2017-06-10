@@ -30,6 +30,9 @@ namespace HolidayPooling.Models.Core
         [DataMember]
         public bool IsWaiting { get; set; }
 
+        [DataMember]
+        public DateTime ModificationDate { get; set; }
+
         #endregion
 
         #region .ctor
@@ -48,9 +51,15 @@ namespace HolidayPooling.Models.Core
             IsWaiting = isWaiting;
         }
 
+        internal Friendship(int userId, string friendName, DateTime startDate, bool isRequested, bool isWaiting, DateTime modificationDate)
+            : this(userId, friendName, startDate, isRequested, isWaiting)
+        {
+            ModificationDate = modificationDate;
+        }
+
         internal Friendship(Friendship aFriendship)
             : this(aFriendship.UserId, aFriendship.FriendName, aFriendship.StartDate,
-            aFriendship.IsRequested, aFriendship.IsWaiting)
+            aFriendship.IsRequested, aFriendship.IsWaiting, aFriendship.ModificationDate)
         {
 
         }

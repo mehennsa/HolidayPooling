@@ -4,10 +4,7 @@ using HolidayPooling.Models.Core;
 using HolidayPooling.Tests;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HolidayPooling.DataRepositories.Tests.Business
 {
@@ -40,7 +37,7 @@ namespace HolidayPooling.DataRepositories.Tests.Business
             model.TargetAmount += 300.12;
         }
 
-        public override void CompareWithDbValues(Pot entity, Pot dbEntity)
+        public override void CompareWithDbValues(Pot entity, Pot dbEntity, DateTime modificationDate)
         {
             Assert.AreEqual(entity.Id, dbEntity.Id);
             Assert.AreEqual(entity.TripId, dbEntity.TripId);
@@ -56,6 +53,17 @@ namespace HolidayPooling.DataRepositories.Tests.Business
             Assert.AreEqual(entity.StartDate, dbEntity.StartDate);
             Assert.AreEqual(entity.TargetAmount, dbEntity.TargetAmount);
             Assert.AreEqual(entity.ValidityDate, dbEntity.ValidityDate);
+            Assert.AreEqual(modificationDate, dbEntity.ModificationDate);
+        }
+
+        protected override PotDbImportExport CreateImportExport()
+        {
+            return new PotDbImportExport(new MockTimeProvider(_insertTime));
+        }
+
+        protected override PotDbImportExport CreateImportExportForUpdate()
+        {
+            return new PotDbImportExport(new MockTimeProvider(_updateTime));
         }
 
         #endregion
@@ -120,7 +128,7 @@ namespace HolidayPooling.DataRepositories.Tests.Business
             Assert.IsTrue(_importExport.Save(pot));
             var dbPot = _importExport.GetTripsPot(pot.TripId);
             Assert.IsNotNull(dbPot);
-            CompareWithDbValues(pot, dbPot);
+            CompareWithDbValues(pot, dbPot, _insertTime);
         }
 
         [Test]
@@ -166,7 +174,7 @@ namespace HolidayPooling.DataRepositories.Tests.Business
             Assert.IsTrue(_importExport.Save(pot));
             var dbPot = _importExport.GetPotByName(pot.Name);
             Assert.IsNotNull(dbPot);
-            CompareWithDbValues(pot, dbPot);
+            CompareWithDbValues(pot, dbPot, _insertTime);
         }
 
         #endregion

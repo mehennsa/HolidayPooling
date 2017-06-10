@@ -47,6 +47,7 @@ namespace HolidayPooling.Models.Tests.Core
             Assert.AreEqual(model.IsCancelled, clone.IsCancelled);
             Assert.AreEqual(model.CancellationReason, clone.CancellationReason);
             Assert.AreEqual(model.CancellationDate, clone.CancellationDate);
+            Assert.AreEqual(model.ModificationDate, clone.ModificationDate);
             Assert.IsFalse(ReferenceEquals(model.Participants, clone.Participants));
             Assert.AreEqual(model.Participants.Count(), clone.Participants.Count());
             for(int i = 0; i < model.Participants.Count(); i++)

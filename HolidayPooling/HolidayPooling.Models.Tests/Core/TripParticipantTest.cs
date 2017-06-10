@@ -37,6 +37,7 @@ namespace HolidayPooling.Models.Tests.Core
             Assert.AreEqual(model.HasParticipated, clone.HasParticipated);
             Assert.AreEqual(model.TripNote, clone.TripNote);
             Assert.AreEqual(model.ValidationDate, clone.ValidationDate);
+            Assert.AreEqual(model.ModificationDate, clone.ModificationDate);
         }
 
         #endregion

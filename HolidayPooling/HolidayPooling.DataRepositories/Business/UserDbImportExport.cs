@@ -1,5 +1,6 @@
 ﻿using HolidayPooling.DataRepositories.Core;
 using HolidayPooling.Infrastructure.Configuration;
+using HolidayPooling.Infrastructure.TimeProviders;
 using HolidayPooling.Models.Core;
 using HolidayPooling.Models.Helpers;
 using log4net;
@@ -9,9 +10,6 @@ using Sams.Commons.Infrastructure.Database;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HolidayPooling.DataRepositories.Business
 {
@@ -26,17 +24,17 @@ namespace HolidayPooling.DataRepositories.Business
 
         #region SQL
 
-        private const string Insert = "INSERT INTO TUSR (IDT, MEL, PWD, USRSLT, AGE, PSD, PHNNBR, TYP, DSC, RLE, CREDAT, USRNOT)"
-                                    + " VALUES (:pIDT, :pMEL, :pPWD, :pUSRSLT, :pAGE, :pPSD, :pPHNNBR, :pTYP, :pDSC, :pRLE, :pCREDAT, :pUSRNOT)";
+        private const string Insert = "INSERT INTO TUSR (IDT, MEL, PWD, USRSLT, AGE, PSD, PHNNBR, TYP, DSC, RLE, CREDAT, USRNOT, DATEFT)"
+                                    + " VALUES (:pIDT, :pMEL, :pPWD, :pUSRSLT, :pAGE, :pPSD, :pPHNNBR, :pTYP, :pDSC, :pRLE, :pCREDAT, :pUSRNOT, :pDATEFT)";
 
         private const string UpdateQuery = "UPDATE TUSR SET"
                                     + " MEL = :pMEL, AGE = :pAGE, PSD = :pPSD, PHNNBR = :pPHNNBR, TYP = :pTYP,"
-                                    + " DSC = :pDSC, RLE = :pRLE, CREDAT = :pCREDAT, USRNOT = :pUSRNOT"
+                                    + " DSC = :pDSC, RLE = :pRLE, CREDAT = :pCREDAT, USRNOT = :pUSRNOT, DATEFT = :pDATEFT"
                                     + " WHERE IDT = :pIDT";
 
         private const string DeleteQuery = "DELETE FROM TUSR WHERE IDT = :pIDT";
 
-        private const string Select = "SELECT IDT, MEL, PWD, USRSLT, AGE, PSD, PHNNBR, TYP, DSC, RLE, CREDAT, USRNOT FROM TUSR";
+        private const string Select = "SELECT IDT, MEL, PWD, USRSLT, AGE, PSD, PHNNBR, TYP, DSC, RLE, CREDAT, USRNOT, DATEFT FROM TUSR";
 
         private const string SelectSingle = Select + " WHERE IDT = :pIDT";
 
@@ -56,6 +54,10 @@ namespace HolidayPooling.DataRepositories.Business
 
         }
 
+        internal UserDbImportExport(ITimeProvider timeProvider) : base(timeProvider)
+        {
+        }
+
         #endregion
 
         #region DbImportExportBase<int, User>
@@ -67,7 +69,7 @@ namespace HolidayPooling.DataRepositories.Business
 
         protected override User CreateValueFromReader(IDatabaseReader reader)
         {
-            return new User
+            var user =  new User
                 (
                     reader.GetInt("IDT"),
                     reader.GetString("MEL"),
@@ -81,6 +83,8 @@ namespace HolidayPooling.DataRepositories.Business
                     ModelEnumConverter.UserTypeFromString(reader.GetString("TYP")),
                     reader.GetDouble("USRNOT")
                 );
+            user.ModificationDate = reader.GetDate("DATEFT");
+            return user;
         }
 
         protected override int CreateKeyFromValue(User value)
@@ -210,6 +214,7 @@ namespace HolidayPooling.DataRepositories.Business
             bool saved = false;
             Check.IsNotNull(entity, "user shouldn't be null");
             _logger.Info("Start saving user");
+            entity.ModificationDate = TimeProvider.Now();
             try
             {
 
@@ -246,6 +251,7 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddStringParameter(":pRLE", ModelEnumConverter.RoleToString(entity.Role));
                         cmd.AddDateParameter(":pCREDAT", entity.CreationDate);
                         cmd.AddDoubleParameter(":pUSRNOT", entity.Note);
+                        cmd.AddDateTimeParameter(":pDATEFT", entity.ModificationDate);
                         saved = cmd.ExecuteNonQuery() > 0;
                         _logger.Info("End saving user : " + (saved ? "Success" : "Failure"));
                         if (saved)
@@ -297,7 +303,7 @@ namespace HolidayPooling.DataRepositories.Business
             Check.IsNotNull(entity, "User shouldn't be null");
             bool updated = false;
             _logger.Info("Start update user");
-
+            entity.ModificationDate = TimeProvider.Now();
             try
             {
 
@@ -317,6 +323,7 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddStringParameter(":pRLE", ModelEnumConverter.RoleToString(entity.Role));
                         cmd.AddDateParameter(":pCREDAT", entity.CreationDate);
                         cmd.AddDoubleParameter(":pUSRNOT", entity.Note);
+                        cmd.AddDateTimeParameter(":pDATEFT", entity.ModificationDate);
                         updated = cmd.ExecuteNonQuery() > 0;
                         _logger.Info("End update user : " + (updated ? "Success" : "Failure"));
                     }

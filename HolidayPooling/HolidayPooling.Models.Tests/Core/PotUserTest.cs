@@ -40,6 +40,7 @@ namespace HolidayPooling.Models.Tests.Core
             Assert.AreEqual(model.HasCancelled, clone.HasCancelled);
             Assert.AreEqual(model.CancellationReason, clone.CancellationReason);
             Assert.AreEqual(model.HasValidated, clone.HasValidated);
+            Assert.AreEqual(model.ModificationDate, clone.ModificationDate);
         }
 
         #endregion

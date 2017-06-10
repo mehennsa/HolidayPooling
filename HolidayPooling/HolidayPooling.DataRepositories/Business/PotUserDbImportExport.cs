@@ -1,5 +1,6 @@
 ﻿using HolidayPooling.DataRepositories.Core;
 using HolidayPooling.Infrastructure.Configuration;
+using HolidayPooling.Infrastructure.TimeProviders;
 using HolidayPooling.Models.Core;
 using log4net;
 using Sams.Commons.Infrastructure.Checks;
@@ -24,22 +25,35 @@ namespace HolidayPooling.DataRepositories.Business
         #region SQL
 
         private const string InsertQuery = "INSERT INTO TPOTUSR" +
-                                            " (POTIDT, USRIDT, INDPAY, CURMNT, TGTMNT, INDCANCEL, CANCELRSN, INDVAL)" +
-                                            " VALUES (:pPOTIDT, :pUSRIDT, :pINDPAY, :pCURMNT, :pTGTMNT, :pINDCANCEL, :pCANCELRSN, :pINDVAL)";
+                                            " (POTIDT, USRIDT, INDPAY, CURMNT, TGTMNT, INDCANCEL, CANCELRSN, INDVAL, DATEFT)" +
+                                            " VALUES (:pPOTIDT, :pUSRIDT, :pINDPAY, :pCURMNT, :pTGTMNT, :pINDCANCEL, :pCANCELRSN, :pINDVAL, :pDATEFT)";
         
         private const string DeleteQuery = "DELETE FROM TPOTUSR WHERE POTIDT = :pPOTIDT and USRIDT = :pUSRIDT";
 
         private const string UpdateQuery = "UPDATE TPOTUSR SET" +
-                                            " INDPAY = :pINDPAY, CURMNT =:pCURMNT, TGTMNT = :pTGTMNT, INDCANCEL = :pINDCANCEL, CANCELRSN = :pCANCELRSN, INDVAL = :pINDVAL" +
+                                            " INDPAY = :pINDPAY, CURMNT =:pCURMNT, TGTMNT = :pTGTMNT, INDCANCEL = :pINDCANCEL, CANCELRSN = :pCANCELRSN, INDVAL = :pINDVAL, DATEFT = :pDATEFT" +
                                             " WHERE POTIDT = :pPOTIDT AND USRIDT = :pUSRIDT";
 
-        private const string SelectQuery = "SELECT POTIDT, USRIDT, INDPAY, CURMNT, TGTMNT, INDCANCEL, CANCELRSN, INDVAL FROM TPOTUSR";
+        private const string SelectQuery = "SELECT POTIDT, USRIDT, INDPAY, CURMNT, TGTMNT, INDCANCEL, CANCELRSN, INDVAL, DATEFT FROM TPOTUSR";
 
         private const string SelectByPot = SelectQuery + " WHERE POTIDT = :pPOTIDT";
 
         private const string SelectByUser = SelectQuery + " WHERE USRIDT = :pUSRIDT";
 
         private const string SelectByKey = SelectQuery + " WHERE POTIDT = :pPOTIDT AND USRIDT = :pUSRIDT";
+
+        #endregion
+
+        #region .ctor
+
+        public PotUserDbImportExport() : base()
+        {
+
+        }
+
+        internal PotUserDbImportExport(ITimeProvider timeProvider) : base(timeProvider)
+        {
+        }
 
         #endregion
 
@@ -52,7 +66,7 @@ namespace HolidayPooling.DataRepositories.Business
 
         protected override PotUser CreateValueFromReader(IDatabaseReader reader)
         {
-            return new PotUser
+            var potUser =  new PotUser
                         (
                             reader.GetInt("USRIDT"),
                             reader.GetInt("POTIDT"),
@@ -63,6 +77,8 @@ namespace HolidayPooling.DataRepositories.Business
                             reader.GetString("CANCELRSN"),
                             ConverterHelper.YesNoStringToBool(reader.GetString("INDVAL"))
                         );
+            potUser.ModificationDate = reader.GetDate("DATEFT");
+            return potUser;
         }
 
         protected override PotUserKey CreateKeyFromValue(PotUser value)
@@ -93,6 +109,7 @@ namespace HolidayPooling.DataRepositories.Business
         {
             Check.IsNotNull(entity, "Pot participant should be provided");
             _logger.Info("Start saving user pot");
+            entity.ModificationDate = TimeProvider.Now();
             var saved = false;
             try
             {
@@ -111,6 +128,7 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddStringParameter(":pCANCELRSN", entity.CancellationReason);
                         cmd.AddStringParameter(":pINDCANCEL", ConverterHelper.BoolToYesNoString(entity.HasCancelled));
                         cmd.AddStringParameter(":pINDVAL", ConverterHelper.BoolToYesNoString(entity.HasValidated));
+                        cmd.AddDateTimeParameter(":pDATEFT", entity.ModificationDate);
                         saved = cmd.ExecuteNonQuery() > 0;
                         _logger.Info("End saving user pot " + (saved ? "Success" : "Failure"));
                     }
@@ -161,6 +179,7 @@ namespace HolidayPooling.DataRepositories.Business
         {
             Check.IsNotNull(entity, "Pot participant should be provided");
             var updated = false;
+            entity.ModificationDate = TimeProvider.Now();
             _logger.Info("Start updating user pot");
             try
             {
@@ -178,6 +197,7 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddStringParameter(":pCANCELRSN", entity.CancellationReason);
                         cmd.AddStringParameter(":pINDCANCEL", ConverterHelper.BoolToYesNoString(entity.HasCancelled));
                         cmd.AddStringParameter(":pINDVAL", ConverterHelper.BoolToYesNoString(entity.HasValidated));
+                        cmd.AddDateTimeParameter(":pDATEFT", entity.ModificationDate);
                         updated = cmd.ExecuteNonQuery() > 0;
                         _logger.Info("End updating user pot : " + (updated ? "Success" : "Failure"));
                     }

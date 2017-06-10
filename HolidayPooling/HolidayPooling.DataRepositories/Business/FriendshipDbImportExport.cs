@@ -1,5 +1,6 @@
 ﻿using HolidayPooling.DataRepositories.Core;
 using HolidayPooling.Infrastructure.Configuration;
+using HolidayPooling.Infrastructure.TimeProviders;
 using HolidayPooling.Models.Core;
 using log4net;
 using Sams.Commons.Infrastructure.Checks;
@@ -20,17 +21,21 @@ namespace HolidayPooling.DataRepositories.Business
 
         #endregion
 
+        #region Properties
+
+        #endregion
+
         #region SQL
 
-        private const string InsertQuery = "INSERT INTO TFRDSHP (USRIDT, FRDPSD, STRDAT, INDRSQUSR, INDWTG)" +
-                                            " VALUES (:pUSRIDT, :pFRDPSD, :pSTRDAT, :pINDRSQUSR, :pINDWTG)";
+        private const string InsertQuery = "INSERT INTO TFRDSHP (USRIDT, FRDPSD, STRDAT, INDRSQUSR, INDWTG, DATEFT)" +
+                                            " VALUES (:pUSRIDT, :pFRDPSD, :pSTRDAT, :pINDRSQUSR, :pINDWTG, :pDATEFT)";
 
         private const string DeleteQuery = "DELETE FROM TFRDSHP WHERE USRIDT = :pUSRIDT AND FRDPSD = :pFRDPSD";
 
-        private const string UpdateQuery = "UPDATE TFRDSHP SET STRDAT = :pSTRDAT, INDRSQUSR = :pINDRSQUSR, INDWTG = :pINDWTG" +
+        private const string UpdateQuery = "UPDATE TFRDSHP SET STRDAT = :pSTRDAT, INDRSQUSR = :pINDRSQUSR, INDWTG = :pINDWTG, DATEFT = :pDATEFT" +
                                             " WHERE USRIDT = :pUSRIDT AND FRDPSD = :pFRDPSD";
 
-        private const string SelectQuery = "SELECT USRIDT, FRDPSD, STRDAT, INDRSQUSR, INDWTG FROM TFRDSHP";
+        private const string SelectQuery = "SELECT USRIDT, FRDPSD, STRDAT, INDRSQUSR, INDWTG, DATEFT FROM TFRDSHP";
 
         private const string SelectByUserId = SelectQuery + " WHERE USRIDT = :pUSRIDT";
 
@@ -50,6 +55,10 @@ namespace HolidayPooling.DataRepositories.Business
 
         }
 
+        internal FriendshipDbImportExport(ITimeProvider timeProvider) : base(timeProvider)
+        {
+        }
+
         #endregion
 
         #region DbImportExportBase<FriendshipKey, Friendship>
@@ -61,7 +70,7 @@ namespace HolidayPooling.DataRepositories.Business
 
         protected override Friendship CreateValueFromReader(IDatabaseReader reader)
         {
-            return new Friendship
+            var friendship = new  Friendship
                 (
                     reader.GetInt("USRIDT"),
                     reader.GetString("FRDPSD"),
@@ -69,6 +78,8 @@ namespace HolidayPooling.DataRepositories.Business
                     ConverterHelper.YesNoStringToBool(reader.GetString("INDRSQUSR")),
                     ConverterHelper.YesNoStringToBool(reader.GetString("INDWTG"))
                 );
+            friendship.ModificationDate = reader.GetDate("DATEFT");
+            return friendship;
         }
 
         protected override FriendshipKey CreateKeyFromValue(Friendship value)
@@ -105,6 +116,7 @@ namespace HolidayPooling.DataRepositories.Business
             Check.IsNotNull(entity, "Friendship sould be provided");
 
             bool saved = false;
+            entity.ModificationDate = TimeProvider.Now();
             _logger.Info("Start saving Friendship");
             try
             {
@@ -120,6 +132,7 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddDateParameter(":pSTRDAT", entity.StartDate);
                         cmd.AddStringParameter(":pINDRSQUSR", ConverterHelper.BoolToYesNoString(entity.IsRequested));
                         cmd.AddStringParameter(":pINDWTG", ConverterHelper.BoolToYesNoString(entity.IsWaiting));
+                        cmd.AddDateTimeParameter(":pDATEFT", entity.ModificationDate);
                         saved = cmd.ExecuteNonQuery() > 0;
                         _logger.Info("End Saving Friendship. Result : " + (saved ? "Success" : "Failure"));
                     }
@@ -171,6 +184,7 @@ namespace HolidayPooling.DataRepositories.Business
             Check.IsNotNull(entity, "Friendship should be provided");
 
             var updated = false;
+            entity.ModificationDate = TimeProvider.Now();
             _logger.Info("Start updating Friendship");
             try
             {
@@ -186,6 +200,7 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddDateParameter(":pSTRDAT", entity.StartDate);
                         cmd.AddStringParameter(":pINDRSQUSR", ConverterHelper.BoolToYesNoString(entity.IsRequested));
                         cmd.AddStringParameter(":pINDWTG", ConverterHelper.BoolToYesNoString(entity.IsWaiting));
+                        cmd.AddDateTimeParameter(":pDATEFT", entity.ModificationDate);
                         updated = cmd.ExecuteNonQuery() > 0;
                         _logger.Info("End updating Friendship : " + (updated ? "Success" : "Failure"));
                     }

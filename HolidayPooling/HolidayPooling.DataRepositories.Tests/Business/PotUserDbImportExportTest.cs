@@ -4,10 +4,7 @@ using HolidayPooling.Models.Core;
 using HolidayPooling.Tests;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HolidayPooling.DataRepositories.Tests.Business
 {
@@ -38,7 +35,7 @@ namespace HolidayPooling.DataRepositories.Tests.Business
             model.HasCancelled = !model.HasCancelled;
         }
 
-        public override void CompareWithDbValues(PotUser entity, PotUser dbEntity)
+        public override void CompareWithDbValues(PotUser entity, PotUser dbEntity, DateTime modificationDate)
         {
             Assert.AreEqual(entity.PotId, dbEntity.PotId);
             Assert.AreEqual(entity.UserId, dbEntity.UserId);
@@ -48,6 +45,17 @@ namespace HolidayPooling.DataRepositories.Tests.Business
             Assert.AreEqual(entity.TargetAmount, dbEntity.TargetAmount);
             Assert.AreEqual(entity.HasCancelled, dbEntity.HasCancelled);
             Assert.AreEqual(entity.CancellationReason, dbEntity.CancellationReason);
+            Assert.AreEqual(modificationDate, dbEntity.ModificationDate);
+        }
+
+        protected override PotUserDbImportExport CreateImportExport()
+        {
+            return new PotUserDbImportExport(new MockTimeProvider(_insertTime));
+        }
+
+        protected override PotUserDbImportExport CreateImportExportForUpdate()
+        {
+            return new PotUserDbImportExport(new MockTimeProvider(_updateTime));
         }
 
         #endregion

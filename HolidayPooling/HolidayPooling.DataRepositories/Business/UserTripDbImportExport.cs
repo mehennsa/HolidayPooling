@@ -1,5 +1,6 @@
 ﻿using HolidayPooling.DataRepositories.Core;
 using HolidayPooling.Infrastructure.Configuration;
+using HolidayPooling.Infrastructure.TimeProviders;
 using HolidayPooling.Models.Core;
 using log4net;
 using Sams.Commons.Infrastructure.Checks;
@@ -8,9 +9,6 @@ using Sams.Commons.Infrastructure.Helper;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HolidayPooling.DataRepositories.Business
 {
@@ -25,16 +23,16 @@ namespace HolidayPooling.DataRepositories.Business
 
         #region SQL
 
-        private const string InsertQuery = "INSERT INTO TUSRTRP (USRIDT, TRPNAM, INDUSRPAR, INDUSRORG, USRNOT, TRPMNT)" +
-                                            " VALUES (:pUSRIDT, :pTRPNAM, :pINDUSRPAR, :pINDUSRORG, :pUSRNOT, :pTRPMNT)";
+        private const string InsertQuery = "INSERT INTO TUSRTRP (USRIDT, TRPNAM, INDUSRPAR, INDUSRORG, USRNOT, TRPMNT, DATEFT)" +
+                                            " VALUES (:pUSRIDT, :pTRPNAM, :pINDUSRPAR, :pINDUSRORG, :pUSRNOT, :pTRPMNT, :pDATEFT)";
 
         private const string DeleteQuery = "DELETE FROM TUSRTRP WHERE USRIDT = :pUSRIDT and TRPNAM = :pTRPNAM";
 
         private const string UpdateQuery = "UPDATE TUSRTRP SET INDUSRPAR = :pINDUSRPAR, INDUSRORG = :pINDUSRORG," +
-                                    " USRNOT = :pUSRNOT, TRPMNT = :pTRPMNT" +
+                                    " USRNOT = :pUSRNOT, TRPMNT = :pTRPMNT, DATEFT = :pDATEFT" +
                                     " WHERE USRIDT = :pUSRIDT AND TRPNAM = :pTRPNAM";
 
-        private const string SelectQuery = "SELECT USRIDT, TRPNAM, INDUSRPAR, INDUSRORG, USRNOT, TRPMNT FROM TUSRTRP";
+        private const string SelectQuery = "SELECT USRIDT, TRPNAM, INDUSRPAR, INDUSRORG, USRNOT, TRPMNT, DATEFT FROM TUSRTRP";
 
         private const string SelectByUserId = SelectQuery + " WHERE USRIDT = :pUSRIDT";
 
@@ -52,6 +50,10 @@ namespace HolidayPooling.DataRepositories.Business
 
         }
 
+        internal UserTripDbImportExport(ITimeProvider timeProvider) : base(timeProvider)
+        {
+        }
+
         #endregion
 
         #region DbImportExportBase<UserTripKey, UserTrip>
@@ -63,7 +65,7 @@ namespace HolidayPooling.DataRepositories.Business
 
         protected override UserTrip CreateValueFromReader(IDatabaseReader reader)
         {
-            return new UserTrip
+            var userTrip = new UserTrip
                 (
                     reader.GetInt("USRIDT"),
                     reader.GetString("TRPNAM"),
@@ -72,6 +74,8 @@ namespace HolidayPooling.DataRepositories.Business
                     reader.GetDouble("USRNOT"),
                     reader.GetDouble("TRPMNT")
                 );
+            userTrip.ModificationDate = reader.GetDate("DATEFT");
+            return userTrip;
         }
 
         protected override UserTripKey CreateKeyFromValue(UserTrip value)
@@ -97,6 +101,7 @@ namespace HolidayPooling.DataRepositories.Business
         {
             Check.IsNotNull(entity, "User trip shouldn't be empty");
             bool saved = false;
+            entity.ModificationDate = TimeProvider.Now();
             _logger.Info("Start saving users trip");
             try
             {
@@ -112,6 +117,7 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddStringParameter(":pINDUSRORG", ConverterHelper.BoolToYesNoString(entity.HasOrganized));
                         cmd.AddDoubleParameter(":pUSRNOT", entity.UserNote);
                         cmd.AddDoubleParameter(":pTRPMNT", entity.TripAmount);
+                        cmd.AddDateTimeParameter(":pDATEFT", entity.ModificationDate);
                         saved = cmd.ExecuteNonQuery() > 0;
                         _logger.Info("End saving users trip " + (saved ? "Success" : "Failure"));
                     }
@@ -162,6 +168,7 @@ namespace HolidayPooling.DataRepositories.Business
         {
             Check.IsNotNull(entity, "UserTrip should not be null");
             bool updated = false;
+            entity.ModificationDate = TimeProvider.Now();
             _logger.Info("Start update user's trip");
 
             try
@@ -179,6 +186,7 @@ namespace HolidayPooling.DataRepositories.Business
                         cmd.AddDoubleParameter(":pTRPMNT", entity.TripAmount);
                         cmd.AddIntParameter(":pUSRIDT", entity.UserId);
                         cmd.AddStringParameter(":pTRPNAM", entity.TripName);
+                        cmd.AddDateTimeParameter(":pDATEFT", entity.ModificationDate);
                         updated = cmd.ExecuteNonQuery() > 0;
                         _logger.Info("End update user's trip : " + (updated ? "Success" : "Failure"));
                     }

@@ -11,6 +11,7 @@ CREATE TABLE TTRP
     ENDDAT date,
     VALDAT date,
     TRPNOT float8,
+    DATEFT timestamp without time zone,
     CONSTRAINT PK_TTRP PRIMARY KEY (IDT)
 )
 TABLESPACE pg_default;
@@ -27,3 +28,4 @@ COMMENT ON COLUMN TTRP.STRDAT IS 'Trip start date';
 COMMENT ON COLUMN TTRP.ENDDAT IS 'Trip end date';
 COMMENT ON COLUMN TTRP.VALDAT IS 'Trip validity date';
 COMMENT ON COLUMN TTRP.TRPNOT IS 'Trip average note';
+COMMENT ON COLUMN TTRP.DATEFT IS 'Modification Date';

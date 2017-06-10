@@ -12,6 +12,7 @@ CREATE TABLE tusr
     rle varchar(20),
     credat date,
     usrnot double precision,
+    dateft timestamp without time zone,
     CONSTRAINT tusr_pkey PRIMARY KEY (idt)
 )
 TABLESPACE pg_default;
@@ -29,3 +30,4 @@ COMMENT ON COLUMN tusr.dsc IS 'User Description';
 COMMENT ON COLUMN tusr.rle IS 'User Role (Common/Admin)';
 COMMENT ON COLUMN tusr.credat IS 'User creation date';
 COMMENT ON COLUMN tusr.usrnot IS 'User average note';
+COMMENT ON COLUMN tusr.dateft IS 'Modification date';

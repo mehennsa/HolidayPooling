@@ -68,6 +68,9 @@ namespace HolidayPooling.Models.Core
             get { return _friends; }
         }
 
+        [DataMember]
+        public DateTime ModificationDate { get; set; }
+
         #endregion
 
         #region .ctor
@@ -107,10 +110,19 @@ namespace HolidayPooling.Models.Core
             CenterOfInterests = centerOfInterests;
         }
 
+        internal User(int id, string mail, string password, string pseudo, int age, string description, Role role,
+            DateTime creationDate, string phoneNumber, UserType type, double note, List<string> centerOfInterests,
+            List<UserTrip> trips, List<Friendship> friends, DateTime modificationDate)
+            : this(id, mail, password, pseudo, age, description, role, creationDate, phoneNumber, type, note,
+                    centerOfInterests, trips, friends)
+        {
+            ModificationDate = modificationDate;
+        }
+
         internal User(User user)
             : this(user.Id, user.Mail, user.Password, user.Pseudo, user.Age, user.Description, user.Role, user.CreationDate,
             user.PhoneNumber, user.Type, user.Note, user.CenterOfInterests,
-            user._trips, user._friends)
+            user._trips, user._friends, user.ModificationDate)
         {
 
         }
@@ -248,7 +260,7 @@ namespace HolidayPooling.Models.Core
             var clonedCenterOfInterests = CenterOfInterests != null ? CenterOfInterests.CloneAll().ToList() : new List<string>();
             return new User(this.Id, this.Mail, this.Password, this.Pseudo, this.Age, this.Description, this.Role, this.CreationDate,
                 PhoneNumber, Type, Note, clonedCenterOfInterests,
-                clonedTrips, clonedFriends);
+                clonedTrips, clonedFriends, this.ModificationDate);
         }
 
         #endregion

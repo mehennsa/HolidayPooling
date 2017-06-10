@@ -65,6 +65,9 @@ namespace HolidayPooling.Models.Core
         [DataMember]
         public double Note { get; set; }
 
+        [DataMember]
+        public DateTime ModificationDate { get; set; }
+
         #endregion
 
         #region .ctor
@@ -103,9 +106,17 @@ namespace HolidayPooling.Models.Core
             _participants = participants ?? new List<TripParticipant>();
         }
 
+        internal Trip(int id, string tripName, double price, string description, int numberMaxOfPeople, string location,
+            string organizer, DateTime startDate, DateTime endDate, DateTime validityDate,
+            double note, Pot tripPot, List<TripParticipant> participants, DateTime modificationDate)
+            : this(id, tripName, price, description, numberMaxOfPeople, location, organizer, startDate, endDate, validityDate, note, tripPot, participants)
+        {
+            ModificationDate = modificationDate;
+        }
+
         internal Trip(Trip aTrip)
             : this(aTrip.Id, aTrip.TripName, aTrip.Price, aTrip.Description, aTrip.NumberMaxOfPeople, aTrip.Location,
-            aTrip.Organizer, aTrip.StartDate, aTrip.EndDate, aTrip.ValidityDate, aTrip.Note, aTrip.TripPot, aTrip._participants)
+            aTrip.Organizer, aTrip.StartDate, aTrip.EndDate, aTrip.ValidityDate, aTrip.Note, aTrip.TripPot, aTrip._participants, aTrip.ModificationDate)
         {
 
         }

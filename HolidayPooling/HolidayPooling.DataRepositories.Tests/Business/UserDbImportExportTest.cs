@@ -1,9 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HolidayPooling.DataRepositories.Tests.Core;
 using HolidayPooling.DataRepositories.Business;
 using HolidayPooling.Models.Core;
@@ -38,7 +35,7 @@ namespace HolidayPooling.DataRepositories.Tests.Business
             model.PhoneNumber = "UpdateNumber";
         }
 
-        public override void CompareWithDbValues(User entity, User dbEntity)
+        public override void CompareWithDbValues(User entity, User dbEntity, DateTime modificationDate)
         {
             Assert.IsTrue(entity.Id > 0);
             Assert.AreEqual(entity.Id, dbEntity.Id);
@@ -52,6 +49,17 @@ namespace HolidayPooling.DataRepositories.Tests.Business
             Assert.AreEqual(entity.Description, dbEntity.Description);
             Assert.AreEqual(entity.Type, dbEntity.Type);
             Assert.AreEqual(entity.Note, dbEntity.Note);
+            Assert.AreEqual(modificationDate, dbEntity.ModificationDate);
+        }
+
+        protected override UserDbImportExport CreateImportExport()
+        {
+            return new UserDbImportExport(new MockTimeProvider(_insertTime));
+        }
+
+        protected override UserDbImportExport CreateImportExportForUpdate()
+        {
+            return new UserDbImportExport(new MockTimeProvider(_updateTime));
         }
 
         #endregion

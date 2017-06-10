@@ -35,6 +35,9 @@ namespace HolidayPooling.Models.Core
         [DataMember]
         public bool HasValidated { get; set; }
 
+        [DataMember]
+        public DateTime ModificationDate { get; set; }
+
         #endregion
 
         #region .ctor
@@ -57,9 +60,16 @@ namespace HolidayPooling.Models.Core
             HasValidated = hasValidated;
         }
 
+        internal PotUser(int userId, int potId, bool hasPayed, double amount, double targetAmount, bool hasCancelled,
+                string cancellationReason, bool hasValidated, DateTime modificationDate) 
+            : this(userId, potId, hasPayed, amount, targetAmount, hasCancelled, cancellationReason, hasValidated)
+        {
+            ModificationDate = modificationDate;
+        }
+
         internal PotUser(PotUser potUser)
             : this(potUser.UserId, potUser.PotId, potUser.HasPayed, potUser.Amount, potUser.TargetAmount,
-            potUser.HasCancelled, potUser.CancellationReason, potUser.HasValidated)
+            potUser.HasCancelled, potUser.CancellationReason, potUser.HasValidated, potUser.ModificationDate)
         {
 
         }

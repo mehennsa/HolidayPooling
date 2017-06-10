@@ -32,8 +32,6 @@ namespace HolidayPooling.Models.Tests.Core
 
         public override void CompareClone(User model, User clone)
         {
-        //    public User(int id, string mail, string password, string pseudo, int age, string description,
-        //    RoleEnum role, DateTime creationDate, string phoneNumber, UserType type, double note)
             Assert.AreEqual(model.Id, clone.Id);
             Assert.AreEqual(model.Mail, clone.Mail);
             Assert.AreEqual(model.Password, clone.Password);
@@ -45,6 +43,7 @@ namespace HolidayPooling.Models.Tests.Core
             Assert.AreEqual(model.PhoneNumber, clone.PhoneNumber);
             Assert.AreEqual(model.Type, clone.Type);
             Assert.AreEqual(model.Note, clone.Note);
+            Assert.AreEqual(model.ModificationDate, clone.ModificationDate);
             Assert.IsFalse(ReferenceEquals(model.Friends, clone.Friends));
             Assert.AreEqual(model.Friends.Count(), clone.Friends.Count());
             for (int i = 0; i < model.Friends.Count(); i++)

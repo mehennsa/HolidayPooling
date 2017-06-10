@@ -26,6 +26,9 @@ namespace HolidayPooling.Models.Core
         [DataMember]
         public DateTime? ValidationDate { get; set; }
 
+        [DataMember]
+        public DateTime ModificationDate { get; set; }
+
         #endregion
 
         #region .ctor
@@ -45,9 +48,15 @@ namespace HolidayPooling.Models.Core
             ValidationDate = validationDate;
         }
 
+        internal TripParticipant(int tripId, string userPseudo, bool hasParticipated, double tripNote, DateTime? validationDate, DateTime modificationDate)
+            : this(tripId, userPseudo, hasParticipated, tripNote, validationDate)
+        {
+            ModificationDate = modificationDate;
+        }
+
         internal TripParticipant(TripParticipant aTripParticipant)
             : this(aTripParticipant.TripId, aTripParticipant.UserPseudo, aTripParticipant.HasParticipated,
-            aTripParticipant.TripNote, aTripParticipant.ValidationDate)
+            aTripParticipant.TripNote, aTripParticipant.ValidationDate, aTripParticipant.ModificationDate)
         {
 
         }

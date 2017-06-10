@@ -8,6 +8,7 @@ CREATE TABLE TPOTUSR
     INDCANCEL varchar(1),
     CANCELRSN text,
     INDVAL varchar(1),
+    DATEFT timestamp without time zone,
     CONSTRAINT PK_TPOTUSER PRIMARY KEY (POTIDT, USRIDT)
 )
 TABLESPACE pg_default;
@@ -21,3 +22,4 @@ COMMENT ON COLUMN TPOTUSR.TGTMNT IS 'Target amount for the user';
 COMMENT ON COLUMN TPOTUSR.INDCANCEL IS 'Cancel indicator';
 COMMENT ON COLUMN TPOTUSR.CANCELRSN IS 'Cancel Reason';
 COMMENT ON COLUMN TPOTUSR.INDVAL IS 'Validation indicator';
+COMMENT ON COLUMN TPOTUSR.DATEFT IS 'Modification Date';

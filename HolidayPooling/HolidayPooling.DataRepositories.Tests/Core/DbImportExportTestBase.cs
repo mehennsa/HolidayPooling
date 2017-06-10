@@ -5,11 +5,7 @@ using NUnit.Framework;
 using Sams.Commons.Infrastructure.Database;
 using Sams.Commons.Infrastructure.Environment;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HolidayPooling.DataRepositories.Tests.Core
 {
@@ -22,11 +18,24 @@ namespace HolidayPooling.DataRepositories.Tests.Core
 
         protected T _importExport;
         protected HpEnvironment _env;
+        protected static readonly DateTime _insertTime = new DateTime(2017, 06, 04, 01, 24, 30);
+        protected static readonly DateTime _updateTime = new DateTime(2017, 06, 05, 01, 24, 30);
+
 
         protected abstract string TableName
         {
             get;
         }
+
+        #endregion
+
+        #region Methods
+
+        public abstract void CompareWithDbValues(TEntity entity, TEntity dbEntity, DateTime modificationDate);
+
+        protected abstract T CreateImportExport();
+
+        protected abstract T CreateImportExportForUpdate();
 
         protected abstract TEntity CreateModel();
 
@@ -34,18 +43,13 @@ namespace HolidayPooling.DataRepositories.Tests.Core
 
         protected abstract void UpdateModel(TEntity model);
 
-        #endregion
-
-        #region Methods
-
-        public abstract void CompareWithDbValues(TEntity entity, TEntity dbEntity);
 
         [TestFixtureSetUp]
         public virtual void FixtureSetUp()
         {
             _env = new HpEnvironment();
             _env.SetupEnvironment(AppEnvironment.TEST);
-            _importExport = new T();
+            _importExport = CreateImportExport();
             DeleteTable();
 
         }
@@ -62,6 +66,12 @@ namespace HolidayPooling.DataRepositories.Tests.Core
             DeleteTable();
             _env.Dispose();
             _importExport = null;
+        }
+
+        [SetUp]
+        public void Setup()
+        {
+            _importExport = CreateImportExport();
         }
 
         #endregion
@@ -128,7 +138,7 @@ namespace HolidayPooling.DataRepositories.Tests.Core
             Assert.IsTrue(_importExport.Save(model));
             var dbEntity = _importExport.GetEntity(GetKeyFromModel(model));
             Assert.IsNotNull(dbEntity);
-            CompareWithDbValues(model, dbEntity);
+            CompareWithDbValues(model, dbEntity, _insertTime);
         }
 
         [Test]
@@ -181,13 +191,14 @@ namespace HolidayPooling.DataRepositories.Tests.Core
         [Test]
         public void Update_ShouldUpdateRecordInDb()
         {
+            _importExport = CreateImportExportForUpdate();
             var model = CreateModel();
             Assert.IsTrue(_importExport.Save(model));
             UpdateModel(model);
             Assert.IsTrue(_importExport.Update(model));
             var dbEntity = _importExport.GetEntity(GetKeyFromModel(model));
             Assert.IsNotNull(dbEntity);
-            CompareWithDbValues(model, dbEntity);
+            CompareWithDbValues(model, dbEntity, _updateTime);
         }
 
         [Test]

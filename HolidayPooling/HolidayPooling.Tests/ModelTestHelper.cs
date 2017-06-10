@@ -1,9 +1,6 @@
 ﻿using HolidayPooling.Models.Core;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HolidayPooling.Tests
 {
@@ -13,15 +10,18 @@ namespace HolidayPooling.Tests
         #region Methods
 
         public static Friendship CreateFriendship(int userId, string friendName, DateTime? startDate = null, bool isRequested = false,
-            bool isWaiting = true)
+            bool isWaiting = true, DateTime? modificationDate = null)
         {
             var valDate = startDate.HasValue ? startDate.Value : DateTime.Today;
-            return new Friendship(userId, friendName, valDate, isRequested, isWaiting);
+            var valModifDate = modificationDate.HasValue ? modificationDate.Value : DateTime.Today;
+            return new Friendship(userId, friendName, valDate, isRequested, isWaiting, valModifDate);
         }
 
         public static PotUser CreatePotUser(int userId, int potId, bool hasPayed = false, double amount = 100,
-            double targetAmount = 1000, bool hasCancelled = false, string cancellationReason = null, bool hasValidated = true)
+            double targetAmount = 1000, bool hasCancelled = false, string cancellationReason = null, bool hasValidated = true,
+            DateTime? modificationDate = null)
         {
+            var valModifDate = modificationDate.HasValue ? modificationDate.Value : DateTime.Today;
             return new PotUser
                 (
                     userId,
@@ -31,13 +31,16 @@ namespace HolidayPooling.Tests
                     targetAmount,
                     hasCancelled,
                     string.IsNullOrEmpty(cancellationReason) ? "TestCancel" : cancellationReason,
-                    hasValidated
+                    hasValidated,
+                    valModifDate
                 );
         }
 
         public static UserTrip CreateUserTrip(int userId, string tripName, bool hasParticipated = true,
-            bool hasOrganized = false, double userNote = 2.25, double tripAmount = 512.6)
+            bool hasOrganized = false, double userNote = 2.25, double tripAmount = 512.6, DateTime? modificationDate = null)
+
         {
+            var valModifDate = modificationDate.HasValue ? modificationDate.Value : DateTime.Today;
             return new UserTrip
                 (
                     userId,
@@ -45,20 +48,23 @@ namespace HolidayPooling.Tests
                     hasParticipated,
                     hasOrganized,
                     userNote,
-                    tripAmount
+                    tripAmount,
+                    valModifDate
                 );
         }
 
         public static TripParticipant CreateTripParticipant(int tripId, string userPseudo,
-            bool hasParticipated = false, double tripNote = 3.1, DateTime? validationDate = null)
+            bool hasParticipated = false, double tripNote = 3.1, DateTime? validationDate = null, DateTime? modificationDate = null)
         {
+            var valModifDate = modificationDate.HasValue ? modificationDate.Value : DateTime.Today;
             return new TripParticipant
                 (
                     tripId,
                     userPseudo,
                     hasParticipated,
                     tripNote,
-                    validationDate
+                    validationDate,
+                    valModifDate
                 );
         }
 
@@ -66,12 +72,13 @@ namespace HolidayPooling.Tests
             double amount = 1000, double targetAmount = 2000, string name = "PotName",
             DateTime? startDate = null, DateTime? endDate = null, DateTime? validityDate = null,
             string description = "TestDesc", bool isCancelled = false, string cancellationReason = "Reason",
-            DateTime? cancellationDate = null)
+            DateTime? cancellationDate = null, DateTime? modificationDate = null)
         {
             var valStart = startDate.HasValue ? startDate.Value : DateTime.Today;
             var valEnd = endDate.HasValue ? endDate.Value : DateTime.Today;
             var valValidity = validityDate.HasValue ? validityDate.Value : DateTime.Today;
-            return new Pot
+            var valModifDate = modificationDate.HasValue ? modificationDate.Value : DateTime.Today;
+            var pot =  new Pot
                 (
                     id,
                     tripId,
@@ -88,6 +95,8 @@ namespace HolidayPooling.Tests
                     cancellationReason,
                     cancellationDate
                 );
+            pot.ModificationDate = valModifDate;
+            return pot;
         }
 
         public static Pot CreatePot(int id, int tripId, List<PotUser> participants,
@@ -95,8 +104,9 @@ namespace HolidayPooling.Tests
             double amount = 1000, double targetAmount = 2000, string name = "PotName",
             DateTime? startDate = null, DateTime? endDate = null, DateTime? validityDate = null,
             string description = "TestDesc", bool isCancelled = false, string cancellationReason = "Reason",
-            DateTime? cancellationDate = null)
+            DateTime? cancellationDate = null, DateTime? modificationDate = null)
         {
+            var valModifDate = modificationDate.HasValue ? modificationDate.Value : DateTime.Today;
             var valStart = startDate.HasValue ? startDate.Value : DateTime.Today;
             var valEnd = endDate.HasValue ? endDate.Value : DateTime.Today;
             var valValidity = validityDate.HasValue ? validityDate.Value : DateTime.Today;
@@ -116,7 +126,8 @@ namespace HolidayPooling.Tests
                     isCancelled,
                     cancellationReason,
                     cancellationDate,
-                    participants
+                    participants,
+                    valModifDate
                 );
         }
 
@@ -124,11 +135,12 @@ namespace HolidayPooling.Tests
             double price = 100.30, string description = "Desc",
             int maxNbPeople = 10, string location = "loc", string organizer = "orga",
             DateTime? startDate = null, DateTime? endDate = null, DateTime? validityDate = null,
-            double note = 3.2)
+            double note = 3.2, DateTime? modificationDate = null)
         {
             var valStart = startDate.HasValue ? startDate.Value : DateTime.Today;
             var valEnd = endDate.HasValue ? endDate.Value : DateTime.Today;
             var valValidity = validityDate.HasValue ? validityDate.Value : DateTime.Today;
+            var valModifDate = modificationDate.HasValue ? modificationDate.Value : DateTime.Today;
             return new Trip
                 (
                     id,
@@ -143,19 +155,21 @@ namespace HolidayPooling.Tests
                     valValidity,
                     note,
                     pot,
-                    participants
+                    participants,
+                    valModifDate
                 );
         }
 
         public static Trip CreateTrip(int id, string tripName, double price = 100.30, string description = "Desc",
             int maxNbPeople = 10, string location = "loc", string organizer = "orga",
             DateTime? startDate = null, DateTime? endDate = null, DateTime? validityDate = null,
-            double note = 3.2)
+            double note = 3.2, DateTime? modificationDate = null)
         {
+            var valModifDate = modificationDate.HasValue ? modificationDate.Value : DateTime.Today;
             var valStart = startDate.HasValue ? startDate.Value : DateTime.Today;
             var valEnd = endDate.HasValue ? endDate.Value : DateTime.Today;
             var valValidity = validityDate.HasValue ? validityDate.Value : DateTime.Today;
-            return new Trip
+            var trip = new Trip
                 (
                     id,
                     tripName,
@@ -169,15 +183,18 @@ namespace HolidayPooling.Tests
                     valValidity,
                     note
                 );
+            trip.ModificationDate = valModifDate;
+            return trip;
         }
 
         public static User CreateUser(int id, string pseudo, string mail = "myEmail",
             string password = "Pwd", int age = 22, string description = "desc", Role role = Role.Admin,
             DateTime? creationDate = null, string phoneNumber = "phoneNumber", UserType type = UserType.Customer,
-            double note = 3.2)
+            double note = 3.2, DateTime? modificationDate = null)
         {
+            var valModifDate = modificationDate.HasValue ? modificationDate.Value : DateTime.Today;
             var valCreationDate = creationDate.HasValue ? creationDate.Value : DateTime.Today;
-            return new User
+            var user = new User
                 (
                     id,
                     mail,
@@ -191,14 +208,17 @@ namespace HolidayPooling.Tests
                     type,
                     note
                 );
+            user.ModificationDate = valModifDate;
+            return user;
         }
 
         public static User CreateUser(int id, string pseudo, List<string> centerOfInterest, List<Friendship> friends,
            List<UserTrip> trips, string mail = "myEmail",
            string password = "Pwd", int age = 22, string description = "desc", Role role = Role.Admin,
            DateTime? creationDate = null, string phoneNumber = "phoneNumber", UserType type = UserType.Customer,
-           double note = 3.2)
+           double note = 3.2, DateTime? modificationDate = null)
         {
+            var valModifDate = modificationDate.HasValue ? modificationDate.Value : DateTime.Today;
             var valCreationDate = creationDate.HasValue ? creationDate.Value : DateTime.Today;
             return new User
                 (
@@ -215,7 +235,8 @@ namespace HolidayPooling.Tests
                     note,
                     centerOfInterest,
                     trips,
-                    friends
+                    friends,
+                    valModifDate
                 );
         }
 

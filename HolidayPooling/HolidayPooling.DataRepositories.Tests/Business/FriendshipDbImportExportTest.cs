@@ -26,7 +26,7 @@ namespace HolidayPooling.DataRepositories.Tests.Business
 
         protected override Friendship CreateModel()
         {
-            return ModelTestHelper.CreateFriendship(1, "Friend");
+            return ModelTestHelper.CreateFriendship(1, "Friend", modificationDate:DateTime.MinValue);
         }
 
         protected override FriendshipKey GetKeyFromModel(Friendship entity)
@@ -40,13 +40,24 @@ namespace HolidayPooling.DataRepositories.Tests.Business
             model.IsWaiting = !model.IsWaiting;
         }
 
-        public override void CompareWithDbValues(Friendship entity, Friendship dbEntity)
+        public override void CompareWithDbValues(Friendship entity, Friendship dbEntity, DateTime modificationDate)
         {
             Assert.AreEqual(entity.UserId, dbEntity.UserId);
             Assert.AreEqual(entity.FriendName, dbEntity.FriendName);
             Assert.AreEqual(entity.IsRequested, dbEntity.IsRequested);
             Assert.AreEqual(entity.IsWaiting, dbEntity.IsWaiting);
             Assert.AreEqual(entity.StartDate, dbEntity.StartDate);
+            Assert.AreEqual(modificationDate, dbEntity.ModificationDate);
+        }
+
+        protected override FriendshipDbImportExport CreateImportExport()
+        {
+            return new FriendshipDbImportExport(new MockTimeProvider(_insertTime));
+        }
+
+        protected override FriendshipDbImportExport CreateImportExportForUpdate()
+        {
+            return new FriendshipDbImportExport(new MockTimeProvider(_updateTime));
         }
 
         #endregion

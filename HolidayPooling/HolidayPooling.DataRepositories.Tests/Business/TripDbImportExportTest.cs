@@ -1,14 +1,10 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HolidayPooling.Tests;
 using HolidayPooling.DataRepositories.Tests.Core;
 using HolidayPooling.DataRepositories.Business;
 using HolidayPooling.Models.Core;
-using HolidayPooling.DataRepositories.Core;
 
 namespace HolidayPooling.DataRepositories.Tests.Business
 {
@@ -38,7 +34,7 @@ namespace HolidayPooling.DataRepositories.Tests.Business
             model.Price += 300.562;
         }
 
-        public override void CompareWithDbValues(Trip entity, Trip dbEntity)
+        public override void CompareWithDbValues(Trip entity, Trip dbEntity, DateTime modificationDate)
         {
             Assert.AreEqual(entity.Id, dbEntity.Id);
             Assert.AreEqual(entity.TripName, dbEntity.TripName);
@@ -51,6 +47,17 @@ namespace HolidayPooling.DataRepositories.Tests.Business
             Assert.AreEqual(entity.NumberMaxOfPeople, dbEntity.NumberMaxOfPeople);
             Assert.AreEqual(entity.Note, dbEntity.Note);
             Assert.AreEqual(entity.Location, dbEntity.Location);
+            Assert.AreEqual(modificationDate, dbEntity.ModificationDate);
+        }
+
+        protected override TripDbImportExport CreateImportExport()
+        {
+            return new TripDbImportExport(new MockTimeProvider(_insertTime));
+        }
+
+        protected override TripDbImportExport CreateImportExportForUpdate()
+        {
+            return new TripDbImportExport(new MockTimeProvider(_updateTime));
         }
 
         #endregion
@@ -116,7 +123,7 @@ namespace HolidayPooling.DataRepositories.Tests.Business
             Assert.IsTrue(trip.Id > 0);
             var dbEntity = _importExport.GetTripByName("TripGetTripByName");
             Assert.IsNotNull(dbEntity);
-            CompareWithDbValues(trip, dbEntity);
+            CompareWithDbValues(trip, dbEntity, _insertTime);
         }
 
         [Test]
