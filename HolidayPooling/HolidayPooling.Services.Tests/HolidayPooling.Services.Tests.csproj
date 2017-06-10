@@ -105,7 +105,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>(robocopy "$(SolutionDir)HolidayPooling.Infrastructure\Configuration" "$(SolutionDir)HolidayPooling.Services.Tests\bin\Debug\Configuration" *.config *.xml /e /s) ^&amp; IF %25ERRORLEVEL%25 LEQ 1 exit 0
-DEL "$(SolutionDir)HolidayPooling.Services.Tests\bin\Debug\CryptSharp.pdb"</PostBuildEvent>
+    <PostBuildEvent>DEL "$(SolutionDir)HolidayPooling.Services.Tests\bin\Debug\CryptSharp.pdb"
+(robocopy "$(SolutionDir)HolidayPooling.Infrastructure\Configuration" "$(SolutionDir)HolidayPooling.Services.Tests\bin\Debug\Configuration" *.config *.xml /e /s) ^&amp; IF %25ERRORLEVEL%25 LEQ 1 exit 0</PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -111,7 +111,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>(robocopy "$(SolutionDir)HolidayPooling.Infrastructure\Configuration" "$(SolutionDir)HolidayPooling.Infrastructure.Test\bin\Debug\Configuration" *.config *.xml /e /s) ^&amp; IF %25ERRORLEVEL%25 LEQ 1 exit 0
+    <PostBuildEvent>(robocopy "$(SolutionDir)HolidayPooling.Infrastructure\Configuration" "$(SolutionDir)HolidayPooling.Infrastructure.Test\bin\Debug\Configuration" *.config *.xml /e /s) ^&amp;
 (robocopy "$(SolutionDir)HolidayPooling.Infrastructure\Configuration" "$(SolutionDir)HolidayPooling.DataRepositories.Tests\bin\Debug\Configuration" *.config *.xml /e /s) ^&amp; IF %25ERRORLEVEL%25 LEQ 1 exit 0</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
