@@ -3,14 +3,8 @@ using HolidayPooling.DataRepositories.Repository;
 using HolidayPooling.Infrastructure.Configuration;
 using HolidayPooling.Tests;
 using NUnit.Framework;
-using Sams.Commons.Infrastructure.Database;
 using Sams.Commons.Infrastructure.Environment;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Transactions;
 
 namespace HolidayPooling.DataRepositories.Tests.Repository

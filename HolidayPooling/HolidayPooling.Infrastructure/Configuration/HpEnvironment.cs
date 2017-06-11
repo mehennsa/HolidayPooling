@@ -3,10 +3,6 @@ using Sams.Commons.Infrastructure.Checks;
 using Sams.Commons.Infrastructure.Configuration;
 using Sams.Commons.Infrastructure.Environment;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 [assembly: ConfiguratorAttribute(ConfigurationType.Database, typeof(DatabaseConfigurator), "DbSettings.xml")]
 [assembly: ConfiguratorAttribute(ConfigurationType.Log, typeof(LogConfiguration), "log.config")]

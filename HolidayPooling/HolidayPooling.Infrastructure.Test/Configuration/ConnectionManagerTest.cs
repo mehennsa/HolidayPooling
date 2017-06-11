@@ -2,10 +2,6 @@
 using NUnit.Framework;
 using Sams.Commons.Infrastructure.Configuration;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HolidayPooling.Infrastructure.Test.Configuration
 {

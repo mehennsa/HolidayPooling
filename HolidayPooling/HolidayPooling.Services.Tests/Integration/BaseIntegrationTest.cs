@@ -2,12 +2,8 @@
 using NUnit.Framework;
 using Sams.Commons.Infrastructure.Database;
 using Sams.Commons.Infrastructure.Environment;
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HolidayPooling.Services.Tests.Integration
 {

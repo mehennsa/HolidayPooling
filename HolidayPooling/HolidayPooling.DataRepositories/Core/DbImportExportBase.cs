@@ -1,15 +1,11 @@
 ﻿using HolidayPooling.Infrastructure.Configuration;
 using HolidayPooling.Infrastructure.TimeProviders;
-using log4net;
 using Sams.Commons.Infrastructure.Cache;
 using Sams.Commons.Infrastructure.Database;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
- 
+
 namespace HolidayPooling.DataRepositories.Core
 {
     public abstract class DbImportExportBase<TKey, TValue> : ICacheable<TKey, TValue>
