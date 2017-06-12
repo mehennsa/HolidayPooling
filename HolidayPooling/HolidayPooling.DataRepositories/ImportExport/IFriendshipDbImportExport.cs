@@ -3,7 +3,7 @@ using HolidayPooling.DataRepositories.Core;
 using HolidayPooling.Models.Core;
 using System.Collections.Generic;
 
-namespace HolidayPooling.DataRepositories.Business
+namespace HolidayPooling.DataRepositories.ImportExport
 {
     public interface IFriendshipDbImportExport : IDbImportExport<FriendshipKey, Friendship>
     {

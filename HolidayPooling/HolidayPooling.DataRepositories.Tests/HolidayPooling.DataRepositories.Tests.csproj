@@ -97,13 +97,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Business\FriendshipDbImportExportTest.cs" />
-    <Compile Include="Business\PotDbImportExportTest.cs" />
-    <Compile Include="Business\PotUserDbImportExportTest.cs" />
-    <Compile Include="Business\TripDbImportExportTest.cs" />
-    <Compile Include="Business\TripParticipantDbImportExportTest.cs" />
-    <Compile Include="Business\UserDbImportExportTest.cs" />
-    <Compile Include="Business\UserTripDbImportExportTest.cs" />
+    <Compile Include="ImportExport\FriendshipDbImportExportTest.cs" />
+    <Compile Include="ImportExport\PotDbImportExportTest.cs" />
+    <Compile Include="ImportExport\PotUserDbImportExportTest.cs" />
+    <Compile Include="ImportExport\TripDbImportExportTest.cs" />
+    <Compile Include="ImportExport\TripParticipantDbImportExportTest.cs" />
+    <Compile Include="ImportExport\UserDbImportExportTest.cs" />
+    <Compile Include="ImportExport\UserTripDbImportExportTest.cs" />
     <Compile Include="Core\DbImportExportTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\FriendshipRepositoryTest.cs" />

@@ -1,7 +1,7 @@
 ﻿using HolidayPooling.DataRepositories.Core;
 using HolidayPooling.Models.Core;
 
-namespace HolidayPooling.DataRepositories.Business
+namespace HolidayPooling.DataRepositories.ImportExport
 {
     public interface IUserDbImportExport : IDbImportExport<int, User>
     {

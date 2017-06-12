@@ -1,4 +1,4 @@
-﻿using HolidayPooling.DataRepositories.Business;
+﻿using HolidayPooling.DataRepositories.ImportExport;
 using HolidayPooling.DataRepositories.Tests.Core;
 using HolidayPooling.Models.Core;
 using HolidayPooling.Tests;
@@ -6,7 +6,7 @@ using NUnit.Framework;
 using System;
 using System.Linq;
 
-namespace HolidayPooling.DataRepositories.Tests.Business
+namespace HolidayPooling.DataRepositories.Tests.ImportExport
 {
     // Test import export : Friendship
     [TestFixture]

@@ -3,7 +3,7 @@ using HolidayPooling.Models.Core;
 using System;
 using System.Collections.Generic;
 
-namespace HolidayPooling.DataRepositories.Business
+namespace HolidayPooling.DataRepositories.ImportExport
 {
     public interface ITripDbImportExport : IDbImportExport<int, Trip>
     {

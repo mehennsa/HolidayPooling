@@ -3,10 +3,10 @@ using System;
 using System.Linq;
 using HolidayPooling.Tests;
 using HolidayPooling.DataRepositories.Tests.Core;
-using HolidayPooling.DataRepositories.Business;
+using HolidayPooling.DataRepositories.ImportExport;
 using HolidayPooling.Models.Core;
 
-namespace HolidayPooling.DataRepositories.Tests.Business
+namespace HolidayPooling.DataRepositories.Tests.ImportExport
 {
     [TestFixture]
     public class TripDbImportExportTest : DbImportExportTestBase<TripDbImportExport, int, Trip>

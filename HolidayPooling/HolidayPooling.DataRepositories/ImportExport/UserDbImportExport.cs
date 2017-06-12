@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 
-namespace HolidayPooling.DataRepositories.Business
+namespace HolidayPooling.DataRepositories.ImportExport
 {
     public class UserDbImportExport : DbImportExportBase<int, User>, IUserDbImportExport
     {

@@ -3,10 +3,10 @@ using System.Linq;
 using HolidayPooling.DataRepositories.Tests.Core;
 using HolidayPooling.Tests;
 using HolidayPooling.Models.Core;
-using HolidayPooling.DataRepositories.Business;
+using HolidayPooling.DataRepositories.ImportExport;
 using System;
 
-namespace HolidayPooling.DataRepositories.Tests.Business
+namespace HolidayPooling.DataRepositories.Tests.ImportExport
 {
 
     [TestFixture]

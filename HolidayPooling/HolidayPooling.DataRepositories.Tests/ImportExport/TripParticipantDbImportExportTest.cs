@@ -2,11 +2,11 @@
 using System;
 using System.Linq;
 using HolidayPooling.DataRepositories.Tests.Core;
-using HolidayPooling.DataRepositories.Business;
+using HolidayPooling.DataRepositories.ImportExport;
 using HolidayPooling.Models.Core;
 using HolidayPooling.Tests;
 
-namespace HolidayPooling.DataRepositories.Tests.Business
+namespace HolidayPooling.DataRepositories.Tests.ImportExport
 {
     [TestFixture]
     public class TripParticipantDbImportExportTest :

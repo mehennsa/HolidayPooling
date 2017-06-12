@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
-namespace HolidayPooling.DataRepositories.Business
+namespace HolidayPooling.DataRepositories.ImportExport
 {
     public class TripDbImportExport : DbImportExportBase<int, Trip>, ITripDbImportExport
     {

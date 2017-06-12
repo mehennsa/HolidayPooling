@@ -1,4 +1,4 @@
-﻿namespace HolidayPooling.DataRepositories.Business
+﻿namespace HolidayPooling.DataRepositories.ImportExport
 {
     public class TripParticipantKey
     {
