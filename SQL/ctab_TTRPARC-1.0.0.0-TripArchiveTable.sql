@@ -1,0 +1,33 @@
+CREATE TABLE TTRPARC
+(
+	IDT int NOT NULL,
+    NAM varchar(50) NOT NULL,
+    DSC text,
+    PRC float8,
+    NBRMAXPRS int,
+    LOC text,
+    ORG varchar(50),
+    STRDAT date,
+    ENDDAT date,
+    VALDAT date,
+    TRPNOT float8,
+    DATEFT timestamp without time zone,
+    DATSUP timestamp without time zone NOT NULL, 
+    CONSTRAINT PK_TTRPARC PRIMARY KEY (IDT, DATEFT)
+)
+TABLESPACE pg_default;
+
+COMMENT ON TABLE TTRPARC IS 'Trip archive table';
+COMMENT ON COLUMN TTRPARC.IDT IS 'Trip identifier';
+COMMENT ON COLUMN TTRPARC.NAM IS 'Trip Name';
+COMMENT ON COLUMN TTRPARC.DSC IS 'Trip description';
+COMMENT ON COLUMN TTRPARC.PRC IS 'Trip Price';
+COMMENT ON COLUMN TTRPARC.NBRMAXPRS IS 'Number max of person';
+COMMENT ON COLUMN TTRPARC.LOC IS 'Trip Location';
+COMMENT ON COLUMN TTRPARC.ORG IS 'Trip Organizer';
+COMMENT ON COLUMN TTRPARC.STRDAT IS 'Trip start date';
+COMMENT ON COLUMN TTRPARC.ENDDAT IS 'Trip end date';
+COMMENT ON COLUMN TTRPARC.VALDAT IS 'Trip validity date';
+COMMENT ON COLUMN TTRPARC.TRPNOT IS 'Trip average note';
+COMMENT ON COLUMN TTRPARC.DATEFT IS 'Modification Date';
+COMMENT ON COLUMN TTRPARC.DATSUP IS 'Suppression Date';

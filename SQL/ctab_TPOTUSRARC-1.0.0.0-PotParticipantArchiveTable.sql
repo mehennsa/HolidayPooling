@@ -1,0 +1,27 @@
+CREATE TABLE TPOTUSRARC
+(
+	POTIDT int NOT NULL,
+    USRIDT int NOT NULL,
+    INDPAY varchar(1),
+    CURMNT float8,
+    TGTMNT float8,
+    INDCANCEL varchar(1),
+    CANCELRSN text,
+    INDVAL varchar(1),
+    DATEFT timestamp without time zone,
+    DATSUP timestamp without time zone NOT NULL,
+    CONSTRAINT PK_TPOTUSERARC PRIMARY KEY (POTIDT, USRIDT, DATEFT)
+)
+TABLESPACE pg_default;
+
+COMMENT ON TABLE TPOTUSRARC IS 'Pot participant archive table';
+COMMENT ON COLUMN TPOTUSRARC.POTIDT IS 'Pot identifier';
+COMMENT ON COLUMN TPOTUSRARC.USRIDT IS 'User identifier';
+COMMENT ON COLUMN TPOTUSRARC.INDPAY IS 'Has payed indicator';
+COMMENT ON COLUMN TPOTUSRARC.CURMNT IS 'Current amount for the user';
+COMMENT ON COLUMN TPOTUSRARC.TGTMNT IS 'Target amount for the user';
+COMMENT ON COLUMN TPOTUSRARC.INDCANCEL IS 'Cancel indicator';
+COMMENT ON COLUMN TPOTUSRARC.CANCELRSN IS 'Cancel Reason';
+COMMENT ON COLUMN TPOTUSRARC.INDVAL IS 'Validation indicator';
+COMMENT ON COLUMN TPOTUSRARC.DATEFT IS 'Modification Date';
+COMMENT ON COLUMN TPOTUSRARC.DATSUP IS 'Suppression Date';

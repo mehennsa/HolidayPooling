@@ -1,0 +1,39 @@
+CREATE TABLE TPOTARC
+(
+	IDT int NOT NULL,
+    ORG text,
+    POTMOD varchar(10),
+    CURMNT float8,
+    TGTMNT float8,
+    TRPIDT int NOT NULL,
+    NAM text,
+    STRDAT DATE,
+    ENDDAT DATE,
+    VALDAT DATE,
+    DSC text,
+    INDCANCEL varchar(1),
+    CANCELRSN text,
+    CANCELDAT date,
+    DATEFT timestamp without time zone,
+    DATSUP timestamp without time zone NOT NULL,
+    CONSTRAINT PK_TPOTARC PRIMARY KEY (IDT, DATEFT)
+)
+TABLESPACE pg_default;
+
+COMMENT ON TABLE TPOTARC IS 'Pot archive table';
+COMMENT ON COLUMN TPOTARC.IDT IS 'Pot identifier';
+COMMENT ON COLUMN TPOTARC.ORG IS 'Pot Organizer';
+COMMENT ON COLUMN TPOTARC.POTMOD IS 'Pot mode (Lead/Shared)';
+COMMENT ON COLUMN TPOTARC.CURMNT IS 'Pot current amount';
+COMMENT ON COLUMN TPOTARC.TGTMNT IS 'Pot target amount';
+COMMENT ON COLUMN TPOTARC.TRPIDT IS 'Trip identifier';
+COMMENT ON COLUMN TPOTARC.NAM IS 'Pot name';
+COMMENT ON COLUMN TPOT.STRDAT IS 'Pot Start Date';
+COMMENT ON COLUMN TPOTARC.ENDDAT IS 'Pot end date';
+COMMENT ON COLUMN TPOTARC.VALDAT IS 'Pot validation date';
+COMMENT ON COLUMN TPOTARC.DSC IS 'Pot description';
+COMMENT ON COLUMN TPOTARC.INDCANCEL IS 'Indicator => Pot is cancelled?';
+COMMENT ON COLUMN TPOTARC.CANCELRSN IS 'Cancellation reason';
+COMMENT ON COLUMN TPOTARC.CANCELDAT IS 'Cancellation date (if pot is cancelled)';
+COMMENT ON COLUMN TPOTARC.DATEFT IS 'Modification Date';
+COMMENT ON COLUMN TPOTARC.DATSUP IS 'Suppression Date';
