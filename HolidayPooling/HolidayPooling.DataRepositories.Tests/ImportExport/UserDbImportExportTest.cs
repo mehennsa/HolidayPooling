@@ -6,7 +6,7 @@ using HolidayPooling.DataRepositories.ImportExport;
 using HolidayPooling.Models.Core;
 using HolidayPooling.Tests;
 
-namespace HolidayPooling.DataRepositories.Tests.Business
+namespace HolidayPooling.DataRepositories.Tests.ImportExport
 {
     [TestFixture]
     public class UserDbImportExportTest : DbImportExportTestBase<UserDbImportExport, int, User>
